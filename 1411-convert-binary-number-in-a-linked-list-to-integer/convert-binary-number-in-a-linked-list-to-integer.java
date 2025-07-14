@@ -10,13 +10,18 @@
  */
 class Solution {
     public int getDecimalValue(ListNode head) {
-        if(head==null) return 0;
-        ListNode temp=head;
-        int num=0;
-        while(temp!=null){
-        num=(num<<1) | temp.val;
-        temp=temp.next;
+        List<Integer> ll= new ArrayList<>();
+        int l=0;
+        int ans=0;
+        while(head!=null){
+            ll.add(head.val);
+            head=head.next;
         }
-       return num;
+        int n=ll.size();
+        for(int i=n-1;i>=0;i--){
+            ans+= ll.get(i)* Math.pow(2,l);
+            l++;
+        }
+        return ans;
     }
 }
