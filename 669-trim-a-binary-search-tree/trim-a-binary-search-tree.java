@@ -18,10 +18,10 @@ class Solution {
         if(root==null){
             return null;
         }
-        if(root.val<low){
+        if(root.val<low){  // if node low se choti hai; poora left subtree ignore karenge
             return trimBST(root.right,low,high);
         }
-        else if(root.val>high){
+        else if(root.val>high){ // ignore right Subtree
             return trimBST(root.left,low,high);
         }
 
