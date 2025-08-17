@@ -19,10 +19,10 @@ class Solution {
         if(root==null) return new ArrayList<>();
         HashSet<Integer> h= new HashSet<>();
         for(int val: to_delete){
-            h.add(val);
+            h.add(val); 
         }
         if(!h.contains(root.val)){
-            ll.add(root);
+            ll.add(root);  // this root will keep on modifying when recursive call occurs
         }
         solve(root,h);
         return ll;
