@@ -18,34 +18,33 @@ class Solution {
         if(root==null){
             return null;
         }
-        if(root.val<key){
+        if(root.val>key){
+            root.left= deleteNode(root.left,key);
+        }
+        else if(root.val<key){
             root.right=deleteNode(root.right,key);
         }
-        else if(root.val>key){
-            root.left=deleteNode(root.left,key);
-        }
-        else{// we found the element to delete
+        else{
             if(root.left==null){
                 return root.right;
             }
-            else if( root.right==null){
+            else if(root.right==null){
                 return root.left;
             }
-            else{// Both child
-            int maxv=max(root.left);
-            root.left=deleteNode(root.left,maxv);
-            root.val=maxv;
+            else{
+                int maxxv=find(root.left);
+                root.left=deleteNode(root.left,maxxv);
+                root.val=maxxv;
+            }
 
-            }            
         }
-    return root;
-
-        
+        return root;
     }
-    public int max(TreeNode root){
+    public int find(TreeNode root){
         if(root==null) return Integer.MIN_VALUE;
+        int max=find(root.right);
+        max=Math.max(max,root.val);
+        return max;
 
-        int max=max(root.right);
-        return Math.max(max,root.val);
     }
 }
