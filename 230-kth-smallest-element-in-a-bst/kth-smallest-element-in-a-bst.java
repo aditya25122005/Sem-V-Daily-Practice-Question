@@ -22,9 +22,9 @@ class Solution {
         return ll.get(k-1);
     }
     public void solve(TreeNode root, int k){
-        if(root==null) return;
+        if(root==null || ll.size()==k) return;
         solve(root.left,k);
-        ll.add(root.val);  
+        ll.add(root.val);
         solve(root.right,k);
         
     }
