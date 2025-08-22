@@ -16,21 +16,18 @@
 class Solution {
     public int sumNumbers(TreeNode root) {
         sum=0;
-        help(root,"");
-        return sum;
+         solve(root,0);
+         return sum;
     }
-    static int sum=0;
-    public void help(TreeNode root,String s){
-        if(root==null){
-            return;
-        }
-        s+=root.val;
+    int sum=0;
+    public void solve(TreeNode root, int curr){
+        if(root==null) return;
+        curr= (curr*10 +root.val);
         if(root.left==null && root.right==null){
-            sum+=Integer.parseInt(s);
+            sum+=curr;
             return;
         }
-       help(root.left,s);
-       help(root.right,s);
-
+        solve(root.left,curr);
+        solve(root.right,curr);
     }
 }
