@@ -4,57 +4,52 @@ class Solution {
         solved=false;
         solve(board,0,0);
     }
-    public static void solve(char[][] board, int row ,int col){
+    public static void solve(char[][] board, int row, int col){
         if(col==9){
-            row++;
             col=0;
+            row++;
         }
         if(row==9){
             solved=true;
             return;
         }
         if(board[row][col]!='.'){
-          solve(board,row,col+1);
-          return;
-        }
-        else{
-            for(char val='1';val<='9';val++){
-                if(issafe(board,row,col,val)){
-                    board[row][col]=val;
+            solve(board,row,col+1);
+            return;
+        }else{
+            for(char ch='1';ch<='9';ch++){
+                if(isValid(board, row, col, ch)){
+                    board[row][col]=ch;
                     solve(board,row,col+1);
-                   if(solved) return;
+                    if(solved) return;
                     board[row][col]='.';
                 }
             }
         }
-        
     }
-    public static boolean issafe(char [][] board,int row, int col, char val){
-        //check row
-        
-        for(int c=0;c<board.length;c++){
-            if(board[row][c]==val){
+    public static boolean isValid(char[][] board, int row, int col, char ch){
+        // check col
+        for(int i=0;i<board.length;i++){
+            if(board[i][col]==ch){
                 return false;
             }
         }
-        //check column
-        for(int r=0;r<board.length;r++){
-            if(board[r][col]==val){
+        // check row
+        for(int i=0;i<board.length;i++){
+            if(board[row][i]==ch){
                 return false;
             }
         }
-        //check in Matrix;
-        int r=row- row%3;
-        int c= col-col%3;
+        // check box
+        int r= row- row%3;
+        int c= col- col%3;
         for(int i=r;i<r+3;i++){
             for(int j=c;j<c+3;j++){
-                if(board[i][j]==val){
+                if(board[i][j]==ch){
                     return false;
                 }
             }
         }
         return true;
-
     }
-
 }
