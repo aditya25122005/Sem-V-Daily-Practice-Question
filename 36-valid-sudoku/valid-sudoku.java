@@ -1,46 +1,47 @@
 class Solution {
     public boolean isValidSudoku(char[][] board) {
         return isValid(board);
-        
     }
-    public static boolean isValid(char[][] board){
+    public static  boolean isValid(char[][] board){
         for(int i=0;i<board.length;i++){
             for(int j=0;j<board[0].length;j++){
-                if(board[i][j] != '.'){
-                    char val=board[i][j];
+                char ch= board[i][j];
+                if(ch!='.'){
                     board[i][j]='.';
-                    if(!isSafe(board,val,i,j)){
+                    if(!isPresent(board,ch,i,j)){
                         return false;
                     }
-                    board[i][j]=val;
+                    board[i][j]=ch;
                 }
             }
         }
         return true;
     }
-    public static boolean isSafe(char[][] board, char val, int row, int col){
-        //check in col;
-        for(int r=0;r<board.length;r++){
-            if(board[r][col]==val){
+    public static boolean isPresent(char[][]arr,char ch,int r, int c){
+        // check col
+        for(int i=0;i<arr.length;i++){
+            if(arr[i][c]==ch){
+                return false;
+            }
+            
+        }
+        // check row
+        for(int i=0;i<arr.length;i++){
+            if(arr[r][i]==ch){
                 return false;
             }
         }
-        //check in row
-        for(int c=0;c<board[0].length;c++){
-            if(board[row][c]==val){
-                return false;
-            }
-        }
-        //check Matrix
-        int r=row - row%3;
-        int c= col - col%3;
-        for(int i=r;i<r+3;i++){
-            for(int j=c;j<c+3;j++){
-                if(board[i][j]==val){
+        // check box
+        int row=r- r%3;
+        int col= c- c%3;
+        for(int i=row;i<row+3;i++){
+            for(int j=col;j<col+3;j++){
+                if(arr[i][j]==ch){
                     return false;
                 }
             }
         }
         return true;
+
     }
 }
