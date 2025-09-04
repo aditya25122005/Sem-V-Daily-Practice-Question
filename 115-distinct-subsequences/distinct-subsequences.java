@@ -1,27 +1,29 @@
 class Solution {
     public int numDistinct(String s, String t) {
-        int [][] dp= new int[s.length()][t.length()];
-        for(int i=0;i<dp.length;i++){
-        for(int j=0;j<dp[0].length;j++){
-            dp[i][j]=-1;
+        int[][] dp= new int[s.length()][t.length()];
+        for(int [] a:dp){
+            Arrays.fill(a,-1);
         }
-        }
-        return Coin_Change(s, t, 0, 0,dp);
+        return DS(s,t,0,0,dp);
     }
-    public static int Coin_Change(String s, String t, int i, int j,int [][] dp){
+    public static int DS(String s, String t, int i, int j, int[][] dp){
         if(j==t.length()){
             return 1;
         }
         if(i==s.length()){
             return 0;
         }
-        if(dp[i][j]!=-1) return dp[i][j];
+        if(dp[i][j]!=-1){
+            return dp[i][j];
+        }
         int inc=0;
         int exc=0;
         if(s.charAt(i)==t.charAt(j)){
-            inc=Coin_Change(s, t, i+1, j+1,dp);
+            inc=DS(s,t,i+1,j+1,dp);
         }
-        exc=Coin_Change(s, t, i+1, j,dp);
+        
+            exc=DS(s,t,i+1,j,dp);
+        
         return dp[i][j]=inc+exc;
     }
 }
