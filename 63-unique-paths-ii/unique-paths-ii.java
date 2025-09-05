@@ -13,9 +13,7 @@ class Solution {
         if(cr==arr.length-1 && cc==arr[0].length-1){
             return 1;
         }
-        if(arr[cr][cc]==1){
-            dp[cr][cc]=-1;
-        }
+        
         int path=0;
         if(dp[cr][cc]!=-1){
             return dp[cr][cc];
