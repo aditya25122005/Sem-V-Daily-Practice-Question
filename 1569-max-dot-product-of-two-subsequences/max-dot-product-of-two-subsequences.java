@@ -15,11 +15,11 @@ class Solution {
         if(dp[i][j]!=Integer.MIN_VALUE){
             return dp[i][j];
         }
-        int ans=nums1[i]*nums2[j];
-        int f= ans + Math.max(0,DOT(nums1, nums2, i+1, j+1,dp));
-        int s= DOT(nums1, nums2, i+1,j,dp);
-        int t= DOT(nums1, nums2, i,j+1,dp);
-        return dp[i][j]= Math.max(Math.max(ans,f),Math.max(s,t));
+        int ans=nums1[i]*nums2[j]; // take only one pair
+        int f= ans + Math.max(0,DOT(nums1, nums2, i+1, j+1,dp)); // continue add ing old value
+        int s= DOT(nums1, nums2, i+1,j,dp); // skip this i and check for other pairs 
+        int t= DOT(nums1, nums2, i,j+1,dp);  // skip this j ,,  ,,  ,,
+        return dp[i][j]= Math.max(Math.max(ans,f),Math.max(s,t));  // Return max of all
         
     }
 }
