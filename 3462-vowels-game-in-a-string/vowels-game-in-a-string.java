@@ -1,9 +1,10 @@
 class Solution {
     public boolean doesAliceWin(String s) {
-        if(vowelCount(s)==0){
+        int vc=vowelCount(s);
+        if(vc==0){
             return false;
         }
-        if(vowelCount(s)%2!=0){
+        if(vc%2!=0){
             return true;
         }
         return true;
