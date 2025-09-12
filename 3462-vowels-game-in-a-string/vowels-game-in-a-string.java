@@ -4,9 +4,9 @@ class Solution {
         if(vc==0){
             return false;
         }
-        if(vc%2!=0){
-            return true;
-        }
+        // if(vc%2!=0){
+        //     return true;
+        // }
         return true;
     }
     public static int vowelCount(String s){
