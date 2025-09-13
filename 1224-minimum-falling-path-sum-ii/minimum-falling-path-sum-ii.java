@@ -1,29 +1,33 @@
 class Solution {
-    public int minFallingPathSum(int[][] matrix) {
-        int ans=Integer.MAX_VALUE;
-        int [][] dp= new int[matrix.length][matrix[0].length];
-        for(int []a:dp){
-            Arrays.fill(a, -66666);
+    public int minFallingPathSum(int[][] grid) {
+        int[][] dp= new int[grid.length][grid[0].length];
+        for(int [] a:dp){
+            Arrays.fill(a,9999999);
         }
-        for(int i=0;i<matrix[0].length;i++){ // i -->col
-            ans=Math.min(ans, Path(matrix, 0, i, dp));
+        int ans=Integer.MAX_VALUE;
+        for(int i=0;i<grid[0].length;i++){
+            ans=Math.min(ans,Solve(grid,0,i,dp));
         }
         return ans;
     }
-    public static int Path(int [][] matrix, int cr,int cc, int[][] dp){
-        if(cr==matrix.length-1){
-            return matrix[cr][cc];
+    public static int Solve(int[][] arr, int r, int c, int [][] dp){
+        if(r==arr.length-1){
+            return arr[r][c];
         }
-        if(dp[cr][cc]!=-66666){
-            return dp[cr][cc];
+        // if(c<0 || c>=arr[0].length){
+        //     return Integer.MAX_VALUE;
+        // }
+        if(dp[r][c]!=9999999){
+            return dp[r][c];
         }
         int ans=Integer.MAX_VALUE;
-        for(int i=0;i<matrix[0].length;i++){
-            if(i==cc){
+        for(int i=0;i<arr[0].length;i++){
+            if(i==c){
                 continue;
             }
-            ans=Math.min(ans,Path(matrix,cr+1,i,dp));
+            ans=Math.min(ans,Solve(arr,r+1,i,dp));
         }
-        return dp[cr][cc]=ans+matrix[cr][cc];
+        return dp[r][c]=ans+arr[r][c];
+
     }
 }
