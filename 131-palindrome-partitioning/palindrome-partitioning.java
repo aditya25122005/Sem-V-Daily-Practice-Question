@@ -6,22 +6,20 @@ class Solution {
         return ll;
     }
     public static void Solve(String s, int idx, List<List<String>> ll, List<String>l1){
-        if(s.length()==0){
+        if(s.length()==idx){
             ll.add(new ArrayList<>(l1));
-            return ;
+            return;
         }
-        for(int cut=1;cut<=s.length();cut++){
-            String str=s.substring(0,cut);
-            if(isPalindrome(str)){
-                l1.add(str);
-                Solve(s.substring(cut),idx,ll,l1);
+        for(int cut=idx+1;cut<=s.length();cut++){
+            // String str=s.substring(0,cut);
+            if(isPalindrome(s,idx,cut-1)){
+                l1.add(s.substring(idx,cut));
+                Solve(s,cut,ll,l1);
                 l1.remove(l1.size()-1);
             }
         }
     }
-    public static boolean isPalindrome(String s){
-        int i=0;
-        int j=s.length()-1;
+    public static boolean isPalindrome(String s,int i, int j){
         while(i<j){
             if(s.charAt(i)!=s.charAt(j)){
                 return false;
