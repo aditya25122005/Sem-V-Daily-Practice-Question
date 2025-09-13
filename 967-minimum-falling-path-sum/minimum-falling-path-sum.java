@@ -1,28 +1,37 @@
 class Solution {
     public int minFallingPathSum(int[][] matrix) {
-        int ans=Integer.MAX_VALUE;
         int [][] dp= new int[matrix.length][matrix[0].length];
         for(int []a:dp){
-            Arrays.fill(a, -66666);
+            Arrays.fill(a,9999999);
         }
-        for(int i=0;i<matrix[0].length;i++){ // i -->col
-            ans=Math.min(ans, Path(matrix, 0, i, dp));
+        int ans=Integer.MAX_VALUE;
+        for(int i=0;i<matrix[0].length;i++){
+            ans=Math.min(ans,Solve(matrix,0,i,dp));
         }
         return ans;
     }
-    public static int Path(int [][] matrix, int cr,int cc, int[][] dp){
-        if(cc<0 || cc>=matrix[0].length){
+    public static int Solve(int[][]arr, int r, int c, int[][] dp){
+
+        if(r>=arr.length){
             return Integer.MAX_VALUE;
         }
-        if(cr==matrix.length-1){
-            return matrix[cr][cc];
+        if(c>=arr[0].length || c<0){
+            return Integer.MAX_VALUE;
         }
-        if(dp[cr][cc]!=-66666){
-            return dp[cr][cc];
+        if(r==arr.length-1){
+            return arr[r][c];
         }
-        int ld= Path(matrix, cr+1, cc-1, dp);
-        int rd= Path(matrix, cr+1, cc+1, dp);
-        int d=Path(matrix, cr+1, cc, dp);
-        return dp[cr][cc]=Math.min(rd,Math.min(ld,d))+matrix[cr][cc];
+        if(dp[r][c]!=9999999){
+            return dp[r][c];
+        }
+        int ans=0;
+        int f = Solve(arr,r+1,c-1,dp);
+        int s = Solve(arr,r+1,c,dp);
+        int t = Solve(arr,r+1,c+1,dp);
+        ans=Math.min(f,Math.min(s,t));
+
+        return dp[r][c]=ans+arr[r][c];
+
+
     }
 }
