@@ -7,10 +7,7 @@ class Solution {
             map.put(senders[i],map.getOrDefault(senders[i],0)+words);
         }
         int maxV=0;
-        Arrays.sort(senders);
-
         String ans="";
-
         for(String sender:map.keySet()){
             int c= map.get(sender);
             if(c>maxV){
