@@ -3,7 +3,14 @@ class Solution {
         HashMap<String,Integer> map= new HashMap<>();
         for(int i=0;i<senders.length;i++){
             String s=messages[i];
-            int words=s.split(" ").length;
+            // int words=s.split(" ").length;
+            int words=0;
+            for(int j=0;j<s.length();j++){
+                if(s.charAt(j)==' '){
+                    words++;
+                }
+            }
+            words++;
             map.put(senders[i],map.getOrDefault(senders[i],0)+words);
         }
         int maxV=0;
