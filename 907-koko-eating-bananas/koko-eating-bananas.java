@@ -6,10 +6,11 @@ class Solution {
         int ans=-1;
         while(lo<=hi){
             int mid=lo+(hi-lo)/2;
-            if(isPossible(piles,mid,h)<=h){ // mid ke corresponding hours
+            long curr=isPossible(piles,mid,h);
+            if(curr<=h){ // mid ke corresponding hours
                 ans=mid;
                 hi=mid-1;
-            }else if( isPossible(piles,mid,h)>h ){
+            }else if(curr>h ){
                 lo=mid+1;
             }else{
                 hi=mid-1;
