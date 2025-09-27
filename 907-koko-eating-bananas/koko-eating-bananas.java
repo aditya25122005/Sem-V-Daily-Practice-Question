@@ -21,11 +21,9 @@ class Solution {
     public static long isPossible(int[]piles, int curr, int h){
         long cnt=0;
         for(int i=0;i<piles.length;i++){
-            if(piles[i]<=curr){
-                cnt++;
-            }else{
+            
                 cnt+=(long)Math.ceil((double)piles[i]/curr);
-            }
+            
         }
        return cnt;
     }
