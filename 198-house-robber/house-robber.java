@@ -1,18 +1,18 @@
 class Solution {
     public int rob(int[] nums) {
-        int [] dp= new int[nums.length];
+        int[] dp= new int[nums.length];
         Arrays.fill(dp,-1);
-        return Robber(0,nums,dp);
+        return Solve(nums, 0,dp);
     }
-    public static int Robber(int idx,int[] nums, int[] dp){
+    public static int Solve(int[]nums,int idx, int[]dp){
         if(idx>=nums.length){
             return 0;
         }
-        if(dp[idx]!=-1){
-            return dp[idx];
-        }
-        int rob= nums[idx]+Robber(idx+2,nums,dp);
-        int norob= Robber(idx+1,nums,dp);
-        return dp[idx]= Math.max(rob,norob);
+        if(dp[idx]!=-1) return dp[idx];
+        int rob=nums[idx]+Solve(nums,idx+2,dp);
+        int norob=Solve(nums,idx+1,dp);
+
+        int ans=Math.max(rob,norob);
+        return dp[idx]=ans;
     }
 }
