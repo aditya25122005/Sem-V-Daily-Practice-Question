@@ -1,5 +1,8 @@
 class Solution {
     public boolean exist(char[][] board, String word) {
+        int m=board.length;
+        int n=board[0].length;
+        if(word.length()>m*n) return false;
         return Solve(board,word);
     }
     public static boolean Solve(char[][] board,String word){
