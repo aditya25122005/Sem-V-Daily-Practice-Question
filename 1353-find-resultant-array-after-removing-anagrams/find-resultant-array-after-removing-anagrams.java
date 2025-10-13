@@ -15,8 +15,6 @@ class Solution {
             }
         }
         return ll;
-
-
     }
     public static boolean isAnabelle(String s1, String s2){
         HashMap<Character,Integer> map1= new HashMap<>();
