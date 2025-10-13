@@ -12,7 +12,7 @@ class Solution {
             return;
         }
         char ch=s.charAt(idx);
-        if(Character.isDigit(s.charAt(idx))){
+        if(Character.isDigit(ch)){
             
             Solve(s,ll,idx+1,ans+ch);
         }else{
