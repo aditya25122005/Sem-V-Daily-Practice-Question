@@ -2,7 +2,7 @@ class Solution {
     public String makeGood(String s) {
        Stack<Character> st= new Stack<>();
        for(char ch:s.toCharArray()){
-        if(!st.isEmpty() &&( (int)ch==(int)st.peek()-32  || (int)ch==(int)st.peek()+32 )){
+        if(!st.isEmpty() && Math.abs(st.peek()-ch)==32){
             st.pop();
             continue;
         }
