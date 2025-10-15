@@ -9,6 +9,7 @@ class Solution {
                     break;
                 }
             }
+            if(!first) continue;
             boolean second=true;
             for(int j=i+k+1; j<2*k+i;j++){
                 if(nums.get(j)<=nums.get(j-1)){
