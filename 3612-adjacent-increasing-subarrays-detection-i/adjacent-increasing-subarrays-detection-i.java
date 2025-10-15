@@ -17,7 +17,7 @@ class Solution {
                     break;
                 }
             }
-            if(first&&second) return true;
+            if(second) return true;
             
         }
         return false;
