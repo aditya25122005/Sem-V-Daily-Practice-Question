@@ -3,7 +3,7 @@ class Solution {
         HashMap<Integer,Integer> map= new HashMap<>();
         for(int num:nums){
             if(num>0){
-                map.put(num,map.getOrDefault(num,0)+1);
+                map.put(num,1);
             }
         }
         int check=1;
