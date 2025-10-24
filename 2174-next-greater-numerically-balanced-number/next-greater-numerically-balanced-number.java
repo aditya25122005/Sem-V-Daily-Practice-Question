@@ -15,6 +15,7 @@ class Solution {
             freq[num%10]++;
             num/=10;
         }
+        if(freq[0]>0) return false;
         for(int i=0;i<=9;i++){
             if(freq[i]!=0 && freq[i]!=i){
                 return false;
