@@ -15,11 +15,10 @@ class Solution {
             freq[num%10]++;
             num/=10;
         }
-        while(n!=0){
-            if(freq[n%10]!= n%10){
+        for(int i=0;i<=9;i++){
+            if(freq[i]!=0 && freq[i]!=i){
                 return false;
             }
-            n/=10;
         }
         return true;
     }
