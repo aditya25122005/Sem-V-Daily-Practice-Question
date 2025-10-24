@@ -3,7 +3,7 @@ class Solution {
         int num=n+1;
         while(!check(num)){
             num++;
-            if(check(num)) return num;
+            check(num);
         }
         return num;
 
@@ -15,11 +15,11 @@ class Solution {
             freq[num%10]++;
             num/=10;
         }
-        if(freq[0]>0) return false;
-        for(int i=0;i<=9;i++){
-            if(freq[i]!=0 && freq[i]!=i){
+        while(n!=0){
+            if(freq[n%10]!= n%10){
                 return false;
             }
+            n/=10;
         }
         return true;
     }
