@@ -3,7 +3,6 @@ class Solution {
         int num=n+1;
         while(!check(num)){
             num++;
-            check(num);
         }
         return num;
 
