@@ -15,6 +15,9 @@ class Solution {
         if(idx==coins.length){
             return Integer.MAX_VALUE;
         }
+        if(amount<0){
+            return Integer.MAX_VALUE;
+        }
         if(amount==0){
             return 0;
         }
