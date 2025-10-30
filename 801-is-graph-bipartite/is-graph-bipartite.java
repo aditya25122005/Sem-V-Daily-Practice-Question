@@ -1,45 +1,44 @@
 class Solution {
     public boolean isBipartite(int[][] graph) {
-        return CheckBipartite(graph);
+        return isBipartite1(graph);
     }
-
-    public  boolean CheckBipartite(int[][] graph){
+    
+    public boolean isBipartite1(int[][] graph){
         Queue<BipartitePair> q= new LinkedList<>();
         HashMap<Integer,Integer> visited= new HashMap<>();
-        for(int i=0;i<graph.length;i++){// vtx
-            if(visited.containsKey(i)){
+        for(int key=0;key<graph.length;key++){
+            if(visited.containsKey(key)){
                 continue;
             }
-            q.add(new BipartitePair(i,0));
+            q.add( new BipartitePair(key, 0));
             while(!q.isEmpty()){
-                // 1. remove
+                // Remove
                 BipartitePair rp= q.poll();
-                // 2. Ignore if already visited 
+                // Ignore if already visited
                 if(visited.containsKey(rp.vtx)){
-                    if(visited.get(rp.vtx) != rp.dis){
+                    if(visited.get(rp.vtx)!=rp.dis){
                         return false;
                     }
                     continue;
                 }
-                // 3. Mark Visited
+                // Mark visited
                 visited.put(rp.vtx,rp.dis);
+                // SELF WORK -> Not in this case
 
-                // 4. Self Work
-
-                // 5. Add unvisited nbrs
+                // Add unvisited Neighbours
                 for(int nbrs:graph[rp.vtx]){
                     if(!visited.containsKey(nbrs)){
                         q.add(new BipartitePair(nbrs, rp.dis+1));
                     }
+                    
                 }
+
 
             }
         }
         return true;
 
-
     }
-    
     class BipartitePair{
         int vtx;
         int dis;
