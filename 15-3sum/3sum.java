@@ -1,55 +1,43 @@
 class Solution {
-    public List<List<Integer>> threeSum(int[] arr) {
-        Arrays.sort(arr);
-        int N=arr.length;
-        List<List<Integer>> result=new ArrayList<>();
-        for(int i=0;i<N-2;i++){
-            //remove duplicates for 1st ele
-            if(i>0 && arr[i]==arr[i-1]){
+    public List<List<Integer>> threeSum(int[] nums) {
+        List<List<Integer>> ans= new ArrayList<>();
+        Arrays.sort(nums);
+        Solve(nums,ans);
+        return ans;
+
+    }
+    public static void Solve(int[] nums, List<List<Integer>> ans){
+        for(int i=0;i<nums.length-2;i++){
+            if(i>0 && nums[i]==nums[i-1]){
                 continue;
             }
             int left=i+1;
-            int right=N-1;
+            int right=nums.length-1;
             while(left<right){
-                int sum=arr[left]+arr[right]+arr[i];
-                if(sum==0){
-                    result.add(Arrays.asList(arr[right],arr[left],arr[i]));
+            int curr=nums[i]+nums[left]+nums[right];
+            if(curr==0){
+                List<Integer> ll= new ArrayList<>();
+                ll.add(nums[i]);
+                ll.add(nums[left]);
+                ll.add(nums[right]);
+                ans.add(new ArrayList<>(ll));
+                left++;
+                right--;
+                while(left<right && nums[left]==nums[left-1]) left++;
+                while(left<right && nums[right]==nums[right+1]) right--;
 
-                    //remove duplicates for 2nd and third ele
-                    while(left<right && arr[left]==arr[left+1]) left++;
-                    while(left<right && arr[right]==arr[right-1]) right--;
+            }else if(curr<0){
+                left++;
+                while(left<right && nums[left]==nums[left-1]) left++; 
+            }
+            else{
+                right--;
+                while(left<right && nums[right]==nums[right+1]) right--;
+            }
 
-                    left++;
-                    right--;
 
-                }
-                else if(sum<0){
-                    left++;
-                }
-                else{
-                    right--;
-                }
             }
         }
-return result;
 
-        
-    }
-    public static void sort(int [] arr){
-        for(int i=0;i<arr.length;i++){
-           int idx= min_from_ith_index(arr,i);
-           int temp=arr[i];
-           arr[i]=arr[idx];
-           arr[idx]=temp;
-        }
-    }
-    public static int min_from_ith_index(int[] arr, int i){
-        int mini=i;
-        for(int j=i+1;j<arr.length;j++){
-            if(arr[j]<arr[mini]){
-                mini=j;
-            }
-        }
-        return mini;
     }
 }
