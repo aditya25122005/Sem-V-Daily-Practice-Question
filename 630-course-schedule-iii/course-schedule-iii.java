@@ -9,14 +9,18 @@ class Solution {
             int deadline=courses[i][1];
             total_time += duration;
             pq.add(duration);
-            if(total_time<=deadline){
-                c++;
-            }
-            else{
-                int rm=pq.poll();
-                total_time-=rm;
+            // if(total_time<=deadline){
+            //     c++;
+            // }
+            // else{
+            //     int rm=pq.poll();
+            //     total_time-=rm;
+            // }
+            if(total_time>deadline){
+                total_time-=pq.poll();
             }
         }
-        return c;
+        return pq.size();
+        // return c;
     }
 }
