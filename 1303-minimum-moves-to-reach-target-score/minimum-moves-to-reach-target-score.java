@@ -1,25 +1,20 @@
 class Solution {
-    public int minMoves(int num, int maxD) {
-        int target=1;
+    public int minMoves(int target, int maxDoubles) {
         int opr=0;
-        if(maxD==0) return num-1;
-        while(num!=target){
-            
-            while(num/2>=target  && maxD>0){
-            while(num%2==1){
-                num--;
-                opr++;
+        while(target!=1){
+            if(target%2==0 && maxDoubles>0){
+                target/=2;
+                maxDoubles--;
             }
-                num/=2;
-                maxD--;
-                opr++;
+            else if(maxDoubles==0){
+                opr+= target-1;
+                break;
             }
-            while(num>target){
-                num--;
-                opr++;
+            else{
+                target--;
             }
+            opr++;
         }
         return opr;
-        
     }
 }
