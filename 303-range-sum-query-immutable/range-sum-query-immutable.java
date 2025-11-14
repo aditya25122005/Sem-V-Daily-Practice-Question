@@ -8,7 +8,7 @@ class NumArray {
     }
     
     public int sumRange(int left, int right) {
-        int sum=0;
+        
         return arr[right+1]-arr[left];
         
     }
