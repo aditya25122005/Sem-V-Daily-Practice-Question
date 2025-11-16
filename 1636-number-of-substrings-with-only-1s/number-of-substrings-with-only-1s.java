@@ -1,21 +1,17 @@
 class Solution {
     public int numSub(String s) {
-        long mod=1000000007;
-        int n=s.length();
-        long ans=0;
         long curr=0;
-        for(int i=0;i<n;i++){
+        long ans=0;
+        for(int i=0;i<s.length();i++){
             if(s.charAt(i)=='1'){
                 curr++;
             }
             else{
-                ans= (ans+  (curr+1)* curr/2 )% mod;
+                ans+= (curr*(curr+1)/2)%1000000007;
                 curr=0;
             }
         }
-        ans= (ans+(curr+1)*curr/2)%mod;
-        return (int)(ans%mod);
+        ans+= (curr*(curr+1)/2)%1000000007;
+        return (int)(ans%1000000007);
     }
 }
-
-//  6 + 6/2  9
