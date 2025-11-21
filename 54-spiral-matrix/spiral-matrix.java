@@ -1,48 +1,73 @@
 class Solution {
+
     public List<Integer> spiralOrder(int[][] matrix) {
+        List<Integer> ll= new ArrayList<>();
         int n= matrix.length;
-        int m=matrix[0].length;
-        int total=m*n;
-        int cnt=0;
-
+        int m= matrix[0].length;
+        int total = n*m;
+        int curr=0;
         int sr=0;
-        int er=n-1;
-
         int sc=0;
+        int er=n-1;
         int ec=m-1;
 
-        List<Integer> ll= new ArrayList<>();
-        
-        while(cnt<total){
-        int curr=sc;
-        while(curr<=ec && cnt<total){
-            ll.add(matrix[sr][curr]);
-            cnt++;
-            curr++;
-        }
-        sr++;
-        curr=sr;
-        while(curr<=er && cnt<total){
-            ll.add(matrix[curr][ec]);
-            cnt++;
-            curr++;
-        }
-        ec--;
-        curr=ec;
-        while(curr>=sc && cnt<total){
-            ll.add(matrix[er][curr]);
-            cnt++;
-            curr--;
-        }
-        er--;
-        curr=er;
-        while(curr>=sr && cnt<total){
-            ll.add(matrix[curr][sc]);
-            cnt++;
-            curr--;
-        }
-        sc++;
+
+
+        while(curr<total){
+            
+            for(int c=sc;c<= ec;c++){
+                ll.add(matrix[sr][c]);
+                curr++;
+                
+                if(curr==total){
+                    break;
+                }
+
+            }
+            if(curr==total){
+                    break;
+                }
+            sr++;
+            for(int r=sr;r<=er;r++){
+                ll.add(matrix[r][ec]);
+                curr++;
+                if(curr==total){
+                    break;
+                }
+            }
+            if(curr==total){
+                    break;
+                }
+            ec--;
+
+            for(int c=ec;c>=sc;c--){
+                ll.add(matrix[er][c]);
+                curr++;
+                if(curr==total){
+                    break;
+                }
+            }
+            if(curr==total){
+                    break;
+                }
+            er--;
+
+            for(int r=er;r>=sr;r--){
+                ll.add(matrix[r][sc]);
+                curr++;
+                if(curr==total){
+                    break;
+                }
+            }
+            if(curr==total){
+                    break;
+                }
+            sc++;
+            if(curr==total){
+                break;
+            }
         }
         return ll;
     }
+   
 }
