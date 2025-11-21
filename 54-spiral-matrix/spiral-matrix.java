@@ -18,15 +18,13 @@ class Solution {
             for(int c=sc;c<= ec;c++){
                 ll.add(matrix[sr][c]);
                 curr++;
-                
                 if(curr==total){
                     break;
                 }
-
             }
             if(curr==total){
                     break;
-                }
+            }
             sr++;
             for(int r=sr;r<=er;r++){
                 ll.add(matrix[r][ec]);
@@ -37,7 +35,7 @@ class Solution {
             }
             if(curr==total){
                     break;
-                }
+            }
             ec--;
 
             for(int c=ec;c>=sc;c--){
@@ -49,7 +47,7 @@ class Solution {
             }
             if(curr==total){
                     break;
-                }
+            }
             er--;
 
             for(int r=er;r>=sr;r--){
@@ -61,7 +59,7 @@ class Solution {
             }
             if(curr==total){
                     break;
-                }
+            }
             sc++;
             if(curr==total){
                 break;
