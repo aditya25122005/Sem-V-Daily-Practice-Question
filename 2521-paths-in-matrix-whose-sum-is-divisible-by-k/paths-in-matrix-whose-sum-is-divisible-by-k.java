@@ -1,39 +1,33 @@
 class Solution {
-    static int mod=1000000007;
-
+    static int MOD=1000000007;
     public int numberOfPaths(int[][] grid, int k) {
-        int[][][] dp= new int[grid.length][grid[0].length][k]; 
-        for(int i=0;i<dp.length;i++){
-            for(int j=0;j<dp[0].length;j++){
-                for(int l=0;l<k;l++ ){
-                    dp[i][j][l]=-1;
-                }
+         MOD=1000000007;
+        long [][][]dp= new long[grid.length][grid[0].length][k];
+        for(long[][]A:dp){
+            for(long [] a:A){
+                Arrays.fill(a,-1);
             }
         }
-        return (int)Solve(grid,k,0,0,0,dp);
-        
+
+        return (int) (Solve(grid,0,0,k,0,dp)%MOD);
     }
- 
-    public static long Solve(int[][] grid, int k,long curr, int cr, int cc, int[][][]dp){
+    public static long Solve(int[][] grid, int cr, int cc, int k, long sum, long[][][]dp){
         if(cr>=grid.length || cc>=grid[0].length ){
             return 0;
         }
-        if(dp[cr][cc][(int)(curr%k)]!=-1){
-            return dp[cr][cc][(int)(curr%k)];
+        sum+= grid[cr][cc];
+        int mod=(int)(sum%k);
+        if(dp[cr][cc][mod]!=-1){
+            return dp[cr][cc][mod];
         }
-        if(cr==grid.length-1 && cc== grid[0].length-1){
-            if((curr+grid[cr][cc])%k==0){
-               
-                return 1;
-            }
-            else{
-                return 0;
-            }
+        
+        if(cr==grid.length-1 && cc==grid[0].length-1){
+            return dp[cr][cc][mod]= mod==0? 1:0;
         }
-        long a=Solve(grid,k,curr+grid[cr][cc],cr+1,cc,dp);
-        long b=Solve(grid,k,curr+grid[cr][cc],cr,cc+1,dp);
-
-        return dp[cr][cc][(int)(curr%k)] = (int)((a+b)%mod);
-
+        
+        long a= Solve(grid,cr,cc+1,k,sum,dp);
+        long b= Solve(grid,cr+1,cc,k,sum,dp);
+        
+        return dp[cr][cc][mod] = (a+b)%MOD;
     }
 }
