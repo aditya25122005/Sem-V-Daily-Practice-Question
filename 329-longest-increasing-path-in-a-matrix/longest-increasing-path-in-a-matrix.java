@@ -16,7 +16,7 @@ class Solution {
     public static int Solve(int[][] arr, int cr, int cc, int[][]dp){
         int n=arr.length;
         int m= arr[0].length;
-        if(cr<0 || cr>=arr.length || cc<0 || cc>=arr[0].length || arr[cr][cc]==-1){
+        if(cr<0 || cr>=arr.length || cc<0 || cc>=arr[0].length){
             return 0;
         }
         if(dp[cr][cc]!=-999){
@@ -29,34 +29,22 @@ class Solution {
 
         if(cc<m-1){
             if(arr[cr][cc+1]>arr[cr][cc]){
-                int temp=arr[cr][cc];
-                arr[cr][cc]=-1;
                 a=1+Solve(arr,cr,cc+1,dp);
-                arr[cr][cc]=temp;
             }
         }
         if(cc>0){
             if(arr[cr][cc-1]>arr[cr][cc]){
-                int temp=arr[cr][cc];
-                arr[cr][cc]=-1;
                 b=1+Solve(arr,cr,cc-1,dp);
-                arr[cr][cc]=temp;
             }
         }
         if(cr>0){
             if(arr[cr-1][cc]>arr[cr][cc]){
-                int temp=arr[cr][cc];
-                arr[cr][cc]=-1;
                 c=1+Solve(arr,cr-1,cc,dp);
-                arr[cr][cc]=temp;
             }
         }
         if(cr<n-1){
             if(arr[cr+1][cc]>arr[cr][cc]){
-                int temp=arr[cr][cc];
-                arr[cr][cc]=-1;
-                d=1+Solve(arr,cr+1,cc,dp);
-                arr[cr][cc]=temp;
+                d=1+Solve(arr,cr+1,cc,dp);    
             }
         }
         return dp[cr][cc] = Math.max(Math.max(a,b),Math.max(c,d));
