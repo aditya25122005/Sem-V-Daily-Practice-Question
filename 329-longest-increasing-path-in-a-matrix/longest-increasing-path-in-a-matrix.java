@@ -3,11 +3,10 @@ class Solution {
         int ans=1;
         int n=matrix.length;
         int m=matrix[0].length;
+        int[][] dp= new int[n][m];
+        for(int[]A:dp) Arrays.fill(A,-999);
         for(int i=0;i<matrix.length;i++){
             for(int j=0;j<matrix[0].length;j++){
-                int[][] dp= new int[n][m];
-                for(int[]A:dp) Arrays.fill(A,-999);
-
                 ans=Math.max(ans,Solve(matrix,i,j,dp));
             }
         }
