@@ -7,8 +7,10 @@ class Solution {
         long score=0;
         while(k!=0){
             int rm=pq.poll();
+            int b= rm/3;
+            if(rm%3!=0) b++;
             score+=rm;
-            pq.add((int)Math.ceil((double)rm/3));
+            pq.add(b);
             k--;
         }
         return score;
