@@ -1,6 +1,5 @@
 class Solution {
     public long maxRunTime(int n, int[] batteries) {
-        // Arrays.sort(batteries);
         long sum=0;
         for(int num:batteries){
             sum+= (long)num;
@@ -21,6 +20,7 @@ class Solution {
         }
         return ans;
     }
+
     public static boolean isPossible(int[] arr, int comp, long M){
        long sum=0;
        for(int num:arr){
@@ -33,8 +33,3 @@ class Solution {
         return false;
     }
 }
-// 333
-// 223 ->
-// 113 ->102
-// 102
-// 
