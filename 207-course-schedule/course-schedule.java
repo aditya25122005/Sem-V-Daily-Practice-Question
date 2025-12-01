@@ -1,55 +1,40 @@
 class Solution {
-    private HashMap<Integer,List<Integer>> map;
-    public boolean canFinish(int numCourses, int[][] prerequisites) {
-        map= new HashMap<>();
-        for(int i=0;i<numCourses;i++){
-            map.put(i,new ArrayList<>());
+    public boolean canFinish(int num, int[][] preq) {
+        HashMap<Integer,List<Integer>> graph= new HashMap<>();
+        for(int i=0;i<num;i++){
+            graph.put(i,new ArrayList<>());
         }
-        for(int i=0;i<prerequisites.length;i++){
-            int v1=prerequisites[i][0];
-            int v2=prerequisites[i][1];
-
-            map.get(v2).add(v1);
+        for(int i=0;i<preq.length;i++){
+            int a= preq[i][0];
+            int b= preq[i][1];
+            graph.get(a).add(b);
         }
-        return isCycle();
-
-
-    }
-    public int[] indegree(){
-        int [] in= new int[map.size()];
-        for(int v2:map.keySet()){       //v2->v1
-            for(int v1:map.get(v2)){//0->1 ,1->0
-                in[v1]++;
+        int[] in= new int[num];
+        for(int v1:graph.keySet()){
+            for(int v2:graph.get(v1)){
+                in[v2]++;
             }
         }
-        return in;
-    }
-    public int[] outdegree(){
-        int[] out= new int[map.size()];
-        for(int v1:map.keySet()){           //v1->v2
-            for(int v2:map.get(v1)){ //0-> 1 , 1->0
-                out[v1]++;
-            }
-        }
-        return out;
-    }
-    public boolean isCycle(){
         Queue<Integer> q= new LinkedList<>();
-        int [] in= indegree();
+        int c=0;
+        // HashSet<Integer> visited= new HashSet<>();
         for(int i=0;i<in.length;i++){
             if(in[i]==0){
                 q.add(i);
             }
         }
-        int c=0;
         while(!q.isEmpty()){
-            int r= q.poll();
+            int rm= q.poll();
             c++;
-            for(int nbrs: map.get(r)){
+            
+            for(int nbrs:graph.get(rm)){
                 in[nbrs]--;
-                if(in[nbrs]==0) q.add(nbrs);
+                if(in[nbrs]==0){
+                    q.add(nbrs);
+                }
             }
+
         }
-        return c==map.size();
+        return c==num;
     }
 }
