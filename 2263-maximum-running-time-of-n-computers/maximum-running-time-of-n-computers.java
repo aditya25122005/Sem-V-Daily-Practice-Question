@@ -1,6 +1,6 @@
 class Solution {
     public long maxRunTime(int n, int[] batteries) {
-        Arrays.sort(batteries);
+        // Arrays.sort(batteries);
         long sum=0;
         for(int num:batteries){
             sum+= (long)num;
