@@ -16,5 +16,12 @@ class Solution {
             }
         }
         return (int)((((sum*sum)- sq)/2)%mod);
+        /*
+
+        (a+b+c)^2 = a^2 + b^2 + c^2 + 2ab+ 2bc+ 2ca
+        ab+bc+ca= (a+b+c)^2 /(a^2 + b^2 + c^2)
+        we need this ab+bc+ca for counting trapezoids
+        
+        */
     }
 }
