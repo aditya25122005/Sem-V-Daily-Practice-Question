@@ -19,6 +19,9 @@ class Solution {
         if(cr<0 || cc<0 || cr>=n || cc>=m){
             return;
         }
+        if(maze[cr][cc]=='+'){
+            return;
+        }
         if(c>=dp[cr][cc]){
             return;
         }
@@ -26,9 +29,7 @@ class Solution {
         if(c>=ans){
             return;
         }
-        if(maze[cr][cc]=='+'){
-            return;
-        }
+        
         if((cr==0 || cr==n-1 || cc==0 || cc==m-1) && (cr!= entrance[0] || cc!=entrance[1]) ){
             ans=Math.min(ans,c);
             return;
