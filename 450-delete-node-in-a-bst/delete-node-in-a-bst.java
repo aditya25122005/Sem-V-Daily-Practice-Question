@@ -16,36 +16,35 @@
 class Solution {
     public TreeNode deleteNode(TreeNode root, int key) {
         if(root==null){
-            return null;
+            return root;
         }
-        if(root.val>key){
-            root.left=deleteNode(root.left,key);
+
+        if(key<root.val){
+            root.left= deleteNode(root.left,key);
         }
-        else if(root.val<key){
-            root.right=deleteNode(root.right,key);
+        else if(key>root.val){
+            root.right= deleteNode(root.right,key);
         }
-        else{
-            //root is key
+        else{// root hi key hai
             if(root.left==null){
                 return root.right;
             }
-            else if(root.right==null){
+            if(root.right==null){
                 return root.left;
             }
-            else{// Both childs are there
-                int minnv=find(root.right);
-                root.right=deleteNode(root.right,minnv); // Remove the min from right subtree
-                root.val=minnv; // place the val in root
-            }
+            // Both childs are there
+            int minV= findMin(root.right);
+            root.right= deleteNode(root.right,minV);
+            root.val=minV;
         }
         return root;
     }
-    public int find(TreeNode root){
+    public static int findMin(TreeNode root){
         if(root==null){
             return Integer.MAX_VALUE;
         }
-        int val=find(root.left);
-        val=Math.min(val,root.val);
-        return val;
+        int value= findMin(root.left);
+        value=Math.min(value,root.val);
+        return value;
     }
 }
