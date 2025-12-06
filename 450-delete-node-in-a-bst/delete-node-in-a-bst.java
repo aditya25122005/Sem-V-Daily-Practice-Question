@@ -33,11 +33,22 @@ class Solution {
                 return root.left;
             }
             // Both childs are there
-            int minV= findMin(root.right);
-            root.right= deleteNode(root.right,minV);
-            root.val=minV;
+            int maxV=findMax(root.left);
+            root.left= deleteNode(root.left,maxV);
+            root.val=maxV;
+            // int minV= findMin(root.right);
+            // root.right= deleteNode(root.right,minV);
+            // root.val=minV;
         }
         return root;
+    }
+    public static int findMax(TreeNode root){
+        if(root==null){
+            return Integer.MIN_VALUE;
+        }
+        int value=findMax(root.right);
+        value=Math.max(value,root.val);
+        return value;
     }
     public static int findMin(TreeNode root){
         if(root==null){
