@@ -3,39 +3,32 @@ class Solution {
         if(image[sr][sc]==color){
             return image;
         }
-        BFS(image,sr,sc,color);
+        Solve(image,sr,sc,color,image[sr][sc]);
         return image;
-        
     }
-    public static void BFS(int[][] tasveer, int sr, int sc, int NayaColor){
-        int n=tasveer.length;
-        int m=tasveer[0].length;
-        int old=tasveer[sr][sc];
+    public static void Solve(int[][] arr, int cr, int cc, int color, int startColor){
+
         Queue<int[]> q= new LinkedList<>();
-        int[][] dir={{0,1},{0,-1},{1,0},{-1,0}};
-        q.add(new int[]{sr,sc});
-        tasveer[sr][sc]= NayaColor;
-        
+        arr[cr][cc]=color;
+        q.add(new int[]{cr,cc});
+        int [][]dir={{-1,0},{1,0},{0,1},{0,-1}};
         while(!q.isEmpty()){
-            int [] a= q.poll();
-            int r=a[0];
-            int c=a[1];
-           
-            
+            int[] P= q.poll();
+            int r=P[0];
+            int c=P[1];
             for(int[] d:dir){
-                int nr=d[0]+r;
-                int nc=d[1]+c;
-                if(nr>=0 && nr<n && nc>=0 && nc<m && tasveer[nr][nc]==old){
-                    tasveer[nr][nc]=NayaColor;
+                int nr= r+d[0];
+                int nc= c+d[1];
+                if(nr>=0 && nr<arr.length && nc>=0 && nc<arr[0].length && arr[nr][nc]==startColor){
+                    arr[nr][nc]=color;
                     q.add(new int[]{nr,nc});
-                    
-                }
-                
+                }   
             }
 
 
+
         }
-     
-        
+      
+
     }
 }
