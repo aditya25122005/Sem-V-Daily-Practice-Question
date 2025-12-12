@@ -13,15 +13,18 @@ class Solution {
             return 0;
         });
 
-        HashMap<Integer,Integer> map= new HashMap<>();
-        for(int i=0;i<n;i++){
-            map.put(i,0);
-        }
+        // HashMap<Integer,Integer> map= new HashMap<>();
+        int[] map= new int[n];
+
+        // for(int i=0;i<n;i++){
+        //     map.put(i,0);
+        // }
         for(List<String> ll:events){
             if(ll.get(0).equals("OFFLINE")){
                 int id= Integer.parseInt(ll.get(2));
                 int time=Integer.parseInt(ll.get(1));
-                map.put(id,time+60);
+                // map.put(id,time+60);
+                map[id]=time+60;
             }
             else{// "MESSAGE"
                 if(ll.get(2).equals("ALL")){
@@ -38,12 +41,15 @@ class Solution {
                 }
                 else{// HERE
                     int currTime= Integer.parseInt(ll.get(1));
-                    for(int id:map.keySet()){
-                        if(map.get(id)<=currTime){
-                            ans[id]++;
-                            
-                        }
+                    for(int i=0;i<n;i++){
+                        if(map[i]<=currTime) ans[i]++;
                     }
+                    // for(int id:map.keySet()){
+                    //     if(map.get(id)<=currTime){
+                    //         ans[id]++;
+                            
+                    //     }
+                    // }
                 }
             }
         }
