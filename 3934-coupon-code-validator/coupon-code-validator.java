@@ -3,11 +3,9 @@ class Solution {
         List<Integer> ll= new ArrayList<>();
         for(int i=0;i<code.length;i++){
             String s= code[i];
-            
             if(validCode(s.toCharArray()) && validBusiness(businessLine[i]) && isActive[i]){
             ll.add(i);
             }
-            
         }
         Collections.sort(ll,(a,b)->{
             int i= businessOrder(businessLine[a]);
