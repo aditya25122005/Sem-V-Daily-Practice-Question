@@ -10,7 +10,7 @@ class Solution {
             return 0;
         }
         if(j==b.length){
-            return Long.MIN_VALUE/2;
+            return Long.MIN_VALUE/3;
         }
         if(dp[i][j]!=Long.MIN_VALUE) return dp[i][j];
         long prod1=0;
