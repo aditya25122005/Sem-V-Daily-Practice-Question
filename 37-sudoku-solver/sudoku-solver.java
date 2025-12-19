@@ -1,48 +1,38 @@
 class Solution {
-    static boolean solved=false;
     public void solveSudoku(char[][] board) {
-        solved=false;
-        solve(board,0,0);
+        Solve(board,0,0);
     }
-    public static void solve(char[][] board, int row, int col){
-        if(col==9){
-            col=0;
-            row++;
+    public static boolean Solve(char[][]board, int r, int c){
+        if(c==9){
+            c=0;
+            r++;
         }
-        if(row==9){
-            solved=true;
-            return;
+        if(r==9){
+            return true;
         }
-        if(board[row][col]!='.'){
-            solve(board,row,col+1);
-            return;
-        }else{
+        if(board[r][c]!='.'){
+            return Solve(board,r,c+1);
+        }
+        else{
             for(char ch='1';ch<='9';ch++){
-                if(isValid(board, row, col, ch)){
-                    board[row][col]=ch;
-                    solve(board,row,col+1);
-                    if(solved) return;
-                    board[row][col]='.';
+                if(isPossible(board,r,c,ch)){
+                    board[r][c]=ch;
+                    if(Solve(board,r,c+1)) return true;
+                    board[r][c]='.';
                 }
             }
         }
+        return false;
     }
-    public static boolean isValid(char[][] board, int row, int col, char ch){
-        // check col
-        for(int i=0;i<board.length;i++){
-            if(board[i][col]==ch){
-                return false;
-            }
+    public static boolean isPossible(char[][] board, int row, int col,char ch){
+        for(int c=0;c<board[0].length;c++){
+            if(board[row][c]==ch) return false;
         }
-        // check row
-        for(int i=0;i<board.length;i++){
-            if(board[row][i]==ch){
-                return false;
-            }
+        for(int r=0;r<board.length;r++){
+            if(board[r][col]==ch) return false;
         }
-        // check box
-        int r= row- row%3;
-        int c= col- col%3;
+        int r= row-(row%3);
+        int c= col-(col%3);
         for(int i=r;i<r+3;i++){
             for(int j=c;j<c+3;j++){
                 if(board[i][j]==ch){
