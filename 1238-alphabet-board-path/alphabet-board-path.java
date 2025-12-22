@@ -10,18 +10,18 @@ class Solution {
             int r=n/5;   //2
             int c=n%5;   //1
 
-            if(ch=='z'){
-                while(cc>c){
-                    cc--;
-                    path.append("L");
-                }
-                while(cr<r){
-                    cr++;
-                    path.append('D');
-                }
-                path.append("!");
-                continue;
-            }
+            // if(ch=='z'){
+            //     while(cc>c){
+            //         cc--;
+            //         path.append("L");
+            //     }
+            //     while(cr<r){
+            //         cr++;
+            //         path.append('D');
+            //     }
+            //     path.append("!");
+            //     continue;
+            // }
 
             if(cr==r && cc==c){
                 path.append("!");
@@ -59,6 +59,12 @@ class Solution {
              }
 
              else{
+                if(cc>c){
+                while(cc>c){
+                    cc--;
+                    path.append('L');
+                }
+                }
                 if(cr<r){
                 while(cr<r){
                     cr++;
@@ -77,12 +83,7 @@ class Solution {
                     path.append('R');
                 }
                 }
-                if(cc>c){
-                while(cc>c){
-                    cc--;
-                    path.append('L');
-                }
-                }
+                
                 path.append("!");
              }
 
