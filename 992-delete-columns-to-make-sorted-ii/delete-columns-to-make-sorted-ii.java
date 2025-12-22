@@ -1,30 +1,31 @@
 class Solution {
     public int minDeletionSize(String[] strs) {
-        int m = strs[0].length();
-        int n = strs.length;
-        int delete = 0;
-        boolean[] fixed = new boolean[n - 1];
-        for (int col = 0; col < m; col++) {
-            boolean deleteCol = false;
-            for (int row = 0; row < n - 1; row++) {
-                if (!fixed[row] && strs[row].charAt(col) > strs[row+1].charAt(col)) {
-                    deleteCol = true;
+        int n=strs.length;
+        int m=strs[0].length();
+        boolean [] already=new boolean[n-1];
+
+        int delete=0;
+        for(int col=0;col<m;col++){
+            boolean deleteThis=false;
+            for(int row=0;row<n-1;row++){
+                if(!already[row] && strs[row].charAt(col) > strs[row+1].charAt(col)){
+                    deleteThis=true;
                     break;
                 }
             }
-            if (deleteCol) {
+            if(deleteThis){
                 delete++;
                 continue;
+                // Ye column delete ho gaya ye Next column ki koi help nah kar paega 
             }
 
-            for (int row = 0; row < n - 1; row++) {
-                if (!fixed[row] && strs[row].charAt(col) < strs[row+1].charAt(col)) {
-                    fixed[row] = true;
+            for(int row=0;row<n-1;row++){
+                if(!already[row] && strs[row].charAt(col)<strs[row+1].charAt(col)){
+                    already[row] = true; // this will help in next column (for this same row)
                 }
             }
 
         }
         return delete;
-
     }
 }
