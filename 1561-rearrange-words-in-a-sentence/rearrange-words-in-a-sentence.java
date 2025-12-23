@@ -2,13 +2,6 @@ class Solution {
     public String arrangeWords(String text) {
         String[] strs= text.split(" ");
         strs[0]=strs[0].toLowerCase();
-
-
-        HashMap<String,Integer> map= new HashMap<>();
-        for(int i=0;i<strs.length;i++){
-            map.put(strs[i],i);
-        }
-
         Arrays.sort(strs,(a,b)->a.length()-b.length());
 
         StringBuilder sb= new StringBuilder();
