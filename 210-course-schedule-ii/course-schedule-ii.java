@@ -1,20 +1,17 @@
 class Solution {
     public int[] findOrder(int num, int[][] preq) {
-        int[] ans=new int[num];
-        int idx=0;
         HashMap<Integer,List<Integer>> map= new HashMap<>();
         for(int i=0;i<num;i++){
             map.put(i,new ArrayList<>());
         }
-        for(int i=0;i<preq.length;i++){
-            int v1= preq[i][0];
-            int v2= preq[i][1];
-            map.get(v2).add(v1);
+        for(int[]A:preq){
+            map.get(A[1]).add(A[0]);
         }
+
         int [] in= new int[num];
-        for(int v1:map.keySet()){
-            for(int v2:map.get(v1)){
-                in[v2]++;
+        for(int u:map.keySet()){
+            for(int v:map.get(u)){
+                in[v]++;
             }
         }
         Queue<Integer> q= new LinkedList<>();
@@ -23,10 +20,10 @@ class Solution {
                 q.add(i);
             }
         }
+        List<Integer> ans= new ArrayList<>();
         while(!q.isEmpty()){
             int rm=q.poll();
-            ans[idx]=rm;
-            idx++;
+            ans.add(rm);
 
             for(int nbrs:map.get(rm)){
                 in[nbrs]--;
@@ -35,10 +32,15 @@ class Solution {
                 }
             }
         }
-        if(idx==ans.length){
-            return ans;
+        int [] res= new int[ans.size()];
+        if(ans.size()!=num) {
+            return new int[]{};
         }
-        return new int[]{};
-
+        else{
+            for(int i=0;i<ans.size();i++){
+                res[i]=ans.get(i);
+            }
+        }
+        return res;
     }
 }
