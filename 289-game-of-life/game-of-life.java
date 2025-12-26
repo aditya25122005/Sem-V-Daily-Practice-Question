@@ -5,7 +5,7 @@ class Solution {
         int [][] grid= new int[n][m];
         for(int i=0;i<n;i++){
             for(int j=0;j<m;j++){
-                int dead=countDead(board,i,j);
+                
                 int live=countLive(board,i,j);
                 if(board[i][j]==0){
                     if(live==3){
@@ -27,60 +27,33 @@ class Solution {
        
         
     }
-     public static int countDead(int[][]arr, int cr, int cc){
-            int dead=0;
-            if(cr!=0 && arr[cr-1][cc]==0){
-                dead++;
-            }
-            if(cr!=arr.length-1 && arr[cr+1][cc]==0){
-                dead++;
-            }
-            if(cc!=0 && arr[cr][cc-1]==0){
-                dead++;
-            }
-            if(cc!=arr[0].length-1 && arr[cr][cc+1]==0){
-                dead++;
-            }
-            if(cr!=0 && cc!=0 && arr[cr-1][cc-1]==0){
-                dead++;
-            }
-            if(cr!=arr.length-1 && cc!=0 && arr[cr+1][cc-1]==0){
-                dead++;
-            }
-            if(cr!=0 && cc!=arr[0].length-1 && arr[cr-1][cc+1]==0){
-                dead++;
-            }
-            if(cr!=arr.length-1 && cc!=arr[0].length-1 && arr[cr+1][cc+1]==0){
-                dead++;
-            }
-            return dead;
-        }
+   
     public static int countLive(int [][]arr, int cr, int cc){
-             int dead=0;
+             int live=0;
             if(cr!=0 && arr[cr-1][cc]==1){
-                dead++;
+                live++;
             }
             if(cr!=arr.length-1 && arr[cr+1][cc]==1){
-                dead++;
+                live++;
             }
             if(cc!=0 && arr[cr][cc-1]==1){
-                dead++;
+                live++;
             }
             if(cc!=arr[0].length-1 && arr[cr][cc+1]==1){
-                dead++;
+                live++;
             }
             if(cr!=0 && cc!=0 && arr[cr-1][cc-1]==1){
-                dead++;
+                live++;
             }
             if(cr!=arr.length-1 && cc!=0 && arr[cr+1][cc-1]==1){
-                dead++;
+                live++;
             }
             if(cr!=0 && cc!=arr[0].length-1 && arr[cr-1][cc+1]==1){
-                dead++;
+                live++;
             }
             if(cr!=arr.length-1 && cc!=arr[0].length-1 && arr[cr+1][cc+1]==1){
-                dead++;
+                live++;
             }
-            return dead;
+            return live;
         }
 }
