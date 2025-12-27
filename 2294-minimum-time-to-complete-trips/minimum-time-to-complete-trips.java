@@ -1,31 +1,31 @@
 class Solution {
     public long minimumTime(int[] time, int totalTrips) {
-        long lo=1;
-        long max=Integer.MIN_VALUE;
+        long max=Long.MIN_VALUE;
         for(int num:time){
             max=Math.max(max,num);
         }
-        long hi=(long)totalTrips*max;
+        long lo=1;
+        long hi=(long)max*totalTrips;
         long ans=Long.MAX_VALUE;
-
         while(lo<=hi){
             long mid=lo+(hi-lo)/2;
-            if(isItPossible(time,mid,totalTrips)){
+            if(isPossible(time,totalTrips,mid)){
                 ans=mid;
                 hi=mid-1;
-            }else{
+            }
+            else{
                 lo=mid+1;
             }
-
         }
         return ans;
     }
-    public static boolean isItPossible(int [] time, long mid, int total){
-        long trip=0;
-        for(int t:time){
-            trip+= mid/t;
-            if(trip>=total) return true;
+    public static boolean isPossible(int[]time, int trips, long T){
+        long currTrip=0;
+        for(int i=0;i<time.length;i++){
+            currTrip+= (T/time[i]);
+            if(currTrip>=trips) return true;
         }
+        if(currTrip>=trips) return true;
         return false;
     }
 }
