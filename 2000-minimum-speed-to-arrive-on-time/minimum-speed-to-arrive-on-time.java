@@ -23,11 +23,15 @@ class Solution {
         double currTime=0;
         for(int i=0;i<dist.length;i++){
             double currT=(double)dist[i]/mid; // mid is speed
+            if(i!=dist.length-1){
             currTime+=currT;
-            if(currTime>hours) return false;
             currTime=(int)Math.ceil(currTime);
-            
+            }
+            else{
+                currTime+=currT;
+            }
 
+            if(currTime>hours) return false;
         }
         return true;
     }
