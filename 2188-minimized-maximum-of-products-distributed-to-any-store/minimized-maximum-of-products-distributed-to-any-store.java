@@ -33,7 +33,8 @@ class Solution {
         // Distribute max of mid Product-Quantity to each shop
         int currShop=0;
         for(int p:Quantity){
-           currShop += (int) Math.ceil((double)p/mid);
+        //    currShop += (int) Math.ceil((double)p/mid);
+           currShop += (p + mid - 1) / mid;
            if(currShop>Shops) return false;
         }
         return true;
