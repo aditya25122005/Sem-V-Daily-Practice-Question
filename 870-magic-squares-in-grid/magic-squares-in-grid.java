@@ -34,10 +34,18 @@ class Solution {
         if(hh.size()!=9) return false;
         if(d1!=pre) return false;
         int d2=0;
-        for(int i=r;i<r+3;i++){
-            int col=c+(r+2-i);
-            d2+= arr[i][col];
+        // for(int i=r;i<r+3;i++){
+        //     int col=c+(r+2-i);
+        //     d2+= arr[i][col];
+        // }
+        int J=c+2;;
+        int I=r;
+        while(I<r+3 && J>=c){
+            d2+= arr[I][J];
+            J--;
+            I++;
         }
+
         if(d2!=d1 || d2!=pre) return false;
 
 
