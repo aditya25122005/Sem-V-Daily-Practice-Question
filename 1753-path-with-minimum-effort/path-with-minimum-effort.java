@@ -2,16 +2,10 @@ class Solution {
     public int minimumEffortPath(int[][] heights) {
         int n=heights.length;
         int m=heights[0].length;
-
-        int minAbs=Integer.MAX_VALUE;
-
         int[][] bestFromPoint= new int[n][m];
-     
-
         for(int []A:bestFromPoint){
             Arrays.fill(A,Integer.MAX_VALUE);
-        }
-        int currBest=Integer.MIN_VALUE;
+        } 
         PriorityQueue<int[]> q= new PriorityQueue<>((a,b)->a[2]-b[2]);
         int [] x={-1,1,0,0};
         int [] y={0,0,-1,1};
