@@ -20,9 +20,9 @@ class Solution {
         if(idx>=points.length){
             return 0;
         }
-        // if(idx==points.length-1){
-        //     return points[points.length-1];
-        // }
+        if(idx==points.length-1){
+            return points[points.length-1];
+        }
         if(dp[idx]!=-1){
             return dp[idx];
         }
