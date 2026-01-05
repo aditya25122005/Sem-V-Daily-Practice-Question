@@ -11,7 +11,10 @@ class Solution {
                     val=-val;
                 }
                 total+= val;
-                min=Math.min(min,val);
+                // min=Math.min(min,val);
+                if(val<min){
+                    min=val;
+                }
                 
             }
         }
