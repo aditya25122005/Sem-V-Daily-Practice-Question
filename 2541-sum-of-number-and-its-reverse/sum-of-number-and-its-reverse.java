@@ -8,12 +8,15 @@ class Solution {
 
     }
     public static int reverse(int num){
-        int n=0;
-        while(num!=0){
-            int r=num%10;
-            n=n*10+ r;
-            num/=10;
-        }
-        return n;
+        // int n=0;
+        // while(num!=0){
+        //     int r=num%10;
+        //     n=n*10+ r;
+        //     num/=10;
+        // }
+        // return n;
+        String s=String.valueOf(num);
+        StringBuilder sb= new StringBuilder(s);
+        return Integer.parseInt(sb.reverse().toString());
     }
 }
