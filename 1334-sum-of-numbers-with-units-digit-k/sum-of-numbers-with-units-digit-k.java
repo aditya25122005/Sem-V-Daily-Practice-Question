@@ -1,5 +1,5 @@
 class Solution {
-    // 1, 11, 21, 31,-11,-21,-31
+    // 1, 11, 21, 31,--
     int k;
     public int minimumNumbers(int num, int k) {
         if(num==0) return 0;
