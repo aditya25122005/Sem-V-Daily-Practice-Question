@@ -21,13 +21,13 @@ class Solution {
                 Arrays.fill(A,-1);
             }
         
-        int ans=Solve(0,0,num,0,ll,dp);
+        int ans=Solve(0,num,0,ll,dp);
         return ans==Integer.MAX_VALUE? -1:ans ;
 
     }
-    public int Solve(int currUsed, int currSum,int Target, int idx, List<Integer> ll, int[][]dp){
+    public int Solve(int currSum,int Target, int idx, List<Integer> ll, int[][]dp){
         if(currSum==Target){
-            return currUsed;
+            return 0;
         }
         if(currSum>Target){
             return Integer.MAX_VALUE;
@@ -37,11 +37,13 @@ class Solution {
         }
         if(dp[currSum][idx]!=-1) return dp[currSum][idx];
         // skip
-        int a= Solve(currUsed,currSum,Target,idx+1,ll,dp);
+        int a= Solve(currSum,Target,idx+1,ll,dp);
         int b=0;
         //take this 
-            
-            b=Solve(currUsed+1,currSum+ll.get(idx),Target,idx,ll,dp);
+            b=Solve(currSum+ll.get(idx),Target,idx,ll,dp);
+            if(b!=Integer.MAX_VALUE){
+                b+=1;
+            }
         return dp[currSum][idx] = Math.min(a,b);
     }
 }
