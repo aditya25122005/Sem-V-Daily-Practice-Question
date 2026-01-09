@@ -1,46 +1,38 @@
 class Solution {
-    static int ans;
-    static int[] memo;
-
+    int n;
+    boolean[][] isPalindrome;
+    int dp[];
     public int minCut(String s) {
-        List<String> l1 = new ArrayList<>();
-        List<List<String>> ll = new ArrayList<>();
-        ans = Integer.MAX_VALUE;
-        boolean[][] dp = new boolean[s.length()][s.length()];
-        int n = s.length();
-        for (int i = 0; i < n; i++) {
-            dp[i][i] = true; // 1 length substring always palindrome
-        }
-        for (int len = 2; len <= n; len++) {
-            for (int i = 0; i <= n - len; i++) {
-                int j = i + len - 1;
-                if (len == 2) {
-                    dp[i][j] = s.charAt(i) == s.charAt(j);
-                } else {
-                    dp[i][j] = s.charAt(i) == s.charAt(j) && dp[i + 1][j - 1];
+        n=s.length();
+        dp= new int[n];
+        Arrays.fill(dp,-1);
+         isPalindrome= new boolean[n][n];
+        for(int len=1;len<=s.length();len++){
+            for(int i=0;i+len-1<n;i++){
+                int j=i+len-1;
+                if(s.charAt(i)==s.charAt(j)){
+                    if(len<=2){
+                        isPalindrome[i][j]=true;
+                    }
+                    else{
+                        isPalindrome[i][j]=isPalindrome[i+1][j-1];
+                    }
                 }
             }
         }
-        memo = new int[n];
-        Arrays.fill(memo, -1);
-        return Solve(s, 0, dp) - 1;
-
+        return minCutneeded(0);
     }
-
-    public static int Solve(String s, int idx, boolean[][] dp) {
-        if (idx == s.length()) {
-            return 0;
+    public int minCutneeded(int i){
+        if(i==n){
+            return -1; // as we dont need cut for last remaining char
         }
-        if (memo[idx] != -1) {
-            return memo[idx];
-        }
-        int minCut = Integer.MAX_VALUE;
-        for (int cut = idx; cut < s.length(); cut++) {
-            if (dp[idx][cut]) {
-                minCut = Math.min(minCut, 1 + Solve(s, cut + 1, dp));
+        int ans=Integer.MAX_VALUE;
+        if(dp[i]!=-1) return dp[i];
+        for(int j=i;j<n;j++){
+            if(isPalindrome[i][j]){
+                ans=Math.min(ans,1+minCutneeded(j+1));
             }
         }
-        return memo[idx] = minCut;
+        return dp[i]=ans;
     }
-
 }
