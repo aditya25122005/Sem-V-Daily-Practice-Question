@@ -1,26 +1,31 @@
 class Solution {
     public int strStr(String s1, String s2) {
-        int i=0;
-        while(i<=s1.length()-s2.length()){
+        // return s1.indexOf(s2);
+        if(s1.length()<s2.length()) return -1;
+        for(int i=0;i<s1.length();i++){
+            
             if(s1.charAt(i)==s2.charAt(0)){
-                int start=i;
-                int idx=i;
-                boolean isOk=true;
-                for(int k=0;k<s2.length();k++){
-                    if(s1.charAt(idx)==s2.charAt(k)){
-                        idx++;
-                    }
-                    else{
-                        isOk=false;
+            int start=i;
+            boolean isPossible=true;
+            int idx=i;
+            int covered=0;
+                for(int j=0;j<s2.length() && idx<s1.length();j++){
+                    if(s2.charAt(j)!=s1.charAt(idx)){
+                        isPossible=false;
                         break;
                     }
+                    covered++;
+                  
+                        idx++;
+                    
                 }
-                if(isOk){
-                    return start;
-                }
+                if(covered<s2.length()) isPossible=false;
+
+                if(isPossible) return start;
             }
-            i++;
         }
         return -1;
+
+
     }
 }
