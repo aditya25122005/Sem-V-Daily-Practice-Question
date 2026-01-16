@@ -7,18 +7,13 @@ class Solution {
             int start=i;
             boolean isPossible=true;
             int idx=i;
-            int covered=0;
                 for(int j=0;j<s2.length() && idx<s1.length();j++){
                     if(s2.charAt(j)!=s1.charAt(idx)){
                         isPossible=false;
                         break;
                     }
-                    covered++;
-                  
                         idx++;
                 }
-                if(covered<s2.length()) isPossible=false;
-
                 if(isPossible) return start;
             }
         }
