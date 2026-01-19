@@ -22,12 +22,7 @@ class Solution {
         if(dp[idx][open][close]!=null){
             return dp[idx][open][close];
         }
-
-        // if(open==s.length()/2 && close==s.length()/2){
-        //     return true;
-        // }
-        
-        
+                
         boolean a= false;
         boolean b=false;
         boolean c=false;
