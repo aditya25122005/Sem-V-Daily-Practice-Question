@@ -3,6 +3,7 @@ class Solution {
         
         int n= mat.length;
         int m= mat[0].length;
+        boolean [] memo= new boolean[Math.min(n,m)+1];
         int [][] pre = new int[n][m];
         for(int i=0;i<n;i++){
             for(int j=0;j<m;j++){
@@ -18,12 +19,15 @@ class Solution {
         for(int i=0;i<n;i++){
             for(int j=0;j<m;j++){
                 int maxLen = Math.min(n-i,m-j);
+                if(memo[maxLen]) continue;
+
                 int lo=1;
                 int hi=maxLen;
                 while(lo<=hi){
                     int mid=lo+(hi-lo)/2;
                     if(isValid(pre,i,j,mid, threshold)){
                         ans=Math.max(ans,mid);
+                        memo[mid]=true;
                         lo=mid+1;
                     }
                     else{
