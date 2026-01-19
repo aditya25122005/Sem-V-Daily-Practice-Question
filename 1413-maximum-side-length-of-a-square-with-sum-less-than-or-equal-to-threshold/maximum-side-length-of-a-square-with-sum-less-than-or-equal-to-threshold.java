@@ -21,7 +21,7 @@ class Solution {
                 int maxLen = Math.min(n-i,m-j);
                 if(memo[maxLen]) continue;
 
-                int lo=1;
+                int lo=ans+1;
                 int hi=maxLen;
                 while(lo<=hi){
                     int mid=lo+(hi-lo)/2;
