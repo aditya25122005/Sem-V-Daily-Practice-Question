@@ -1,7 +1,19 @@
 class Solution {
     public int maxSideLength(int[][] mat, int threshold) {
+        
         int n= mat.length;
         int m= mat[0].length;
+        int [][] pre = new int[n][m];
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                int val = mat[i][j];
+                if(i>0) val+= pre[i-1][j];
+                if(j>0) val+= pre[i][j-1];
+                if(i>0 && j>0) val-= pre[i-1][j-1];
+                pre[i][j] =val;
+            }
+        }
+
         int ans=0;
         for(int i=0;i<n;i++){
             for(int j=0;j<m;j++){
@@ -10,7 +22,7 @@ class Solution {
                 int hi=maxLen;
                 while(lo<=hi){
                     int mid=lo+(hi-lo)/2;
-                    if(isValid(mat,i,j,mid, threshold)){
+                    if(isValid(pre,i,j,mid, threshold)){
                         ans=Math.max(ans,mid);
                         lo=mid+1;
                     }
@@ -22,14 +34,22 @@ class Solution {
         }
         return ans;
     }
-    public static boolean isValid(int [][] mat, int sr,int sc,int len, int limit){
+    public static boolean isValid(int [][] pre, int sr,int sc,int len, int limit){
         int curr=0;
-        for(int i=sr;i<sr+len;i++){
-            for(int j=sc;j<sc+len;j++){
-                curr+= mat[i][j];
-                if(curr>limit) return false;
-            }
+        int er= sr+len-1;
+        int ec= sc+len-1;
+        curr= pre[er][ec];
+        if(sr>0){
+            curr-= pre[sr-1][ec];
         }
+        if(sc>0){
+            curr-= pre[er][sc-1];
+        }
+        if(sr>0 && sc>0){
+            curr+= pre[sr-1][sc-1];
+        }
+
+
         return curr<=limit;
     }
 }
