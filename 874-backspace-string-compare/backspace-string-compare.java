@@ -1,37 +1,80 @@
 class Solution {
     public boolean backspaceCompare(String s, String t) {
-        Stack<Character> st1 = new Stack<>();
-        Stack<Character> st2= new Stack<>();
+        int c1=0;
+        int c2=0;
+        int n= s.length();
+        int m= t.length();
+        int i=n-1;
+        int j=m-1;
 
-        for(char ch:s.toCharArray()){
-            if(!st1.isEmpty() && ch=='#'){
-                st1.pop();
+
+        while(i>=0 && j>=0){
+            while(i>=0 && s.charAt(i)=='#'){
+                c1++;
+                i--;
             }
-            else if(ch!='#'){
-                st1.push(ch);
+            while(j>=0 && t.charAt(j)=='#'){
+                c2++;
+                j--;
+            }
+            while(i>=0 && c1>0 && s.charAt(i)!='#'){
+                c1--;
+                i--;
+            }
+            while(j>=0 && c2>0 && t.charAt(j)!='#'){
+                c2--;
+                j--;
+            }
+            if(i>=0 && j>=0 && s.charAt(i)!='#' && t.charAt(j)!='#'){
+                if(s.charAt(i)!=t.charAt(j)){
+                    return false;
+                }
+                else{
+                    i--;
+                    j--;
+                }
+            }
+            if(i==-1 && j==-1){
+                return true;
             }
         }
-
-        for(char ch:t.toCharArray()){
-            if(!st2.isEmpty() && ch=='#'){
-                st2.pop();
+        while(i>=0){
+            while(i>=0 && s.charAt(i)=='#'){
+                c1++;
+                i--;
             }
-            else if(ch!='#'){
-                st2.push(ch);
+            while(i>=0 && c1>0 && s.charAt(i)!='#'){
+                c1--;
+                i--;
             }
-        }
-        if(st1.size()!=st2.size()) return false;
-
-        while(!st1.isEmpty() && !st2.isEmpty()){
-            if(st1.peek()==st2.peek()){
-                st1.pop();
-                st2.pop();
+            if(i>=0 && s.charAt(i)!='#'){
+                return false;
             }
-            else{
+            if(i==0 && s.charAt(i)!='#'){
                 return false;
             }
         }
-        return st1.isEmpty();
+
+
+        while(j>=0){
+            while(j>=0 && t.charAt(j)=='#'){
+                c2++;
+                j--;
+            }
+            while(j>=0 && c2>0 && t.charAt(j)!='#'){
+                c2--;
+                j--;
+            }
+            if(j>=0 && t.charAt(j)!='#'){
+                return false;
+            }
+            if(j==0 && t.charAt(j)!='#'){
+                return false;
+            }
+            
+        }
+
+        return true;
 
 
     }
