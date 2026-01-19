@@ -1,41 +1,25 @@
 class Solution {
     public int[] nextGreaterElement(int[] nums1, int[] nums2) {
-        // int[] ans= new int[nums1.length];
-        // HashMap<Integer,Integer> map= new HashMap<>();
-        // int idx=0;
-        // for(int num:nums2){
-        //     map.put(num,idx);
-        //     idx++;
-        // }
-        // int k=0;
-        // for(int i=0;i<nums1.length;i++){
-        //     int id=map.get(nums1[i])+1;
-            
-        //     int nextGreater=-1;
-        //     for(int j=id;j<nums2.length;j++){
-        //         if(nums2[j]>nums1[i]) {
-        //             nextGreater = nums2[j];
-        //             break;
-        //         }
-                
-        //     }
-        //     ans[k]=nextGreater;
-        //     k++;
-        //     }
-        
-        // return ans;
-
+        int [] ans= new int[nums1.length];
+        HashMap<Integer,Integer> map= new HashMap<>(); // for storing next greater
         Stack<Integer> st= new Stack<>();
-        HashMap<Integer,Integer> map= new HashMap<>();
-        for(int num:nums2){
-            while(!st.isEmpty() && st.peek()<num){
-                map.put(st.pop(),num);
+        int n=nums2.length;
+        for(int i=n-1;i>=0;i--){
+
+            while(!st.isEmpty() && nums2[i] >=nums2[st.peek()]){
+                st.pop();
             }
-            st.push(num);
+            if(st.isEmpty()){
+                map.put(nums2[i],-1);
+            }
+            else{
+                map.put(nums2[i],nums2[st.peek()]);
+            }
+            st.push(i);
         }
-        int[] ans= new int[nums1.length];
-        for(int i=0;i<ans.length;i++){
-            ans[i]=map.getOrDefault(nums1[i],-1);
+        for(int i=0;i<nums1.length;i++){
+            int val= nums1[i];
+            ans[i] = map.get(val);
         }
         return ans;
 
