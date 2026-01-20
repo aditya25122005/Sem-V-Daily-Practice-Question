@@ -1,38 +1,37 @@
+import java.util.*;
 class Solution {
     public int sumSubarrayMins(int[] arr) {
+        int mod=1000000007;
+        int n= arr.length;
+        int [] nextSmaller= new int[n];
         Stack<Integer> st= new Stack<>();
-        int n=arr.length;
-        // HashMap<Integer,Integer> next= new HashMap<>();
-        // HashMap<Integer,Integer> prev= new HashMap<>();
-        int [] nextMin= new int[arr.length];
-        int [] prevMin= new int[arr.length];
-       
-        for(int i=0;i<arr.length;i++){
-            while(!st.isEmpty() && arr[i]<arr[st.peek()]){
-                // next.put(arr[st.pop()],i);
-                nextMin[st.pop()]=i;
+        for(int i=n-1;i>=0;i--){
+            while(!st.isEmpty() && arr[st.peek()]>= arr[i]){
+                st.pop();
+            }
+            if(st.isEmpty()){
+                nextSmaller[i]=-1;
+            }
+            else{
+                nextSmaller[i]=st.peek();
             }
             st.push(i);
         }
-        while(!st.isEmpty()){
-            nextMin[st.pop()]=n;
-        }
-        
-        st= new Stack<>();
-        for(int i=arr.length-1;i>=0;i--){
-            while(!st.isEmpty() && arr[i]<=arr[st.peek()]){
-                // prev.put(arr[st.pop()],i);
-                prevMin[st.pop()]=i;
+        int [] ans= new int[n];
+
+        for(int i=n-1;i>=0;i--){
+            if(nextSmaller[i]==-1){
+                int times = n-i;
+                ans[i] = (times*arr[i])%1000000007;
             }
-            st.push(i);
+            else{
+                ans[i]+= (ans[nextSmaller[i]] + ((nextSmaller[i]-i)*arr[i])%1000000007)%mod;
+            }
         }
-        while(!st.isEmpty()){
-            prevMin[st.pop()]=-1;
+        long total=0;
+        for(int v:ans){
+            total+=v;
         }
-        long ans=0;
-        for(int i=0;i<n;i++){
-            ans+= (long)arr[i]*(i-prevMin[i])*(nextMin[i]-i);
-        }
-        return (int)(ans%1000000007);
+        return (int) (total%mod);
     }
 }
