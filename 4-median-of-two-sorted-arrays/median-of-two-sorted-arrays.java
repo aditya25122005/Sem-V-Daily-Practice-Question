@@ -1,43 +1,28 @@
 class Solution {
     public double findMedianSortedArrays(int[] nums1, int[] nums2) {
-
-        // we take always nums1 as smallerst array to apply binary search on choosing no. of elements from nums1 
-        if(nums1.length>nums2.length){
+        if(nums2.length<nums1.length){
             return findMedianSortedArrays(nums2,nums1);
         }
-        int m=nums1.length;
-        int n=nums2.length;
+        int n= nums1.length;
+        int m=nums2.length;
 
-
-        int lo=0; // take 0 elements from part 1 and ALL from part 2
-        int hi=m; // take m elements from part 1 and rest from part 2
-        // we have to apply binary search on , no. of elements chosen from shorter array
-
+        int lo=0;
+        int hi=n;
         while(lo<=hi){
-            int cut1= lo+(hi-lo)/2; //No. of elements to take in LEFT part from nums1
-            int cut2= (m+n+1)/2 - cut1;  // no. of elements to take in LEFT part from nums2
-            // cut1+cut2 = half of the total elements (left part)
-            /*
-            nums1: [1, 3 | 8]
-            nums2: [7, 9 | 10, 11]
-             */
-
-            // Largest element in left part of nums1
-            int maxLeftA=(cut1==0)? Integer.MIN_VALUE : nums1[cut1-1];
-
-            // smallest element in right part of nums1
-            int minRightA= (cut1==m)?Integer.MAX_VALUE : nums1[cut1];
-
-            // Largest element in left side of nums2
-            int maxLeftB=(cut2==0)? Integer.MIN_VALUE : nums2[cut2-1];
-
-            // smallest element in right side of nums2
-            int minRightB=(cut2==n)? Integer.MAX_VALUE : nums2[cut2];
+            int cut1= lo+(hi-lo)/2;
+            int cut2= (n+m+1)/2 -cut1;
 
 
-            if(maxLeftA <= minRightB && maxLeftB<= minRightA){
+            int maxLeftA= cut1==0?Integer.MIN_VALUE: nums1[cut1-1];
+            int minRightA = cut1==n?Integer.MAX_VALUE: nums1[cut1];
+            int maxLeftB = cut2==0? Integer.MIN_VALUE: nums2[cut2-1];
+            int minRightB = cut2==m? Integer.MAX_VALUE: nums2[cut2];
+
+            if(maxLeftA<=minRightB && maxLeftB<= minRightA){
+                // odd elements
+                // Jo merged array banegi usme max element mid par hoga
                 if((m+n)%2==1){
-                    return Math.max(maxLeftA,maxLeftB);
+                    return Math.max(maxLeftA, maxLeftB);
                 }
                 else{
                     return (Math.max(maxLeftA,maxLeftB)+Math.min(minRightA,minRightB))/2.0;
@@ -50,9 +35,8 @@ class Solution {
                 lo=cut1+1;
             }
 
+
         }
         return 0.0;
-
-        
     }
 }
