@@ -1,10 +1,16 @@
 class Solution {
     int count=0;
     public int countTriplets(int[] arr) {
+        
         for(int i=0;i<arr.length-1;i++){
+            int xor_a=0;
             for(int j=i+1;j<arr.length;j++){
+                xor_a^= arr[j-1];
+                
+                int xor_b=0;
                 for(int k=j;k<arr.length;k++){
-                    if(isValid(i,j,k,arr)){
+                    xor_b^=arr[k];
+                    if(xor_a == xor_b){
                         count++;
                     }
                 }
