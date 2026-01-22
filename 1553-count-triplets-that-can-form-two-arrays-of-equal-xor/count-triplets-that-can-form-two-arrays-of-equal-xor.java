@@ -18,16 +18,16 @@ class Solution {
         }
         return count;
     }
-    public static boolean isValid(int i, int j, int k, int []arr){
-        int xora=0;
-        int xorb=0;
+    // public static boolean isValid(int i, int j, int k, int []arr){
+    //     int xora=0;
+    //     int xorb=0;
 
-        for(int p=i;p<j;p++){
-            xora^= arr[p];
-        }
-        for(int q=j;q<=k;q++){
-            xorb^= arr[q];
-        }
-        return xora==xorb;
-    }
+    //     for(int p=i;p<j;p++){
+    //         xora^= arr[p];
+    //     }
+    //     for(int q=j;q<=k;q++){
+    //         xorb^= arr[q];
+    //     }
+    //     return xora==xorb;
+    // }
 }
