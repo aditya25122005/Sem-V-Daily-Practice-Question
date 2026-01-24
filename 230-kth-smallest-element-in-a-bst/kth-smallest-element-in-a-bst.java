@@ -16,14 +16,14 @@
 class Solution {
     public int kthSmallest(TreeNode root, int k) {
         List<Integer> ll= new ArrayList<>();
-        Solve(root,ll);
-        Collections.sort(ll);
+        Solve(root,ll,k);
         return ll.get(k-1);
     }
-    public static void Solve(TreeNode root, List<Integer> ll){
+    public static void Solve(TreeNode root, List<Integer> ll,int k){
         if(root==null) return;
+        Solve(root.left,ll,k);
+        if(ll.size()==k) return;
         ll.add(root.val);
-        Solve(root.left,ll);
-        Solve(root.right,ll);
+        Solve(root.right,ll,k);
     }
 }
