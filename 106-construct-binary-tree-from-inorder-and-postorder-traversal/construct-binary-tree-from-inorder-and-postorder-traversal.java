@@ -14,23 +14,26 @@
  * }
  */
 class Solution {
-    public TreeNode buildTree(int[] inorder, int[] postorder) {
-        return build(inorder,0,inorder.length-1,postorder,0,postorder.length-1);
+    public TreeNode buildTree(int[] in, int[] post) {
+        return Solve(in,post,0,in.length-1,0,post.length-1);
     }
-    public TreeNode build(int[] in, int ilo, int ihi, int[] pos, int plo, int phi){
+    public static TreeNode Solve(int []in, int [] post, int ilo, int ihi, int plo, int phi){
         if(ilo>ihi || plo>phi){
             return null;
         }
-        TreeNode root= new TreeNode(pos[phi]);
-        int idx=search(in,pos[phi],ilo,ihi);
-        int ne= ihi-idx; // element in right subtree
-        root.left=build(in,ilo,idx-1,pos,plo,plo+(idx-ilo-1));
-        root.right=build(in,idx+1,ihi,pos,phi-ne,phi-1);
+        TreeNode root= new TreeNode(post[phi]);
+        int idx=search(in, ilo, ihi, root.val);
+        int ne=ihi-idx; // net element in right subtree
+        root.right= Solve(in,post,idx+1,ihi,phi-ne,phi-1);
+        root.left= Solve(in,post,ilo,idx-1,plo,phi-ne-1);
         return root;
     }
-    public static int search(int[]in, int item , int si, int ei){
-        for(int i=si;i<=ei;i++){
-            if(in[i]==item){
+    public static int search(int[] in, int ilo, int ihi, int v)
+    {
+        for(int i=ilo;i<=ihi;i++)
+        {
+            if(in[i]==v)
+            {
                 return i;
             }
         }
