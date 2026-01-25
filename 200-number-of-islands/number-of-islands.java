@@ -1,24 +1,40 @@
 class Solution {
     public int numIslands(char[][] grid) {
-        int ans=0;
-        for(int i=0;i<grid.length;i++){
-            for(int j=0;j<grid[0].length;j++){
+        
+        int n= grid.length;
+        int m= grid[0].length;
+
+        boolean [][] visited = new boolean[n][m];
+
+        int [] r={-1,1,0,0};
+        int [] c={0,0,-1,1};
+
+        Queue<int []> q= new LinkedList<>();
+        int comp =0;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
                 if(grid[i][j]=='1'){
-                    Solve(grid,i,j);
-                    ans++;
+                    q.add(new int[]{i,j});
+                    visited[i][j]=true;
+                    grid[i][j]='0';
+                    comp++;
+                    while(!q.isEmpty()){
+                        int [] A= q.poll();
+                        int cr = A[0];
+                        int cc= A[1];
+                        for(int k=0;k<r.length;k++){
+                            int nr= cr+ r[k];
+                            int nc= cc+ c[k];
+                            if(nr<n && nc<m && nr>=0 && nc>=0 && grid[nr][nc]=='1' && !visited[nr][nc]){
+                                grid[nr][nc]='0';
+                                visited[nr][nc] = true;
+                                q.add(new int[]{nr,nc});
+                            }
+                        }
+                    }
                 }
             }
         }
-        return ans;
-    }
-    public static void Solve(char[][] arr, int i, int j){
-        if(i<0 || i>=arr.length || j<0 || j>=arr[0].length || arr[i][j]!='1'){
-            return;
-        }
-        arr[i][j]='0';
-        Solve(arr,i+1,j);
-        Solve(arr,i-1,j);
-        Solve(arr,i,j+1);
-        Solve(arr,i,j-1);
+        return comp;
     }
 }
