@@ -3,6 +3,10 @@ class Solution {
         if(!wordList.contains(end)) return 0;
         Queue<String> q= new LinkedList<>();
         HashSet<String> visited= new HashSet<>();
+        HashSet<String> hh= new HashSet<>();
+        for(String str:wordList) hh.add(str);
+         if(!hh.contains(end)) return 0;
+
         int count=1;
         q.add(begin);
         while(!q.isEmpty()){
@@ -16,12 +20,26 @@ class Solution {
                 if(rm.equals(end)){
                     return count;
                 }
-            
-                for(String str:wordList){
-                    if(!visited.contains(str) && canBe(str,rm)){
-                        q.add(str);
+                char[] A= rm.toCharArray();
+                for(int j=0;j<A.length;j++){
+                    char old= A[j];
+                    for(char ch='a';ch<='z';ch++){
+                        A[j]=ch;
+
+                        String str= new String(A);
+                        if(!visited.contains(str) && hh.contains(str)){
+                            
+                            q.add(str);
+                        }
                     }
+                    A[j]=old;
                 }
+            
+                // for(String str:wordList){
+                //     if(!visited.contains(str) && canBe(str,rm)){
+                //         q.add(str);
+                //     }
+                // }
             }
             count++;
         }
