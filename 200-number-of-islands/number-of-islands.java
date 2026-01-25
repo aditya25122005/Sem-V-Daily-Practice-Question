@@ -4,8 +4,6 @@ class Solution {
         int n= grid.length;
         int m= grid[0].length;
 
-        boolean [][] visited = new boolean[n][m];
-
         int [] r={-1,1,0,0};
         int [] c={0,0,-1,1};
 
@@ -15,7 +13,7 @@ class Solution {
             for(int j=0;j<m;j++){
                 if(grid[i][j]=='1'){
                     q.add(new int[]{i,j});
-                    visited[i][j]=true;
+
                     grid[i][j]='0';
                     comp++;
                     while(!q.isEmpty()){
@@ -25,9 +23,8 @@ class Solution {
                         for(int k=0;k<r.length;k++){
                             int nr= cr+ r[k];
                             int nc= cc+ c[k];
-                            if(nr<n && nc<m && nr>=0 && nc>=0 && grid[nr][nc]=='1' && !visited[nr][nc]){
+                            if(nr<n && nc<m && nr>=0 && nc>=0 && grid[nr][nc]=='1'){
                                 grid[nr][nc]='0';
-                                visited[nr][nc] = true;
                                 q.add(new int[]{nr,nc});
                             }
                         }
