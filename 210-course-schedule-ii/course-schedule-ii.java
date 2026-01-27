@@ -1,46 +1,49 @@
 class Solution {
-    public int[] findOrder(int num, int[][] preq) {
+    public int[] findOrder(int n, int[][] pre) {
         HashMap<Integer,List<Integer>> map= new HashMap<>();
-        for(int i=0;i<num;i++){
-            map.put(i,new ArrayList<>());
+        for(int i=0;i<n;i++){
+            map.put(i, new ArrayList<>());
         }
-        for(int[]A:preq){
-            map.get(A[1]).add(A[0]);
+        for(int [] E: pre){
+            int u= E[0];
+            int v= E[1];
+            map.get(u).add(v);
+            map.get(v).add(u);
         }
+        int [] ans= new int[n];
+        int idx=0;
+        // 1,0-> 1-->0
+        // must do course b to take curse a
+        int [] in = new int[n];
+        for(int [] A: pre){
+            int u= A[0];
+            int v= A[1];
 
-        int [] in= new int[num];
-        for(int u:map.keySet()){
-            for(int v:map.get(u)){
-                in[v]++;
-            }
+            in[u]++;
         }
         Queue<Integer> q= new LinkedList<>();
         for(int i=0;i<in.length;i++){
             if(in[i]==0){
+                ans[idx++]=i;
                 q.add(i);
             }
         }
-        List<Integer> ans= new ArrayList<>();
         while(!q.isEmpty()){
-            int rm=q.poll();
-            ans.add(rm);
+            int rm= q.poll();
 
-            for(int nbrs:map.get(rm)){
+            for(int nbrs: map.get(rm)){
                 in[nbrs]--;
                 if(in[nbrs]==0){
                     q.add(nbrs);
+                    ans[idx++]= nbrs;
                 }
             }
+
         }
-        int [] res= new int[ans.size()];
-        if(ans.size()!=num) {
-            return new int[]{};
-        }
-        else{
-            for(int i=0;i<ans.size();i++){
-                res[i]=ans.get(i);
-            }
-        }
-        return res;
+        if(idx<n) return new int[]{};
+        return ans;
+
+
+
     }
 }
