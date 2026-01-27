@@ -1,5 +1,6 @@
 class Solution {
     public int timeRequiredToBuy(int[] arr, int k) {
+
         Queue<int[]> q= new LinkedList<>();
         for(int i=0;i<arr.length;i++){
             q.add(new int[]{arr[i],i});
