@@ -1,28 +1,18 @@
 class Solution {
     public int characterReplacement(String s, int k) {
-        return Solve(s,k);
-    }
-    public static int Solve(String s, int k){
-        int ans=0;
-        for(char ch='A';ch<='Z';ch++){
-            ans=Math.max(ans,check(s,k,ch));
-        }
-        return ans;
-    }
-    public static int check(String s, int k, char ch){
+        HashMap<Character,Integer> map= new HashMap<>();
         int si=0;
         int ei=0;
         int ans=0;
-        int flip=0;
+        int maxFreq=0;
         while(ei<s.length()){
-            if(s.charAt(ei)!=ch){
-                flip++;
-            }
-            while(flip>k){
-                if(s.charAt(si)!=ch){
-                    flip--;
-                }
-                si++;
+            map.put(s.charAt(ei),map.getOrDefault(s.charAt(ei),0)+1);
+            maxFreq= Math.max(maxFreq, map.get(s.charAt(ei)));
+
+            if((ei-si+1)-maxFreq> k){
+               int old = map.get(s.charAt(si));
+               map.put(s.charAt(si),old-1);
+                si++; 
             }
             ans=Math.max(ans,ei-si+1);
             ei++;
