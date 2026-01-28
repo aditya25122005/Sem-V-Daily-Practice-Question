@@ -1,30 +1,31 @@
 class Solution {
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
-        List<List<Integer>> ll= new ArrayList<>();
-        List<Integer> curr= new ArrayList<>();
-
-        Solve(candidates,ll,curr,target,0);
-        return ll;
+        List<List<Integer>> ans= new ArrayList<>();
+        List<Integer> inner= new ArrayList<>();
+        Arrays.sort(candidates);
+        Solve(candidates,0,target,0,ans,inner);
+        return ans;
 
     }
-    public static void Solve(int[] arr, List<List<Integer>> ll, List<Integer> curr, int target, int idx){
-        if(target==0){
-            ll.add(new ArrayList<>(curr));
+    public static void Solve(int[] arr, int idx, int target,int curr,List<List<Integer>> ans,List<Integer> inner){
+        if(target==curr){
+            ans.add(new ArrayList<>(inner));
             return;
         }
         if(idx>=arr.length){
             return;
         }
-        
- 
-            if(arr[idx]<=target){
-                curr.add(arr[idx]);
-                Solve(arr,ll,curr,target-arr[idx],idx);
-                curr.remove(curr.get(curr.size()-1));
-            }
-            
-            Solve(arr,ll,curr,target,idx+1);
+        // for(int i=idx;i<arr.length;i++){
+            if(arr[idx]+curr<=target){
+                
+                inner.add(arr[idx]);
        
+                Solve(arr,idx,target,curr+arr[idx],ans,inner);
+
+                inner.remove(inner.size()-1);
+                Solve(arr,idx+1,target,curr,ans,inner);
+            }
+        // }
 
     }
 }
