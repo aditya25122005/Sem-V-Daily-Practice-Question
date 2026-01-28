@@ -1,32 +1,26 @@
 class Solution {
     public List<List<Integer>> combinationSum2(int[] candidates, int target) {
-        List<List<Integer>> ll= new ArrayList<>();
-        List<Integer>inner= new ArrayList<>();
+        List<List<Integer>> ans= new ArrayList<>();
+        List<Integer> ll= new ArrayList<>();
         Arrays.sort(candidates);
-        Solve(candidates,target,inner,ll,0);
-        return ll;
-
-
+        Solve(candidates,0,target,ans,ll);
+        return ans;
 
     }
-    public static void Solve(int[] coins, int amount, List<Integer> inner, List<List<Integer>> ll, int idx){
-
-    if(amount==0){
-        ll.add(new ArrayList<>(inner));
-        return;
-    }
-        
-    for(int i=idx;i<coins.length;i++){
-
-        if(i>idx && coins[i-1]==coins[i]){ // Already done for i-1th coin
-            continue;
+    public static void Solve(int[] arr, int idx, int target,List<List<Integer>> ans,List<Integer> ll){
+        if(target==0){
+            ans.add(new ArrayList<>(ll));
+            return;
         }
-        if(amount>=coins[i]){
-            inner.add(coins[i]);
-            Solve(coins,amount-coins[i],inner,ll,i+1);
-            inner.remove(inner.size()-1);
+        if(idx==arr.length){
+            return;
         }
-    }
-
+        if(target>= arr[idx]){
+            ll.add(arr[idx]);
+            Solve(arr,idx+1,target-arr[idx],ans,ll);
+            while(idx+1<arr.length && arr[idx+1]==arr[idx]) idx++;
+            ll.remove(ll.size()-1);
+        }
+        Solve(arr,idx+1,target,ans,ll);
     }
 }
