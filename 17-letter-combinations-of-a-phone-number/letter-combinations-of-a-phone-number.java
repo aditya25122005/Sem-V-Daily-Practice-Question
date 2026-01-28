@@ -1,22 +1,21 @@
 class Solution {
-    static String[] keys={"","","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
     public List<String> letterCombinations(String digits) {
+        List<String> ans= new ArrayList<>();
+        String [] arr= {"","","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
 
-        List<String> ll= new ArrayList<>();
-        if(digits.equals("")) return ll;
-        Solve(ll,digits,"");
-        return ll;
+        Solve(digits,arr,ans,"");
+        return ans;
     }
-    public static void Solve(List<String> ll, String digits,String ans){
-        if(digits.length()==0){
-            ll.add(ans);
+    public static void Solve(String s, String [] arr, List<String> ans, String sb){
+        if(s.length()==0){
+            ans.add(sb);
             return;
         }
-        int di=digits.charAt(0)-'0';
-        String key=keys[di];// abc
-        for(int i=0;i<key.length();i++){
-            char ch=key.charAt(i);
-            Solve(ll,digits.substring(1),ans+ch);
+        char ch= s.charAt(0);
+        String ques= s.substring(1);
+        String curr= arr[ch-'0']; // abc
+        for(int i=0;i<curr.length();i++){
+            Solve(ques,arr,ans,sb+curr.charAt(i));
         }
     }
 }
