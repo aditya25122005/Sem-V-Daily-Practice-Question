@@ -19,7 +19,7 @@ class Solution {
         for(int i=0;i<arr.length;i++){
             int lim= arr[i][0];
             int v= arr[i][1];
-            if(pq.size()<lim && lim>global){
+            if(pq.size()<lim && lim>global){ // global is max. active element till Now-> If max_Active_Till_Now(x) >= lim then we can not active
                 ans+=(long)v;
                 pq.add(lim);
 
