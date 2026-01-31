@@ -1,28 +1,45 @@
 class Solution {
     public int countElements(int[] nums) {
         int n= nums.length;
-        Arrays.sort(nums);
-        int l=0;
-        while(l<n-1){
-            if(nums[l]==nums[l+1]){
-                l++;
+        int min=Integer.MAX_VALUE;
+        int max=Integer.MIN_VALUE;
+
+        for(int num:nums){
+            if(num<min){
+                min=num;
             }
-            else{
-                break;
+            if(num>max){
+                max=num;
             }
         }
-        int r=n-1;
-        while(r>0){
-            if(nums[r]==nums[r-1]){
-                r--;
-            }
-            else{
-                break;
-            }
+        int c=0;
+        for(int v:nums){
+            if(v>min && v<max) c++;
+        }
+        return c;
+
+        // Arrays.sort(nums);
+        // int l=0;
+        // while(l<n-1){
+        //     if(nums[l]==nums[l+1]){
+        //         l++;
+        //     }
+        //     else{
+        //         break;
+        //     }
+        // }
+        // int r=n-1;
+        // while(r>0){
+        //     if(nums[r]==nums[r-1]){
+        //         r--;
+        //     }
+        //     else{
+        //         break;
+        //     }
             
-        }
-        if(r<=l) return 0;
-        return r-l-1;
+        // }
+        // if(r<=l) return 0;
+        // return r-l-1;
 
 
     }
