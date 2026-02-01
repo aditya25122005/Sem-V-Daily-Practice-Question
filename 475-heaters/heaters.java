@@ -21,19 +21,23 @@ class Solution {
         
         for(int h:houses){
             int idx=Arrays.binarySearch(heaters,h);
-            if(idx<0){
+            if(idx<0){ // bs returns  -(insertionPoint) - 1;
                 idx= -idx-1;
             }
-            int left=Integer.MAX_VALUE;
-            int right=Integer.MAX_VALUE;
+            
+            int nearest= Integer.MAX_VALUE;
             if(idx<heaters.length){
-                right=Math.abs(heaters[idx]-h);
+                nearest= Math.min(nearest, heaters[idx]-h);
             }
-            if(idx-1>=0){
-                left=Math.abs(heaters[idx-1]-h);
+            
+            //check in left
+            if(idx>0){
+                nearest=Math.min(nearest, h-heaters[idx-1]);
             }
-            int smallest=Math.min(left,right);
-            if(smallest>R) return false;
+            if(nearest>R){
+                return false;
+            }
+           
         }
         return true;
     }
