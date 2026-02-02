@@ -24,7 +24,7 @@ class Solution {
         while(temp.next!=null){
             if(i==(size/2)-1){
                 temp.next=temp.next.next;
-                i++;
+                break;
             }
             else{
                 i++;
