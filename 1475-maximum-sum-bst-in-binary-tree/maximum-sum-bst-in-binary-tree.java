@@ -17,7 +17,7 @@ class Solution {
     public int maxSumBST(TreeNode root) {
         return Solve(root).ans;
     }
-    public Pair Solve(TreeNode root){
+        Pair Solve(TreeNode root){
         if(root==null){
             return new Pair();
         }
