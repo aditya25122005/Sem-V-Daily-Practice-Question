@@ -15,19 +15,23 @@
  */
 class Solution {
     public boolean isValidBST(TreeNode root) {
-        return Solve(root, Long.MIN_VALUE, Long.MAX_VALUE);
-
+        return Solve(root).isBST;
     }
-    public static boolean Solve(TreeNode root, long min, long max){
+    public Pair Solve(TreeNode root){
         if(root==null){
-            return true;
+            return new Pair();
         }
-
-        if(root.val<=min || root.val>=max){
-            return false;
-        }
-        boolean left= Solve(root.left, min, root.val);
-        boolean right= Solve(root.right,root.val,max);
-        return left&&right;
+        Pair left = Solve(root.left);
+        Pair right = Solve(root.right);
+        Pair nP = new Pair();
+        nP.min=Math.min(root.val, Math.min(left.min,right.min));
+        nP.max=Math.max(root.val, Math.max(left.max,right.max));
+        nP.isBST = left.isBST && right.isBST && left.max<root.val && root.val<right.min;
+        return nP;
+    }
+    class Pair{
+        long min=Long.MAX_VALUE;
+        long max=Long.MIN_VALUE;
+        boolean isBST=true;
     }
 }
