@@ -15,30 +15,33 @@
  */
 class Solution {
     public int maxProduct(TreeNode root) {
-
-        long total= totalSum(root);
-        maxProduct=0;
-        Solve(root,total);
-        return (int)(maxProduct%1000000007);
+        ans=1;
+        total= Sum(root);
+        Solve(root);
+        return (int)(ans%1000000007);
 
     }
-    static long maxProduct;
-    public static long Solve(TreeNode root, long total){
+    static long ans;
+
+    static int total;
+
+    public static long Solve(TreeNode root){
         if(root==null){
             return 0;
         }
-       
-        long left=Solve(root.left,total);
-        long right=Solve(root.right,total);
-
-        long subtreeSum = root.val + left + right;
-        maxProduct=Math.max(maxProduct, (long)(subtreeSum*(total-subtreeSum)));
-        return subtreeSum;
+        long left = Solve(root.left); // left subtree 
+        long right= Solve(root.right); // right Subtree
+        long subtree = left+right+root.val;
+        ans=Math.max(ans, (long)(total-subtree)*(subtree));
+        return subtree;
     }
-    public static long totalSum(TreeNode root){
+
+    public static int Sum(TreeNode root){
         if(root==null){
             return 0;
         }
-        return root.val+(totalSum(root.left))+ totalSum(root.right);
+        int left= Sum(root.left);
+        int right=Sum(root.right);
+        return left+right+root.val;
     }
 }
