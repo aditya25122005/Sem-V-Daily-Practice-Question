@@ -15,34 +15,33 @@
  */
 class Solution {
     public int maxSumBST(TreeNode root) {
-         return ValidBST(root).ans;
+        return Solve(root).ans;
     }
-    public BstPair ValidBST(TreeNode root){
+    public Pair Solve(TreeNode root){
         if(root==null){
-            return new BstPair();
+            return new Pair();
         }
-        BstPair lbp= ValidBST(root.left);
-        BstPair rbp= ValidBST(root.right);
-
-        BstPair sbp = new BstPair();
-
-        sbp.min=Math.min(lbp.min,Math.min(rbp.min,root.val));
-        sbp.max=Math.max(lbp.max,Math.max(rbp.max,root.val));
-        sbp.sum=lbp.sum + rbp.sum +root.val;
-
-        sbp.isbst=lbp.isbst && rbp.isbst && lbp.max<root.val && rbp.min>root.val;
-        if(sbp.isbst){
-            sbp.ans=Math.max(lbp.ans, Math.max(rbp.ans, sbp.sum));
-        }else{
-            sbp.ans=Math.max(lbp.ans,rbp.ans);
+        Pair left = Solve(root.left);
+        Pair right = Solve(root.right);
+        Pair nP= new Pair();
+        nP.min=Math.min(left.min,Math.min(right.min,root.val));
+        nP.max=Math.max(left.max,Math.max(right.max,root.val));
+        nP.sum= left.sum+right.sum+root.val;
+        nP.isBST = left.isBST && right.isBST && root.val>left.max && root.val<right.min;
+        if(nP.isBST){
+            nP.ans=Math.max(left.ans,Math.max(right.ans,nP.sum));
         }
-        return sbp;
+        else{
+            nP.ans=Math.max(left.ans,right.ans);
+        }
+        return nP;
+
     }
-    class BstPair{
-    boolean isbst=true;
-     int min = Integer.MAX_VALUE;
-    int max = Integer.MIN_VALUE;
-    int sum = 0;
-    int ans = 0;       
+    class Pair{
+        int min=Integer.MAX_VALUE;
+        int max=Integer.MIN_VALUE;
+        boolean isBST=true;
+        int sum=0;
+        int ans=0;
     }
 }
