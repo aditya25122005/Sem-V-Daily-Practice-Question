@@ -22,23 +22,17 @@ class Solution {
             return true;
         }
         return Solve(root.left, root.right);
-        
-
     }
-    public boolean Solve(TreeNode root1, TreeNode root2){
-        if(root1==null && root2==null){
-            return true;
-        }
-        if(root1==null){
-            return false;
-        }
-        if(root2==null){
-            return false;
-        }
-        if(root1.val!=root2.val) return false;
-        boolean a=Solve(root1.left, root2.right);
-        boolean b=Solve(root1.right,root2.left);
-        return a&&b;
+    public static boolean Solve(TreeNode root1, TreeNode root2){
+        if(root1==null && root2==null) return true;
+        if(root1==null) return false;
+        if(root2==null) return false;
 
+        if(root1.val!= root2.val){
+            return false;
+        }
+        boolean a= Solve(root1.left, root2.right);
+        boolean b= Solve(root1.right, root2.left);
+        return a && b;
     }
 }
