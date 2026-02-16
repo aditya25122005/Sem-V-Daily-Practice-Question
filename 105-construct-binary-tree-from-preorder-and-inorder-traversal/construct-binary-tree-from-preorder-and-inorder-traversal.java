@@ -15,22 +15,24 @@
  */
 class Solution {
     public TreeNode buildTree(int[] pre, int[] in) {
-        return Solve(pre,in,0,pre.length-1,0,in.length-1);
+        return Solve(pre,0,pre.length-1, in,0, in.length-1);
     }
-    public TreeNode Solve(int []pre, int []in,int plo,int phi,int ilo,int ihi){
-        if(ilo>ihi || plo>phi){
+    public static TreeNode Solve(int [] pre ,int plo, int phi,int []in ,int ilo, int ihi){
+        if(plo>phi || ilo>ihi){
             return null;
         }
-        TreeNode root= new TreeNode(pre[plo]);
-        int idx= search(in,ilo,ihi,root.val);
-        int ne= idx-ilo; // net elements in left tree
-        root.left= Solve(pre,in,plo+1,plo+ne,ilo,idx-1);
-        root.right= Solve(pre,in,plo+ne+1, phi,idx+1,ihi);
-        return root;
+        TreeNode nn= new TreeNode(pre[plo]);
+        int idx= search(in, pre[plo],ilo,ihi);
+        int ne = idx-ilo; // elements in left
+        nn.left= Solve(pre, plo+1, plo+ne, in, ilo, idx-1);
+        nn.right= Solve(pre,plo+ne+1 ,phi,in,idx+1,ihi);
+        return nn;
     }
-    public static int search(int []in, int ilo, int ihi, int v){
+    public static int search(int[] in, int target,int ilo,int ihi){
         for(int i=ilo;i<=ihi;i++){
-            if(in[i]==v) return i;
+            if(in[i]==target){
+                return i;
+            }
         }
         return -1;
     }
