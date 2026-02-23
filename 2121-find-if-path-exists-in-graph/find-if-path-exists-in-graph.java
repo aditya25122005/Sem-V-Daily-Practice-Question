@@ -10,22 +10,23 @@ class Solution {
             map.get(u).add(v);
             map.get(v).add(u);
         }
-        Queue<Integer> q= new LinkedList<>();
-        q.add(src);
         HashSet<Integer> visited= new HashSet<>();
-        while(!q.isEmpty()){
-            int rm= q.poll();
-            if(visited.contains(rm)){
-                continue;
-            }
-            visited.add(rm);
-            if(rm==des) return true;
-            for(int nbrs : map.get(rm)){
-                if(!visited.contains(nbrs)){
-                    q.add(nbrs);
-                }
+        return hasPath(src,des,visited,map);
+       
+    }
+    public static boolean hasPath(int src, int des, HashSet<Integer> visited,
+    HashMap<Integer,List<Integer>> map){
+        if(src==des){
+            return true;
+        }
+        visited.add(src);
+        for(int nbrs: map.get(src)){
+            if(!visited.contains(nbrs)){
+                boolean res= hasPath(nbrs,des,visited,map);
+                if(res) return true;
             }
         }
         return false;
+
     }
 }
