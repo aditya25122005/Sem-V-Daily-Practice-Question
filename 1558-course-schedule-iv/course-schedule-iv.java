@@ -14,45 +14,42 @@ class Solution {
             map.get(u).add(v);
         }
 
-       
-        
+       boolean[][] hasPath= new boolean[numCourses][numCourses];
         List<Boolean> ll= new ArrayList<>();
 
 
-        for(int [] Q: queries){
+       for(int u=0;u<numCourses;u++){
             Queue<Integer> q= new LinkedList<>();
             HashSet<Integer> visited= new HashSet<>();
-            int src= Q[0];
-            int des= Q[1];
-            if(path.get(src).contains(des)){
-                ll.add(true);
-                continue;
-            }
-            q.add(src);
-            boolean mark=false;
+           
+            q.add(u);
+
             while(!q.isEmpty()){
                 int rm= q.poll();
-                if(rm!=src){
-                    path.get(src).add(rm);
-                }
-
                 if(visited.contains(rm)) continue;
-
                 visited.add(rm);
 
-                if(rm==des){
-                    ll.add(true);
-                    mark=true;
-                    break;
-                }
                 for(int nbrs : map.get(rm)){
                     if(!visited.contains(nbrs)){
+                        path.get(u).add(nbrs);
+                        
                         q.add(nbrs);
                     }
                 }
             }
-            if(!mark) ll.add(false);
+          
+        }
 
+        for(int[] Q: queries){
+            int u= Q[0];
+            int v= Q[1];
+            if(path.get(u).contains(v)){
+                ll.add(true);
+            }
+            else{
+                ll.add(false);
+            }
+            // ll.add(hasPath[u][v]);
         }
         return ll;
 
