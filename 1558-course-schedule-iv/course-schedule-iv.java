@@ -14,16 +14,13 @@ class Solution {
             map.get(u).add(v);
         }
 
-       boolean[][] hasPath= new boolean[numCourses][numCourses];
         List<Boolean> ll= new ArrayList<>();
 
 
        for(int u=0;u<numCourses;u++){
             Queue<Integer> q= new LinkedList<>();
             HashSet<Integer> visited= new HashSet<>();
-           
             q.add(u);
-
             while(!q.isEmpty()){
                 int rm= q.poll();
                 if(visited.contains(rm)) continue;
@@ -32,7 +29,6 @@ class Solution {
                 for(int nbrs : map.get(rm)){
                     if(!visited.contains(nbrs)){
                         path.get(u).add(nbrs);
-                        
                         q.add(nbrs);
                     }
                 }
@@ -49,7 +45,6 @@ class Solution {
             else{
                 ll.add(false);
             }
-            // ll.add(hasPath[u][v]);
         }
         return ll;
 
