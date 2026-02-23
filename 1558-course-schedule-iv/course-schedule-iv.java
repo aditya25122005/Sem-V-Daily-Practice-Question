@@ -2,9 +2,10 @@ class Solution {
     public List<Boolean> checkIfPrerequisite(int numCourses, int[][] pre, int[][] queries) {
 
         HashMap<Integer,List<Integer>> map= new HashMap<>();
-        HashMap<Integer,Integer> path= new HashMap<>();
+        HashMap<Integer,List<Integer>> path= new HashMap<>();
         for(int i=0;i<numCourses;i++){
             map.put(i, new ArrayList<>());
+            path.put(i, new ArrayList<>());
         }
 
         for(int [] E:pre ){
@@ -23,10 +24,17 @@ class Solution {
             HashSet<Integer> visited= new HashSet<>();
             int src= Q[0];
             int des= Q[1];
+            if(path.get(src).contains(des)){
+                ll.add(true);
+                continue;
+            }
             q.add(src);
             boolean mark=false;
             while(!q.isEmpty()){
                 int rm= q.poll();
+                if(rm!=src){
+                    path.get(src).add(rm);
+                }
 
                 if(visited.contains(rm)) continue;
 
