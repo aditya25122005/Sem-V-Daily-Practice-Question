@@ -14,26 +14,37 @@
  * }
  */
 class Solution {
-    int sum=0;
     public int sumRootToLeaf(TreeNode root) {
-        
-        solve(root,"");
+        sum=0;
+        List<Integer> ll= new ArrayList<>();
+        Solve(root,ll);
         return sum;
     }
-    public void solve(TreeNode root,String s){
+   static int sum=0;
+    public static void Solve(TreeNode root, List<Integer> ll){
         if(root==null){
             return;
         }
-        s=s+root.val;
-
+        ll.add(root.val);
         if(root.left==null && root.right==null){
-            if(!s.equals("")){
-            sum+=Integer.parseInt(s,2);
-            return;
-            }
-        }    
-            solve(root.left,s);
-            solve(root.right,s);
+            sum+= eval(ll);
+        }
+        else{
+            Solve(root.left,ll);
+            Solve(root.right,ll);
+        }
+        ll.remove(ll.size()-1);
+
+    }
+    public static int eval(List<Integer> arr){
+        int p= arr.size()-1;
+        int sum=0;
+        for(int i=0;i<arr.size();i++){
+            
+            sum+= ((int)Math.pow(2,p) * arr.get(i));
+            p--;
+         }
+         return sum;
     }
 
 }
