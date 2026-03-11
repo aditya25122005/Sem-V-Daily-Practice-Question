@@ -1,53 +1,61 @@
 class Solution {
     public String minWindow(String s, String t) {
+        if(t.length()> s.length()) return "";
         HashMap<Character,Integer> freq= new HashMap<>();
-        for(char ch: t.toCharArray()){
+        for(int i=0;i<t.length();i++){
+            char ch= t.charAt(i);
             freq.put(ch,freq.getOrDefault(ch,0)+1);
         }
-        int total= t.length();
-        HashMap<Character,Integer> map= new HashMap<>();
+
         int si=0;
         int ei=0;
         int ansLen=Integer.MAX_VALUE;
-        String ans="";
+        int ans_lo=0;
+        int ans_hi=0; // indices for answer substring
+
+        HashMap<Character,Integer> map= new HashMap<>();
+
+
         while(ei<s.length()){
             char ch= s.charAt(ei);
             if(freq.containsKey(ch)){
                 map.put(ch,map.getOrDefault(ch,0)+1);
-                if(check(freq,map)){
+                if(check(map,freq)){
+                    int currLen= ei-si+1;
+                    if(currLen<ansLen){
+                        ansLen=currLen;
+                        ans_lo=si;
+                        ans_hi=ei+1;
+                    }
+                
+                while(si<ei && (!freq.containsKey(s.charAt(si)) || map.get(s.charAt(si))> freq.get(s.charAt(si))) ){
+                    char c= s.charAt(si);
+                    if(map.containsKey(c)){
+                        map.put(c,map.get(c)-1);
+                    }
+                    si++;
+
                     int curr= ei-si+1;
                     if(curr<ansLen){
-                        ans=s.substring(si,ei+1);
-                        ansLen=ans.length();
-                    }
-                    // ans= s.substring(si,ei+1);
-                    while(si<ei && (!freq.containsKey(s.charAt(si)) || 
-                    map.get(s.charAt(si))> freq.get(s.charAt(si)))){
-                        char c= s.charAt(si);
-                        if(map.containsKey(c)){
-                        map.put(c,map.get(c)-1);
-                        }
-                        si++;
-                        
-                        curr=ei-si+1;
-                        if(curr<ansLen){
-                            ans=s.substring(si,ei+1);
-                            ansLen=ans.length();
-                        }
+                        ansLen=curr;
+                        ans_lo=si;
+                        ans_hi=ei+1;
                     }
                 }
-
             }
-            ei++;
         }
-        return ans;
+        ei++;
+        }
+        return s.substring(ans_lo,ans_hi);
+
     }
-    public static boolean check(HashMap<Character,Integer> freq, HashMap<Character,Integer> map){
-        if(freq.size()!= map.size()){
+
+    public static boolean check(HashMap<Character,Integer> map,HashMap<Character,Integer> freq){
+        if(freq.size() != map.size()){
             return false;
         }
         for(char key: freq.keySet()){
-            if(map.get(key)<freq.get(key)){
+            if(map.get(key)< freq.get(key)){
                 return false;
             }
         }
