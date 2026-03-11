@@ -1,32 +1,35 @@
 class Solution {
     public List<List<Integer>> fourSum(int[] nums, int target) {
-        int n= nums.length;
+        
         List<List<Integer>> ll= new ArrayList<>();
+        int n=nums.length;
         Arrays.sort(nums);
 
         for(int i=0;i<n-3;i++){
             if(i>0 && nums[i]==nums[i-1]) continue;
             for(int j=i+1;j<n-2;j++){
                 if(j>i+1 && nums[j]==nums[j-1]) continue;
+                int left= j+1;
+                int right= n-1;
 
-                int lo= j+1;
-                int hi=n-1;
-                while(lo<hi){
-                    long curr =(long) nums[i]+nums[j]+nums[lo]+nums[hi];
-                    if(curr==target){
-                        ll.add(Arrays.asList(nums[i],nums[j],nums[lo],nums[hi]));
-                        lo++;
-                        hi--;
-                        while(lo<hi && nums[lo]==nums[lo-1]) lo++;
-                        while(lo<hi && nums[hi]==nums[hi+1]) hi--;
+                while(left<right){
+                    long sum= (long)nums[i]+nums[j]+nums[left]+nums[right];
+                    if(sum==target){
+                        ll.add(Arrays.asList(nums[i],nums[j],nums[left],nums[right]));
+                        left++;
+                        right--;
+                        while(left<right && nums[left]==nums[left-1]) left++;
+                        while(left<right && nums[right]==nums[right+1]) right--;
                     }
-                    else if(curr<target){
-                        lo++;
-                        while(lo<hi && nums[lo]==nums[lo-1]) lo++;
+                    else if(sum<target){
+                        left++;
+                        while(left<right && nums[left]==nums[left-1]) left++;
+                        
                     }
                     else{
-                        hi--;
-                        while(lo<hi && nums[hi]==nums[hi+1]) hi--;
+                        right--;
+                        while(left<right && nums[right]==nums[right+1]) right--;
+                        
                     }
                 }
             }
