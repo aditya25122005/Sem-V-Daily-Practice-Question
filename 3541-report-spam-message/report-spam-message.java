@@ -8,6 +8,7 @@ class Solution {
         for(String s: message){
             if(banned.contains(s)){
                 c++;
+                if(c==2) return true;
             }
         }
         return c>=2;
