@@ -23,7 +23,7 @@ class Solution {
                 if(str.equals(endWord)){
                     find=true;
                     //ans=Math.min(ans,dis);
-                    //break;
+                    break;
                 }
 
                 for(String nbrs:wordList){
@@ -43,8 +43,6 @@ class Solution {
     public static boolean isOk(String s1, String s2){
         char[] a= s1.toCharArray();
         char[] b= s2.toCharArray();
-        // Arrays.sort(a);
-        // Arrays.sort(b);
         int diff=0;
         for(int i=0;i<a.length;i++){
             if(a[i]!=b[i]){
