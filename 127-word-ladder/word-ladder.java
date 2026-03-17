@@ -1,61 +1,69 @@
 class Solution {
-    public int ladderLength(String begin, String end, List<String> wordList) {
-        if(!wordList.contains(end)) return 0;
-        Queue<String> q= new LinkedList<>();
+    public static int ladderLength(String beginWord, String endWord, List<String> wordList){
+        PriorityQueue<Pair> q= new PriorityQueue<>((a,b)->Integer.compare(a.dis,b.dis));
         HashSet<String> visited= new HashSet<>();
-        HashSet<String> hh= new HashSet<>();
-        for(String str:wordList) hh.add(str);
-         if(!hh.contains(end)) return 0;
+        int ans=Integer.MAX_VALUE;
+        int curr=1;
+        q.add(new Pair(beginWord, 1));
 
-        int count=1;
-        q.add(begin);
         while(!q.isEmpty()){
-            // ek level par kitne contenders hai -> Jinka 1 character different hai 1 sath pop
             int size= q.size();
-            for(int i=0;i<size;i++){
-                String rm= q.poll();
-                if(visited.contains(rm)) continue;
-                visited.add(rm);
-
-                if(rm.equals(end)){
-                    return count;
-                }
-                char[] A= rm.toCharArray();
-                for(int j=0;j<A.length;j++){
-                    char old= A[j];
-                    for(char ch='a';ch<='z';ch++){
-                        A[j]=ch;
-
-                        String str= new String(A);
-                        if(!visited.contains(str) && hh.contains(str)){
-                            
-                            q.add(str);
-                        }
-                    }
-                    A[j]=old;
-                }
+            boolean find=false;
             
-                // for(String str:wordList){
-                //     if(!visited.contains(str) && canBe(str,rm)){
-                //         q.add(str);
-                //     }
-                // }
+            for(int i=0;i<size;i++){
+                Pair rm = q.poll();
+                String str= rm.s;
+                int dis=rm.dis;
+
+                if(visited.contains(str)){
+                    continue;
+                }
+
+                visited.add(str);
+                 
+                if(str.equals(endWord)){
+                    find=true;
+                    ans=Math.min(ans,dis);
+                    break;
+                }
+
+                for(String nbrs:wordList){
+                    if(!visited.contains(nbrs) && isOk(str, nbrs)){
+                        q.add(new Pair(nbrs,dis+1));
+                    }
+                }
             }
-            count++;
         }
-        return 0;
+        //ladderLength(beginWord, endWord, wordList);
+        return ans==Integer.MAX_VALUE? 0: ans;
+        
 
     }
-    public static boolean canBe(String s1, String s2){
-        char[] a1= s1.toCharArray();
-        char[] a2= s2.toCharArray();
+    public static boolean isOk(String s1, String s2){
+        char[] a= s1.toCharArray();
+        char[] b= s2.toCharArray();
+        // Arrays.sort(a);
+        // Arrays.sort(b);
         int diff=0;
-        for(int i=0;i<a1.length;i++){
-            if(a1[i]!=a2[i]){
+        for(int i=0;i<a.length;i++){
+            if(a[i]!=b[i]){
                 diff++;
                 if(diff>1) return false;
             }
         }
+        if(diff>1) return false;
         return true;
+
     }
+    static class Pair{
+        String s;
+        int dis;
+        public Pair(String s, int dis){
+            this.s=s;
+            this.dis=dis;
+        }
+
+    }
+
+    
 }
