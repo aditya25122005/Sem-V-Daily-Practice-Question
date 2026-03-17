@@ -1,9 +1,9 @@
 class Solution {
-    public static int ladderLength(String beginWord, String endWord, List<String> wordList){
-        PriorityQueue<Pair> q= new PriorityQueue<>((a,b)->Integer.compare(a.dis,b.dis));
+   public static int ladderLength(String beginWord, String endWord, List<String> wordList){
+        Queue<Pair> q= new LinkedList<>();
         HashSet<String> visited= new HashSet<>();
         int ans=Integer.MAX_VALUE;
-        int curr=1;
+        int curr=0;
         q.add(new Pair(beginWord, 1));
 
         while(!q.isEmpty()){
@@ -18,13 +18,12 @@ class Solution {
                 if(visited.contains(str)){
                     continue;
                 }
-
                 visited.add(str);
                  
                 if(str.equals(endWord)){
                     find=true;
-                    ans=Math.min(ans,dis);
-                    break;
+                    //ans=Math.min(ans,dis);
+                    //break;
                 }
 
                 for(String nbrs:wordList){
@@ -33,10 +32,12 @@ class Solution {
                     }
                 }
             }
+            curr++;
+            if(find){
+                ans=Math.min(ans,curr);
+            }
         }
-        //ladderLength(beginWord, endWord, wordList);
-        return ans==Integer.MAX_VALUE? 0: ans;
-        
+        return ans==Integer.MAX_VALUE?0:ans;
 
     }
     public static boolean isOk(String s1, String s2){
