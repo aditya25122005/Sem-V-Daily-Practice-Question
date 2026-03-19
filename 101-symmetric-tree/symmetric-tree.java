@@ -21,18 +21,32 @@ class Solution {
         if(root.left==null && root.right==null){
             return true;
         }
-        return Solve(root.left, root.right);
-    }
-    public static boolean Solve(TreeNode root1, TreeNode root2){
-        if(root1==null && root2==null) return true;
-        if(root1==null) return false;
-        if(root2==null) return false;
-
-        if(root1.val!= root2.val){
+        if(root.left==null){
             return false;
         }
-        boolean a= Solve(root1.left, root2.right);
-        boolean b= Solve(root1.right, root2.left);
-        return a && b;
+        if(root.right==null){
+            return false;
+        }
+        return Solve(root.left,root.right);
     }
+    public static boolean Solve(TreeNode left, TreeNode right){
+
+        if(left==null && right==null){
+            return true;
+        }
+        if(left==null) return false;
+        if(right==null) return false;
+        
+        if(left.val != right.val){
+            return false;
+        }
+     
+        
+        boolean L= Solve(left.left, right.right);
+        boolean R= Solve(left.right,right.left);
+
+
+        return L&&R;
+    }
+        
 }
