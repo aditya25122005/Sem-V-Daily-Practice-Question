@@ -1,9 +1,9 @@
 class Solution {
     public int maxSubArray(int[] nums) {
-        int curr=0;
         int ans=Integer.MIN_VALUE;
-        for(int i=0;i<nums.length;i++){
-            curr+= nums[i];
+        int curr=0;
+        for(int num:nums){
+            curr+= num;
             ans=Math.max(ans,curr);
             if(curr<0){
                 curr=0;
