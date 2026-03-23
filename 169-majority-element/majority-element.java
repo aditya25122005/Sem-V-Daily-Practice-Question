@@ -1,19 +1,22 @@
 class Solution {
     public int majorityElement(int[] nums) {
-        int maxi=nums[0];
-        int curr=1;
+        int n=nums.length;
+        Arrays.sort(nums);
+        int winner = nums[0];
+        int vote=1;
+
         for(int i=1;i<nums.length;i++){
-            if(nums[i]==maxi){
-                curr++;
-            }
-            else{
-                curr--;
-                if(curr<0){
-                    maxi=nums[i];
-                    curr=0;
+            if(nums[i]==winner){
+                vote++;
+                if(vote> n/2){
+                    return winner;
                 }
             }
+            else{
+                winner=nums[i];
+                vote=1;
+            }
         }
-        return maxi;
+        return winner;
     }
 }
