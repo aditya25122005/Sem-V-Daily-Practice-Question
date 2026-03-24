@@ -4,19 +4,17 @@ class Solution {
         List<Integer> ll= new ArrayList<>();
         Solve(nums,0,ans,ll);
         return ans;
-
     }
-    public static void Solve(int[] arr, int idx, List<List<Integer>> ans,List<Integer> ll){
-        if(idx==arr.length){
+    public static void Solve(int [] nums, int idx, List<List<Integer>> ans, List<Integer> ll){
+        if(idx==nums.length){
             ans.add(new ArrayList<>(ll));
             return;
         }
 
-        ll.add(arr[idx]);
-        Solve(arr,idx+1,ans,ll);
-
+        ll.add(nums[idx]);
+        Solve(nums,idx+1,ans,ll);
         ll.remove(ll.size()-1);
-        Solve(arr,idx+1,ans,ll);
 
-    }
+        Solve(nums,idx+1,ans,ll);
+    }   
 }
