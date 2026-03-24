@@ -1,28 +1,41 @@
 class Solution {
     public List<Integer> findAnagrams(String s, String p) {
-        List<Integer> ll= new ArrayList<>();
-        if(s.length()<p.length()) return ll;
-        int [] f1=  new int[26]; // p
-        int [] f2= new int[26];  //s
-        for(char ch:p.toCharArray()){
-            f1[ch-'a']++;
+        HashMap<Character,Integer> freq= new HashMap<>();
+        for(char ch: p.toCharArray()){
+            freq.put(ch,freq.getOrDefault(ch,0)+1);
         }
+        HashMap<Character,Integer> map= new HashMap<>();
+        List<Integer> ll= new ArrayList<>();
         int si=0;
         int ei=0;
         while(ei<s.length()){
-            f2[s.charAt(ei)-'a']++;
-            if(ei-si+1 == p.length()){
-                if(isOk(f1,f2)) ll.add(si);
-                f2[s.charAt(si)-'a']--;
+            char ch= s.charAt(ei);
+            map.put(ch,map.getOrDefault(ch,0)+1);
+
+            if(ei-si+1==p.length()){
+                if(isEqual(map,freq)){
+                    ll.add(si);
+                }
+                int old= map.get(s.charAt(si));
+                map.put(s.charAt(si),old-1);
+                if(map.containsKey(s.charAt(si)) && map.get(s.charAt(si))==0){
+                    map.remove(s.charAt(si));
+                }
                 si++;
             }
             ei++;
-        }
+        } 
         return ll;
     }
-    public static boolean isOk(int[] f1, int[] f2){
-        for(int i=0;i<f1.length;i++){
-            if(f1[i]!=f2[i]){
+    public static boolean isEqual(HashMap<Character,Integer> map1,HashMap<Character,Integer> map2){
+        if(map1.size()!=map2.size()){
+            return false;
+        }
+        for(char ch: map1.keySet()){
+            if(!map2.containsKey(ch)){
+                return false;
+            }
+            if(!map1.get(ch).equals(map2.get(ch))){
                 return false;
             }
         }
