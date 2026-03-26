@@ -15,7 +15,6 @@ class Solution {
                 visited.add(rm);
                 if(rm.equals(endWord)){
                     ans=Math.min(ans,curr);
-                    // break;
                 }
                 for(String nbrs: wordList){
                     if(isValid(rm,nbrs) && !visited.contains(nbrs)){
@@ -25,8 +24,6 @@ class Solution {
 
             }
             curr++;
-            
-
         }
         return ans==Integer.MAX_VALUE? 0: ans;
     }
@@ -40,12 +37,5 @@ class Solution {
         }
         return diff==1;
     }
-    static class Pair{
-        String word;
-        int cost;
-        public Pair(String word, int cost){
-            this.word=word;
-            this.cost=cost;
-        }
-    }
+
 }
