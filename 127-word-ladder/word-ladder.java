@@ -1,68 +1,51 @@
 class Solution {
-   public static int ladderLength(String beginWord, String endWord, List<String> wordList){
-        Queue<Pair> q= new LinkedList<>();
+    public int ladderLength(String beginWord, String endWord, List<String> wordList) {
+        Queue<String> pq= new LinkedList<>();
         HashSet<String> visited= new HashSet<>();
         int ans=Integer.MAX_VALUE;
-        int curr=0;
-        q.add(new Pair(beginWord, 1));
-
-        while(!q.isEmpty()){
-            int size= q.size();
-            boolean find=false;
-            
+        int curr=1;
+        pq.add(beginWord);
+        while(!pq.isEmpty()){
+            int size= pq.size();
             for(int i=0;i<size;i++){
-                Pair rm = q.poll();
-                String str= rm.s;
-                int dis=rm.dis;
-
-                if(visited.contains(str)){
+                String rm= pq.poll();
+                if(visited.contains(rm)){
                     continue;
                 }
-                visited.add(str);
-                 
-                if(str.equals(endWord)){
-                    find=true;
-                    //ans=Math.min(ans,dis);
-                    break;
+                visited.add(rm);
+                if(rm.equals(endWord)){
+                    ans=Math.min(ans,curr);
+                    // break;
                 }
-
-                for(String nbrs:wordList){
-                    if(!visited.contains(nbrs) && isOk(str, nbrs)){
-                        q.add(new Pair(nbrs,dis+1));
+                for(String nbrs: wordList){
+                    if(isValid(rm,nbrs) && !visited.contains(nbrs)){
+                        pq.add(nbrs);
                     }
                 }
+
             }
             curr++;
-            if(find){
-                ans=Math.min(ans,curr);
-            }
-        }
-        return ans==Integer.MAX_VALUE?0:ans;
+            
 
+        }
+        return ans==Integer.MAX_VALUE? 0: ans;
     }
-    public static boolean isOk(String s1, String s2){
-        char[] a= s1.toCharArray();
-        char[] b= s2.toCharArray();
+    public static boolean isValid(String a, String b){
         int diff=0;
-        for(int i=0;i<a.length;i++){
-            if(a[i]!=b[i]){
+        for(int i=0;i<a.length();i++){
+            if(a.charAt(i) != b.charAt(i)){
                 diff++;
-                if(diff>1) return false;
+                if(diff==2) return false;
             }
         }
-        if(diff>1) return false;
-        return true;
-
+        return diff==1;
     }
     static class Pair{
-        String s;
-        int dis;
-        public Pair(String s, int dis){
-            this.s=s;
-            this.dis=dis;
+        String word;
+        int cost;
+        public Pair(String word, int cost){
+            this.word=word;
+            this.cost=cost;
         }
-
     }
-
-    
 }
