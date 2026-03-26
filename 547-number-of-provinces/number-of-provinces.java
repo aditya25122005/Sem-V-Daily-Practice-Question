@@ -1,46 +1,44 @@
 class Solution {
     public int findCircleNum(int[][] isConnected) {
         HashMap<Integer,List<Integer>> map= new HashMap<>();
-        for(int i=0;i<isConnected.length;i++){
-            map.put(i,new ArrayList<>());
+        for(int i=1;i<=isConnected.length;i++){
+            map.put(i, new ArrayList<>());
         }
         for(int i=0;i<isConnected.length;i++){
-            for(int j=0;j<isConnected[0].length;j++){
-                if(i!=j &&isConnected[i][j]==1){
-                    map.get(i).add(j);
+            int [] A= isConnected[i];
+            for(int j=0;j<A.length;j++){
+                int u=i+1;
+                int v= A[j];
+                if(i+1 != j+1){
+                    if(A[j]==1){
+                        map.get(i+1).add(j+1);
+                    }
                 }
             }
         }
-        Queue<Integer> q= new LinkedList<>();
-        HashSet<Integer> visited= new HashSet<>();
+        System.out.println(map);
         int c=0;
-        for(int key:map.keySet()){
-            if(visited.contains(key)){
-                continue;
-            }
+        HashSet<Integer> visited= new HashSet<>();
+        Queue<Integer> q= new LinkedList<>();
+        for(int i=1;i<=isConnected.length;i++){
+            
+            if(!visited.contains(i)){
             c++;
-            q.add(key);
+            q.add(i);
             while(!q.isEmpty()){
-                //Remove
                 int rm=q.poll();
-
-                // Ignore
                 if(visited.contains(rm)){
                     continue;
                 }
-                // Mark visited
                 visited.add(rm);
-
-                // Add unvisited neighbours
-                for(int nbrs:map.get(rm)){
+                for(int nbrs: map.get(rm)){
                     if(!visited.contains(nbrs)){
                         q.add(nbrs);
                     }
                 }
             }
-
+            }
         }
         return c;
-        
     }
 }
