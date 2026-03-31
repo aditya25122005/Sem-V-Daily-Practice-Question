@@ -17,7 +17,7 @@ class Solution {
         else{
             B= Math.max(B,Solve(text1,text2, i+1,j,dp));
             B=Math.max(B, Solve(text1,text2,i,j+1,dp));
-            B= Math.max(B, Solve(text1, text2,i+1,j+1,dp));
+            // B= Math.max(B, Solve(text1, text2,i+1,j+1,dp));
         }
         return dp[i][j] = Math.max(A,B);
     }
