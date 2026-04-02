@@ -1,26 +1,22 @@
 class Solution {
-    public int minimumTotal(List<List<Integer>> ll) {
-        int n= ll.size();
-        int idx=0;
-        int sum=0;
-        int [][] dp= new int[n][n];
-        for(int [] a:dp){
-            Arrays.fill(a,Integer.MAX_VALUE);
-        }
-
-        return Sum(ll,0,0,dp);
-
-
+    public int minimumTotal(List<List<Integer>> triangle) {
+        int n= triangle.size();
+        Integer[][] dp= new Integer[triangle.size()][triangle.get(n-1).size()];
+        return Solve(triangle,0,0,dp);
     }
-    public static int Sum(List<List<Integer>> ll , int idx ,int row , int[][]dp){
-        if(row==ll.size()-1){
-            return ll.get(row).get(idx);
+    public static int Solve(List<List<Integer>> ll, int i, int j,Integer[][] dp){
+        if(i>=ll.size() || j>=ll.get(i).size()){
+            return 0;
         }
-        if(dp[row][idx]!=Integer.MAX_VALUE){
-            return dp[row][idx];
+        if(i==ll.size()-1){
+            return ll.get(i).get(j);
         }
-        int f=Sum(ll,idx,row+1,dp);
-        int s=Sum(ll,idx+1,row+1,dp);
-        return dp[row][idx]= Math.min(f,s) + ll.get(row).get(idx);
+        if(dp[i][j] != null) return dp[i][j];
+        int A= ll.get(i).get(j) + Solve(ll,i+1,j,dp);
+        int B= ll.get(i).get(j) + Solve(ll,i+1,j+1,dp);
+
+        return dp[i][j] = Math.min(A,B);
+
+
     }
 }
