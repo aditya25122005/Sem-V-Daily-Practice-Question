@@ -27,6 +27,8 @@ class Solution {
             if(next2!=Integer.MIN_VALUE){
                 ans=Math.max(ans,next2);
             }
+        }
+      
             int next3=Solve(cr+1,cc,coins,K,dp);
             if(next3!=Integer.MIN_VALUE){
                 ans=Math.max(ans,coins[cr][cc] + next3);
@@ -35,17 +37,7 @@ class Solution {
             if(next4!=Integer.MIN_VALUE){
                 ans=Math.max(ans,coins[cr][cc]+ next4);
             }
-        }
-        else{
-            int next3=Solve(cr+1,cc,coins,K,dp);
-            if(next3!=Integer.MIN_VALUE){
-                ans=Math.max(ans,coins[cr][cc] + next3);
-            }
-            int next4=Solve(cr,cc+1,coins,K,dp);
-            if(next4!=Integer.MIN_VALUE){
-                ans=Math.max(ans,coins[cr][cc]+ next4);
-            }
-        }
+        
         return dp[cr][cc][K] = ans;
     }   
 }
