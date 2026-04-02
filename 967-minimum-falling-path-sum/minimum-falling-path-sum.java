@@ -1,37 +1,37 @@
 class Solution {
     public int minFallingPathSum(int[][] matrix) {
-        int [][] dp= new int[matrix.length][matrix[0].length];
-        for(int []a:dp){
-            Arrays.fill(a,9999999);
-        }
-        int ans=Integer.MAX_VALUE;
-        for(int i=0;i<matrix[0].length;i++){
-            ans=Math.min(ans,Solve(matrix,0,i,dp));
+        int ans = Integer.MAX_VALUE;
+        Integer [][] dp= new Integer[matrix.length][matrix.length];
+
+        for(int j=0;j<matrix[0].length;j++){
+            ans = Math.min(ans, Solve(matrix, 0, j,dp));
         }
         return ans;
     }
-    public static int Solve(int[][]arr, int r, int c, int[][] dp){
-
-        if(r>=arr.length){
+    public static int Solve(int [][] matrix , int i, int j,Integer[][] dp){
+        if(i>= matrix.length || j>= matrix[0].length || j<0 ){
             return Integer.MAX_VALUE;
         }
-        if(c>=arr[0].length || c<0){
-            return Integer.MAX_VALUE;
+        if(i==matrix.length-1){
+            return matrix[i][j];
         }
-        if(r==arr.length-1){
-            return arr[r][c];
+        if(dp[i][j] != null) return dp[i][j];
+        int A= Integer.MAX_VALUE;
+        int B= Integer.MAX_VALUE;
+        int C= Integer.MAX_VALUE;
+
+        int next1=Solve(matrix, i+1,j,dp);
+        if(next1!= Integer.MAX_VALUE){
+            A= matrix[i][j]+ next1;
         }
-        if(dp[r][c]!=9999999){
-            return dp[r][c];
+        int next2= Solve(matrix, i+1,j-1,dp);
+        if(next2!= Integer.MAX_VALUE){
+            B= matrix[i][j]+ next2;
         }
-        int ans=0;
-        int f = Solve(arr,r+1,c-1,dp);
-        int s = Solve(arr,r+1,c,dp);
-        int t = Solve(arr,r+1,c+1,dp);
-        ans=Math.min(f,Math.min(s,t));
-
-        return dp[r][c]=ans+arr[r][c];
-
-
+        int next3= Solve(matrix, i+1,j+1,dp);
+        if(next3!= Integer.MAX_VALUE){
+            C= matrix[i][j]+ next3;
+        }
+        return dp[i][j] = Math.min(A,Math.min(B,C));
     }
 }
