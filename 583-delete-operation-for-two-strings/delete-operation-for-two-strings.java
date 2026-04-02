@@ -1,30 +1,28 @@
 class Solution {
     public int minDistance(String word1, String word2) {
-        //LCS
-        int[][] dp= new int[word1.length()][word2.length()];
-        for(int [] a: dp){
-            Arrays.fill(a,-1);
-        }
-        int LCS= Solve(word1,word2,0,0,dp);
-        return word1.length()-LCS + word2.length()-LCS;
-
+        Integer[][] dp= new Integer[word1.length()][word2.length()];
+        return Solve(word1,word2,0,0,dp);
     }
-    public static int Solve(String s1, String s2, int i, int j, int[][] dp){
-        if(i==s1.length() || j==s2.length()){
-            return 0;
+    public static int Solve(String word1, String word2, int i, int j,Integer[][] dp){
+        if(i>= word1.length()){
+            return word2.length()-j;
         }
-        if(dp[i][j]!=-1){
+        if(j>= word2.length()){
+            return word1.length()-i;
+        }
+        if(dp[i][j] != null){
             return dp[i][j];
         }
-        int opr=0;
-        if(s1.charAt(i)==s2.charAt(j)){
-            opr=1+Solve(s1,s2,i+1,j+1,dp);
-        }else{
-            int f=Solve(s1,s2,i,j+1,dp);
-            int s=Solve(s1,s2,i+1,j,dp);
-            int res=Math.max(f,s);
-            opr=Math.max(opr,res);
+
+        int ans=Integer.MAX_VALUE;
+        if(word1.charAt(i) != word2.charAt(j)){
+            ans= Math.min(ans, 1+ Solve(word1,word2,i+1,j,dp));
+            ans=Math.min(ans, 1+ Solve(word1,word2,i,j+1,dp));
+            ans=Math.min(ans, 2+ Solve(word1,word2,i+1,j+1,dp));
         }
-        return dp[i][j]=opr;
+        else{
+            ans= Math.min(ans, Solve(word1,word2,i+1,j+1,dp));
+        }
+        return dp[i][j] = ans;
     }
 }
