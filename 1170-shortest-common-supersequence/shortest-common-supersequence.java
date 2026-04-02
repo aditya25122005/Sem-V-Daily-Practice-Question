@@ -12,7 +12,7 @@ class Solution {
         if(j>= s2.length()){
             return s1.substring(i);
         }
-        if(dp[i][j] == null) Solve(s1, s2, i, j, dp);
+        //if(dp[i][j] == null) Solve(s1, s2, i, j, dp);
 
         if(s1.charAt(i)== s2.charAt(j)){
             return s1.charAt(i) + build(s1,s2,i+1,j+1,dp);
