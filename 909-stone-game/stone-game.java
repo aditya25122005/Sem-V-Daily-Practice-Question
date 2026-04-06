@@ -4,7 +4,8 @@ class Solution {
         for(int [] d: DP){
             Arrays.fill(d,-1);
         }
-        return Solve(piles,0,piles.length-1,DP)>0? true: false;
+        return true;
+        //return Solve(piles,0,piles.length-1,DP)>0? true: false;
     }
     public static int Solve(int [] piles , int i, int j, int [][] DP){
         if(i>=j){
@@ -13,8 +14,7 @@ class Solution {
         if(DP[i][j] != -1) return DP[i][j];
         int A=0;
         int B=0;
-        int C=0;
-        int D=0;
+ 
         // Alice
         A = piles[i] - Solve(piles, i+1,j,DP);
         B = piles[j] - Solve(piles,i, j-1,DP);
