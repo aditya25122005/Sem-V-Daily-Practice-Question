@@ -1,21 +1,24 @@
 class Solution {
     public boolean canJump(int[] nums) {
-        int n= nums.length;
-        if(nums.length==1 && nums[0]==0){
+        Boolean [] dp= new Boolean[nums.length];
+
+        return Solve(nums,0, dp);
+    }
+    public static boolean Solve(int [] nums, int idx, Boolean[] dp){
+        if(idx==nums.length-1){
             return true;
         }
-        int max=0;
-        for(int i=0;i<nums.length;i++){
-            max=Math.max(max,i+nums[i]);
-            if(i>=max) return false;
-            if(max>=n-1){
-                return true;
-            }
 
+        if(idx>= nums.length){
+            return false;
         }
-        return max>=n-1;
-        
 
+        if(dp[idx] != null) return dp[idx];
+        boolean ans =false;
+        int step= nums[idx];
+        for(int jump=1;jump<=step;jump++){
+            ans = ans || Solve(nums,idx+jump,dp);
+        }
+        return dp[idx] = ans;
     }
-    
 }
