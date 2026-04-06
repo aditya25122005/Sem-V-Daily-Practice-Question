@@ -1,9 +1,9 @@
 class Solution {
     public boolean stoneGame(int[] piles) {
-        int [][] DP = new int[piles.length][piles.length];
-        for(int [] d: DP){
-            Arrays.fill(d,-1);
-        }
+        // int [][] DP = new int[piles.length][piles.length];
+        // for(int [] d: DP){
+        //     Arrays.fill(d,-1);
+        // }
         return true;
         //return Solve(piles,0,piles.length-1,DP)>0? true: false;
     }
