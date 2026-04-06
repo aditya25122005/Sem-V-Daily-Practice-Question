@@ -1,29 +1,26 @@
 class Solution {
     public int maxProfit(int[] prices) {
         int [][] dp= new int[prices.length][2];
-        for(int []D:dp) Arrays.fill(D,-1);
-        return Solve(prices,0,0,0,dp);
+        for(int [] A: dp) Arrays.fill(A,-1);
+        return Solve(prices, 0, 0,dp);
     }
-      public static int Solve(int[] arr, int idx, int prev, int count, int[][]dp){
-
-        if(idx==arr.length){
+    public static int Solve(int [] prices, int idx, int prev, int[][] dp){
+        if(idx>=prices.length){
             return 0;
         }
-        if(dp[idx][prev]!=-1) return dp[idx][prev];
-
-        int a=0;
-        int b=0;
-        int c=0;
-        int d=0;
-
+        if(dp[idx][prev] != -1) return dp[idx][prev];
+        int A=0;
+        int B=0;
+        int C=0;
+        int D=0;
         if(prev==0){
-            a=-arr[idx]+Solve(arr,idx+1,1,count,dp);
-            b=Solve(arr,idx+1,0,count,dp);
+            A= -prices[idx]+ Solve(prices, idx+1, 1,dp);
+            B= Solve(prices, idx+1,0,dp);
         }
         else{
-            c=arr[idx]+Solve(arr,idx+1,0,count+1,dp);
-            d=Solve(arr,idx+1,1,count,dp);
+            C= prices[idx]+ Solve(prices,idx+1,0,dp);
+            D= Solve(prices,idx+1,1,dp);
         }
-        return dp[idx][prev] = Math.max(Math.max(a,b),Math.max(c,d));
+        return dp[idx][prev] = Math.max(Math.max(A,B),Math.max(C,D));
     }
 }
