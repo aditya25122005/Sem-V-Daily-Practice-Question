@@ -1,32 +1,24 @@
 class Solution {
     public int minSubarray(int[] nums, int p) {
-        long[] pre= new long[nums.length];
-        pre[0]= nums[0];
-        // prefix sum 3 4 8 10 %p -> 3 4 2 4
-        for(int i=1;i<nums.length;i++){
-            pre[i]=(long)(pre[i-1]+ nums[i]);
+        long [] pre  = new long[nums.length+1];
+        for(int i=1;i<pre.length;i++){
+            pre[i]= pre[i-1]+ nums[i-1];
         }
-        long sum=0;
-        for(int num:nums){
-            sum+= (long)num;
-        }
-        if(sum%p==0){
-            return 0;
-        }
-        int req= (int)(sum%p);
-        HashMap<Integer,Integer> map= new HashMap<>();
-        map.put(0,-1);
-        int ans=Integer.MAX_VALUE;
+        long total = pre[pre.length-1];
+        long rem = total%p;
+        if(rem==0) return 0;
+        int rm = Integer.MAX_VALUE;
+        
+        HashMap<Long,Integer> map= new HashMap<>();
+        map.put(0L,-1);
         for(int i=0;i<pre.length;i++){
-            int cmod=(int)(pre[i]%p);
-            int needed= (cmod-req+p)%p;
-            if(map.containsKey(needed)){
-                ans=Math.min(ans,i-map.get(needed));
+            long curr = pre[i]%p;
+            if(map.containsKey((curr-rem+p)%p)){
+                rm = Math.min(rm, i-map.get((curr-rem+p)%p));
             }
-            map.put(cmod,i);
-            
+            map.put(curr,i);
         }
-        return ans>=nums.length? -1:ans;
-       
+        return rm==Integer.MAX_VALUE || rm==nums.length? -1 : rm;
+
     }
 }
