@@ -1,27 +1,34 @@
 class Solution {
     public boolean checkInclusion(String s1, String s2) {
-        if(s1.length()>s2.length()) return false;
-        int [] f1= new int[26];
-        for(char ch:s1.toCharArray()) f1[ch-'a']++;
-        int [] f2= new int[26];
+        HashMap<Character,Integer> freq = new HashMap<>();
+        for(char ch:  s1.toCharArray()){
+            freq.put(ch,freq.getOrDefault(ch,0)+1);
+        }
+
+        HashMap<Character,Integer> map= new HashMap<>();
         int si=0;
         int ei=0;
-        while(ei<s2.length()){
-            char ch=s2.charAt(ei);
-            f2[ch-'a']++;
-            if(ei-si+1==s1.length()){
-                if(isOk(f1,f2)) return true;
-                f2[s2.charAt(si)-'a']--; // Remove that character
+        int matched = 0;
+        while(ei< s2.length()){
+            char ch = s2.charAt(ei);
+            map.put(ch,map.getOrDefault(ch,0)+1);
+            if(ei-si+1 == s1.length()){
+                if(isOk(freq,map)){
+                    return true;
+                }
+                map.put(s2.charAt(si), map.get(s2.charAt(si))-1);
+                if(map.get(s2.charAt(si))==0){
+                    map.remove(s2.charAt(si));
+                }
                 si++;
             }
             ei++;
-
         }
         return false;
     }
-    public static boolean isOk(int[] f1, int [] f2){
-        for(int i=0;i<f1.length;i++){
-            if(f1[i]!=f2[i]){
+    public static boolean isOk(HashMap<Character,Integer> freq, HashMap<Character,Integer> map){
+        for(char ch: freq.keySet()){
+            if(!map.containsKey(ch) || map.get(ch)<freq.get(ch)){
                 return false;
             }
         }
