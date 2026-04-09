@@ -21,9 +21,10 @@ class Solution {
         return ans;
     }
     public static boolean isPossible(int [] bloom , int m, int k, int mid){
-        int [] arr = bloom.clone();
+        int [] arr = new int[bloom.length];
+
         for(int i=0;i<arr.length;i++){
-            arr[i] = Math.max(0, arr[i]-mid);
+            arr[i] = Math.max(0, bloom[i]-mid);
         }
         int count= 0;
         int i=0;
