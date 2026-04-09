@@ -34,11 +34,12 @@ class Solution {
                 if(c==k){
                      count++;
                      c=0;
+                     if(count==m) return true;
                 } 
                 i++;
             }
             i++;
         }
-        return count>=m;
+        return false;
     }
 }
