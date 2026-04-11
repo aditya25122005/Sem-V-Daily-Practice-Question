@@ -1,47 +1,25 @@
 class Solution {
     public boolean isPalindrome(String s) {
-        StringBuilder sb= new StringBuilder();
-        for(char ch: s.toCharArray()){
-            if(Character.isDigit(ch) || Character.isAlphabetic(ch)){
-                sb.append(ch);
-            }
-        }
-        String str= sb.toString();
-        
-        str= str.toLowerCase();
-        // System.out.println(str);
+        s=s.toLowerCase();
         int i=0;
-        int j=str.length()-1;
+        int j=s.length()-1;
         while(i<j){
-            if(str.charAt(i)!= str.charAt(j)){
+            while(s.charAt(i)==' ' || !((s.charAt(i)>='a' && s.charAt(i)<='z') || (s.charAt(i)<='9' && s.charAt(i)>='0'))){
+                i++;
+                if(i>j) return true;
+            }
+
+            while(s.charAt(j)==' ' || !((s.charAt(j)>='a' && s.charAt(j)<='z') || (s.charAt(j)<='9' && s.charAt(j)>='0'))){
+                j--;
+                if(j<i) return true;
+            }
+            if(s.charAt(i) != s.charAt(j)){
                 return false;
             }
-            else{
-                i++;
-                j--;
-            }
+            i++;
+            j--;
+
         }
         return true;
-        // s= s.toLowerCase();
-        // int i=0;
-        // int j= s.length()-1;
-        // while(i<j){
-        //     while(i<s.length()-1 && (!Character.isDigit(s.charAt(i)) || ! Character.isAlphabetic(s.charAt(i))) ){
-        //         i++;
-        //     }
-        //     while(j>0 && (!Character.isDigit(s.charAt(j)) || ! Character.isAlphabetic(s.charAt(j))) ){
-        //         j--;
-        //     }
-        //     if(s.charAt(i)!=s.charAt(j)){
-        //         return false;
-        //     }
-           
-        //     else{
-        //         i++;
-        //         j--;
-        //     }
-
-        // }
-        // return true;
     }
 }
