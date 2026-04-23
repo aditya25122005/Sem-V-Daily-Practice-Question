@@ -1,25 +1,29 @@
 class Solution {
     public List<List<Integer>> combinationSum3(int k, int n) {
-        List<List<Integer>> ll= new ArrayList<>();
-        List<Integer> inner = new ArrayList<>();
-        Solve(1,n,k,ll,inner);
-        return ll;
-        
+        List<List<Integer>> ans = new ArrayList<>();
+        List<Integer> ll = new ArrayList<>();
+        Solve(n,1,k,ans,ll);
+        return ans;
     }
-    public static void Solve(int idx,int target, int k, List<List<Integer>> ll, List<Integer> inner){
-        if(inner.size()==k && target==0){
-            ll.add(new ArrayList<>(inner));
+    public static void Solve(int target,int num, int K, List<List<Integer>> ans,
+    List<Integer> ll){
+        if(K<0){
             return;
         }
-        if(idx>9){
+        if(target<0){
             return;
         }
-        if(target>=idx){
-            inner.add(idx);
-            Solve(idx+1,target-idx,k,ll,inner);
+        if(target==0 && K==0){
+            ans.add(new ArrayList<>(ll));
+            return;
+        }
+        if(num>9){
+            return;
+        }
+        ll.add(num);
+        Solve(target-num, num+1,K-1,ans,ll);
+        ll.remove(ll.size()-1);
+        Solve(target,num+1,K,ans,ll);
 
-            inner.remove(inner.size()-1);
-        }
-        Solve(idx+1,target,k,ll,inner);
     }
 }
