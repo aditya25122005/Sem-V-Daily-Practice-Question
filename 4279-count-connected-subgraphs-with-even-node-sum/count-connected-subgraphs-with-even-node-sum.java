@@ -26,6 +26,7 @@ class Solution {
                 nodes.add(val);
                 sum+=nums[val];
             } 
+            if(sum%2==1) continue;
             int comp = 0;
             
             boolean[] vis = new boolean[n];
@@ -39,7 +40,6 @@ class Solution {
                 for(int nbrs: map.get(rm)){
                     if(!vis[nbrs] && nodes.contains(nbrs)){
                         q.add(nbrs);
-                        // vis[nbrs]=true;
                     }
                 }
             }
