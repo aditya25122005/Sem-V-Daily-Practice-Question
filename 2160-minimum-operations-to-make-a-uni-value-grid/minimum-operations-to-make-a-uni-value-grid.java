@@ -24,7 +24,7 @@ class Solution {
                 ans+= (num-target)/x;
             }
         }
-        System.out.println(target);
+       
         return ans;
 
     }
