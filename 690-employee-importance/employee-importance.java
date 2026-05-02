@@ -15,12 +15,7 @@ class Solution {
         }
         Queue<Employee> q = new LinkedList<>();
         int total=0;
-        for(Employee e : employees){
-            if(e.id == id){
-                q.add(e);
-                break;
-            }
-        }
+        q.add(map.get(id));
         while(!q.isEmpty()){
             Employee rm = q.poll();
             total+= rm.importance;
