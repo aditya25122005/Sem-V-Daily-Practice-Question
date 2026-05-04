@@ -4,6 +4,7 @@ class Solution {
         for (char ch = 'a'; ch <= 'z'; ch++) {
             map.put(ch, new HashSet<>());
         }
+        HashMap<Character,Character> dp = new HashMap<>();
         for (int i = 0; i < s1.length(); i++) {
             char u = s1.charAt(i);
             char v = s2.charAt(i);
@@ -12,6 +13,10 @@ class Solution {
         }
         StringBuilder res = new StringBuilder();
         for (char ch : baseStr.toCharArray()) {
+            if(dp.containsKey(ch)){
+                res.append(dp.get(ch));
+                continue;
+            }
             HashSet<Character> vis = new HashSet<>();
             Queue<Character> q = new LinkedList<>();
             char ans = ch;
@@ -31,6 +36,7 @@ class Solution {
                     }
                 }
             }
+            dp.put(ch,ans);
             res.append(ans);
         }
         return res.toString();
