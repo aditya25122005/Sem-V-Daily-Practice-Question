@@ -26,7 +26,7 @@ class Solution {
         if(k==0){
             return head;
         }
-        System.out.println(size);
+        // System.out.println(size);
         int curr = 1;
         ListNode temp2 = head;
         while(curr<size-k){
