@@ -1,48 +1,49 @@
 class Solution {
     public char[][] rotateTheBox(char[][] boxGrid) {
-        int n= boxGrid.length;
-        int m= boxGrid[0].length;
+        int n = boxGrid.length;
+        int m = boxGrid[0].length;
         char[][] grid = new char[m][n];
-        for(int i=0;i<m;i++){
-            for(int j=0;j<n;j++){
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
                 grid[i][j] = boxGrid[j][i];
             }
         }
-        for(int i=0;i<m;i++){
-            for(int j=0;j<n/2;j++){
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n / 2; j++) {
                 char temp = grid[i][j];
-                grid[i][j]= grid[i][n-j-1];
-                grid[i][n-j-1]=temp;
+                grid[i][j] = grid[i][n - j - 1];
+                grid[i][n - j - 1] = temp;
             }
         }
 
-        for(int j=0;j<n;j++){
-            int patti=0;
+        for (int j = 0; j < n; j++) {
+            int patti = 0;
 
-            for(int i=0;i<m;i++){
-                if(grid[i][j]=='#'){
+            for (int i = 0; i < m; i++) {
+                if (grid[i][j] == '#') {
                     patti++;
-                    grid[i][j]='.';
+                    grid[i][j] = '.';
                 }
-                else if(grid[i][j]=='*'){
-                    int idx = i-1;
-                    while(patti>0){
-                        grid[idx][j]='#';
+
+                else if (grid[i][j] == '*') {
+                    int idx = i - 1;
+                    while (patti > 0) {
+                        grid[idx][j] = '#';
                         patti--;
                         idx--;
                     }
                 }
             }
-            if(patti>0){
-            int idx = m-1;
-            while(patti>0){
-                grid[idx][j]='#';
-                patti--;
-                idx--;
-            }
+            if (patti > 0) {
+                int idx = m - 1;
+                while (patti > 0) {
+                    grid[idx][j] = '#';
+                    patti--;
+                    idx--;
+                }
             }
         }
-        
+
         return grid;
     }
 }
