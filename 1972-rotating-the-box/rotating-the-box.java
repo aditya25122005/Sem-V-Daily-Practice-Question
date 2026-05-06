@@ -17,28 +17,28 @@ class Solution {
         }
 
         for (int j = 0; j < n; j++) {
-            int patti = 0;
+            int stone = 0;
 
             for (int i = 0; i < m; i++) {
                 if (grid[i][j] == '#') {
-                    patti++;
+                    stone++;
                     grid[i][j] = '.';
                 }
 
                 else if (grid[i][j] == '*') {
                     int idx = i - 1;
-                    while (patti > 0) {
+                    while (stone > 0) {
                         grid[idx][j] = '#';
-                        patti--;
+                        stone--;
                         idx--;
                     }
                 }
             }
-            if (patti > 0) {
+            if (stone > 0) {
                 int idx = m - 1;
-                while (patti > 0) {
+                while (stone > 0) {
                     grid[idx][j] = '#';
-                    patti--;
+                    stone--;
                     idx--;
                 }
             }
