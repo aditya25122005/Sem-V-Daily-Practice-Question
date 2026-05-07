@@ -12,9 +12,7 @@ class Solution {
         int minSum = Integer.MAX_VALUE;
         while(ei<n){
             curr+= arr[ei];
-            if(ei-si+1 == size){
-                minSum = Math.min(minSum,curr);
-            }
+            
             while(ei-si+1 > size){
                 curr -= arr[si];
                 si++;
