@@ -1,44 +1,32 @@
 class Solution {
-    public int[][] insert(int[][] arr, int[] nI) {
-        List<int[]> ll= new ArrayList<>();
-        int i=0;
-        
-        while(i<arr.length && arr[i][0]<= nI[0]){
-            ll.add(arr[i]);
-            i++;
+    public int[][] insert(int[][] intervals, int[] newInterval) {
+        List<int[]> ll = new ArrayList<>();
+        for(int i=0;i<intervals.length;i++){
+            ll.add(intervals[i]);
         }
-        ll.add(nI);
-        while(i<arr.length){
-            ll.add(arr[i]);
-            i++;
-        }
-        
-        i=0;
+        ll.add(newInterval);
 
-        Stack<int[]> st= new Stack<>();
-        st.push(ll.get(0));
-        while(i+1<ll.size()){
-            int [] prev= st.peek();
-            int [] next= ll.get(i+1);
+        Collections.sort(ll,(a,b)->Integer.compare(a[0],b[0]));
+        int start = ll.get(0)[0];
+        int end = ll.get(0)[1];
 
-            if(next[0]>= prev[0] && next[0]<= prev[1]){
-                st.peek()[1]= Math.max(prev[1],next[1]);
+        List<int[]> res = new ArrayList<>();
+      
+
+        for(int i=1;i<ll.size();i++){
+            if(ll.get(i)[0]<= end){
+                end = Math.max(end, ll.get(i)[1]);
             }
             else{
-                st.push(next);
+                res.add(new int[]{start, end});
+                start = ll.get(i)[0];
+                end = ll.get(i)[1];
             }
-            i++;
         }
-        List<int[]> a= new ArrayList<>();
-        int [][] ans= new int[st.size()][2];
-        int idx=0;
-        while(!st.isEmpty()){
-            a.add(st.pop());
-        }
-        for(int j=a.size()-1;j>=0;j--){
-            ans[idx][0]=a.get(j)[0];
-            ans[idx][1]=a.get(j)[1];
-            idx++;
+        res.add(new int[]{start,end});
+        int [][] ans = new int[res.size()][2];
+        for(int i=0;i<res.size();i++){
+            ans[i]=res.get(i);
         }
         return ans;
 
