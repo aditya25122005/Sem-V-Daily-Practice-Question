@@ -1,24 +1,26 @@
 class Solution {
     public int countBattleships(char[][] board) {
-        int c=0;
-        for(int i=0;i<board.length;i++){
-            for(int j=0;j<board[0].length;j++){
+        int n= board.length;
+        int m= board[0].length;
+        int count=0;
+
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
                 if(board[i][j]=='X'){
-                    c++;
-                    count(board,i,j);
+                    Solve(board,i,j);
+                    count++;
                 }
             }
         }
-        return c;
+        return count;
     }
-    public static void count(char[][]board, int cr, int cc){
-        if(cr<0 || cr>= board.length || cc<0 || cc>=board[0].length || board[cr][cc]=='.'){
+    public static void Solve(char[][] board, int cr, int cc){
+        if(cr>=board.length || cc>=board[0].length || board[cr][cc]=='.'){
             return;
         }
         board[cr][cc]='.';
-        count(board,cr+1,cc);
-        count(board,cr-1,cc);
-        count(board,cr,cc-1);
-        count(board,cr,cc+1);
+        Solve(board,cr+1,cc);
+        Solve(board,cr,cc+1);
+
     }
 }
