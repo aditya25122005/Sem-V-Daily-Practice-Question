@@ -1,7 +1,7 @@
 class Solution {
     public List<List<String>> solveNQueens(int n) {
-        List<List<String>> ll = new ArrayList<>();
-        List<String> inner = new ArrayList<>();
+        List<List<String>> ll = new ArrayList<>();// for answer
+        List<String> inner = new ArrayList<>(); // inner strings
         char [][] board = new char[n][n];
         for(char[] a: board) Arrays.fill(a,'.');
         Solve(ll,inner,n,board,0);
@@ -41,11 +41,11 @@ class Solution {
         for(int i=row-1;i>=0;i--){
             if(board[i][col]=='Q') return false;
         }
-        for(int j=0;j<board.length;j++){
-            if(board[row][j]=='Q'){
-                return false;
-            }
-        }
+        // for(int j=0;j<board.length;j++){
+        //     if(board[row][j]=='Q'){
+        //         return false;
+        //     }
+        // }
         int r = row-1;
         int c = col-1;
         while(r>=0 && c>=0){
