@@ -14,19 +14,13 @@ class Solution {
             }
         }
         for(int i=0;i<n;i++){
-            if(rows.contains(i)){
-                for(int j=0;j<m;j++){
+            for(int j=0;j<m;j++){
+                if(rows.contains(i) || cols.contains(j)){
                     matrix[i][j] = 0;
                 }
             }
+            
         }
 
-        for(int j=0;j<m;j++){
-            if(cols.contains(j)){
-                for(int i=0;i<n;i++){
-                    matrix[i][j] = 0;
-                }
-            }
-        }
     }
 }
