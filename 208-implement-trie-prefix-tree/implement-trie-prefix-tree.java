@@ -1,11 +1,11 @@
 class Trie {
     class Node{
         char ch;
-        boolean isTerminal;
-        HashMap<Character,Node> child;
+        HashMap<Character,Node> map;
+        boolean isTerminal = false;
         public Node(char ch){
-            this.ch=ch;
-            child = new HashMap<>();
+            this.ch = ch;
+            map = new HashMap<>();
         }
     }
     private Node root;
@@ -18,24 +18,25 @@ class Trie {
         Node curr = root;
         for(int i=0;i<word.length();i++){
             char ch = word.charAt(i);
-            if(curr.child.containsKey(ch)){
-                curr = curr.child.get(ch);
+            if(curr.map.containsKey(ch)){
+                curr = curr.map.get(ch);
             }
             else{
                 Node nn = new Node(ch);
-                curr.child.put(ch,nn);
-                curr= nn;
+                curr.map.put(ch,nn);
+                curr = nn;
             }
         }
         curr.isTerminal = true;
+
     }
     
     public boolean search(String word) {
         Node curr = root;
         for(int i=0;i<word.length();i++){
             char ch = word.charAt(i);
-            if(curr.child.containsKey(ch)){
-                curr = curr.child.get(ch);
+            if(curr.map.containsKey(ch)){
+                curr = curr.map.get(ch);
             }
             else{
                 return false;
@@ -48,8 +49,8 @@ class Trie {
         Node curr = root;
         for(int i=0;i<prefix.length();i++){
             char ch = prefix.charAt(i);
-            if(curr.child.containsKey(ch)){
-                curr = curr.child.get(ch);
+            if(curr.map.containsKey(ch)){
+                curr = curr.map.get(ch);
             }
             else{
                 return false;
