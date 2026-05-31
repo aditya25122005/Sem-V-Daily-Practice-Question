@@ -15,22 +15,21 @@
  */
 class Solution {
     public int diameterOfBinaryTree(TreeNode root) {
-        max=0;
+        max = 0;
         Solve(root);
-        return max;
-
+        return max-1;
     }
-    static int max;
-
-    public static int Solve(TreeNode root){
+    int max;
+    public int Solve(TreeNode root){
         if(root==null){
             return 0;
         }
-        int left= 1+ Solve(root.left);
-        int right = 1+ Solve(root.right);
+        int left = Solve(root.left);
+        int right = Solve(root.right);
 
-        max=Math.max(max, left+right-2);
+        int curr = 1+left+right;
+        max = Math.max(max,curr);
 
-        return Math.max(left,right);
+        return Math.max(left,right)+1;
     }
 }
