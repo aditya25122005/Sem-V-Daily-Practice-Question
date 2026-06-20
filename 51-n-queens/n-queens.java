@@ -1,69 +1,69 @@
 class Solution {
+    List<List<String>> ans;
     public List<List<String>> solveNQueens(int n) {
-        List<List<String>> ll = new ArrayList<>();// for answer
-        List<String> inner = new ArrayList<>(); // inner strings
-        char [][] board = new char[n][n];
-        for(char[] a: board) Arrays.fill(a,'.');
-        Solve(ll,inner,n,board,0);
-        return ll;
-
-
+        ans = new ArrayList<>();
+        char[][] grid = new char[n][n];
+        for(char[] c: grid){
+            Arrays.fill(c,'.');
+        }
+        Solve(n,grid,0);
+        return ans;
     }
-    public static void Solve(List<List<String>> ll, List<String> inner, int Q, char[][] board,int row){
+    public void Solve(int Q, char[][] grid, int row){
+        int n= grid.length;
         if(Q==0){
-            ll.add(construct(board));
+            buildAns(grid);
             return;
         }
-        if(row==board.length){
+        if(row==n){
             return;
         }
-        for(int col=0;col<board.length;col++){
-            if(isSafe(board,row,col)){
-                board[row][col] = 'Q';
-                Solve(ll,inner,Q-1,board,row+1);
-                board[row][col] ='.';
+        for(int col=0;col<n;col++){
+            if(isPossible(grid,row,col)){
+                grid[row][col] = 'Q';
+                Solve(Q-1,grid,row+1);
+                grid[row][col] = '.';
             }
         }
     }
-    public static List<String> construct(char[][] board){
-        List<String> res = new ArrayList<>();
-        for(int i=0;i<board.length;i++){
-            StringBuilder sb = new StringBuilder();
-            for(int j=0;j<board.length;j++){
-                sb.append(board[i][j]);
-            }
-            res.add(sb.toString());
-
-        }
-        return res;
-    }
-    public static boolean isSafe(char[][] board, int row, int col){
-        for(int i=row-1;i>=0;i--){
-            if(board[i][col]=='Q') return false;
-        }
-        // for(int j=0;j<board.length;j++){
-        //     if(board[row][j]=='Q'){
-        //         return false;
-        //     }
-        // }
-        int r = row-1;
-        int c = col-1;
-        while(r>=0 && c>=0){
-            if(board[r][c]=='Q'){
+    public static boolean isPossible(char[][] grid, int r, int c){
+        int n= grid.length;
+        int row = r;
+        int col = c;
+        while(row>=0){
+            if(grid[row][col]=='Q'){
                 return false;
             }
-            r--;
-            c--;
+            row--;
         }
-        r = row-1;
-        c = col+1;
-        while(r>=0 && c<board.length){
-            if(board[r][c]=='Q'){
+        row=r;
+        while(row>=0 && col>=0){
+            if(grid[row][col]=='Q'){
                 return false;
             }
-            r--;
-            c++;
+            row--;
+            col--;
+        }
+        row=r;
+        col=c;
+        while(col<n && row>=0){
+            if(grid[row][col]=='Q'){
+                return false;
+            }
+            col++;
+            row--;
         }
         return true;
+    }
+    public void buildAns(char[][] grid){
+        List<String> ll = new ArrayList<>();
+        for(int i=0;i<grid.length;i++){
+            StringBuilder sb = new StringBuilder();
+            for(int j=0;j<grid.length;j++){
+                sb.append(grid[i][j]);
+            }
+            ll.add(sb.toString());
+        }
+        ans.add(new ArrayList<>(ll));
     }
 }
