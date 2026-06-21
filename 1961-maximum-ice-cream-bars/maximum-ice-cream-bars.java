@@ -1,10 +1,8 @@
 class Solution {
     public int maxIceCream(int[] costs, int coins) {
         int n = costs.length;
-        int min = Integer.MAX_VALUE;
         int max = Integer.MIN_VALUE;
         for(int num: costs){
-            min = Math.min(min, num);
             max = Math.max(max, num);
         }
         int [] arr = new int[max+1];
