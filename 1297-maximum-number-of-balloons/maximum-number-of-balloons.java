@@ -3,6 +3,7 @@ class Solution {
         // b a l l o o n
         HashMap<Character,Integer> map = new HashMap<>();
         for(char ch: text.toCharArray()){
+            if(ch=='b' || ch=='a' || ch=='l' || ch=='o' || ch=='n')
             map.put(ch,map.getOrDefault(ch,0)+1);
         }
         if(!map.containsKey('l') || map.get('l')<2) return 0;
