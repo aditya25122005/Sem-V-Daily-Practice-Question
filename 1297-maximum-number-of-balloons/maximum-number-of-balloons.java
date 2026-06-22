@@ -1,24 +1,25 @@
 class Solution {
     public int maxNumberOfBalloons(String text) {
         // b a l l o o n
-        HashMap<Character,Integer> map = new HashMap<>();
+        // HashMap<Character,Integer> map = new HashMap<>();
+        int [] map = new int[26];
         for(char ch: text.toCharArray()){
             if(ch=='b' || ch=='a' || ch=='l' || ch=='o' || ch=='n')
-            map.put(ch,map.getOrDefault(ch,0)+1);
+            map[ch-'a']++;
         }
-        if(!map.containsKey('l') || map.get('l')<2) return 0;
-        if(!map.containsKey('o') || map.get('o')<2) return 0;
-        if(!map.containsKey('n')) return 0;
-        if(!map.containsKey('b')) return 0;
-        if(!map.containsKey('a')) return 0;
+        if(map['l'-'a']==0 || map['l'-'a']<2) return 0;
+        if(map['o'-'a']==0 || map['o'-'a']<2) return 0;
+        if(map['n'-'a']==0)  return 0;
+        if(map['b'-'a']==0) return 0;
+        if(map['a'-'a']==0)  return 0;
 
         int ans = Integer.MAX_VALUE;
-        ans = Math.min(ans, map.get('l')/2);
-        ans = Math.min(ans,map.get('o')/2);
+        ans = Math.min(ans, map['l'-'a']/2);
+        ans = Math.min(ans, map['o'-'a']/2);
 
-        ans= Math.min(ans,map.get('a'));
-        ans= Math.min(ans, map.get('n'));
-        ans = Math.min(ans,map.get('b'));
+        ans= Math.min(ans,map['a'-'a']);
+        ans= Math.min(ans, map['n'-'a']);
+        ans = Math.min(ans,map['b'-'a']);
         return ans;
     }
 }
