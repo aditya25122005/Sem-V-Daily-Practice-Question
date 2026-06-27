@@ -1,21 +1,32 @@
 class Solution {
     public int[] maxSlidingWindow(int[] nums, int k) {
-        int n= nums.length;
-        int [] ans= new int[n-k+1];
-        int j=0;
-        PriorityQueue<int[]> pq = new PriorityQueue<>((a,b)->Integer.compare(b[0],a[0]));
-        for(int i=0;i<nums.length;i++){
-            pq.add(new int[]{nums[i],i});
+        int [] res = new int[nums.length-k+1];
+        int idx = 0;
 
-            // agr peek wala element out of range hai then poll it
-            while(pq.peek()[1]<= i-k){
-                pq.poll();
-            }
-            if(i>=k-1){
-                ans[j++] = pq.peek()[0];
+        int curr = 0;
+        PriorityQueue<Pair> pq = new PriorityQueue<>((a,b)->Integer.compare(b.val,a.val));
+        for(int i=0;i<nums.length;i++){
+            curr++;
+            pq.add(new Pair(i,nums[i]));
+            
+            if(curr>=k){
+                res[idx++] = pq.peek().val;
             }
             
+
+            while(!pq.isEmpty() && pq.peek().idx <= i-k+1){ // 0
+                pq.poll();
+            }
+
         }
-        return ans;
+        return res;
+    }
+    static class Pair{
+        int idx;
+        int val;
+        public Pair(int idx, int val){
+            this.idx = idx;
+            this.val = val;
+        }
     }
 }
