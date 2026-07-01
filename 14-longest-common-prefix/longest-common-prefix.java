@@ -1,17 +1,45 @@
 class Solution {
-    public String longestCommonPrefix(String[] strs) {
-        Arrays.sort(strs);
-        String s1= strs[0];
-        String s2= strs[strs.length-1];
-        int idx=-1;
-        for(int i=0;i<Math.min(s1.length(),s2.length());i++){
-            if(s1.charAt(i)== s2.charAt(i)){
-                idx++;
-            }
-            else{
-                break;
-            }
+    class Node{
+        char ch;
+        HashMap<Character,Node> map;
+        boolean isTerminal = false;
+        public Node(char ch){
+            this.ch = ch;
+            map = new HashMap<>();
         }
-        return s1.substring(0,idx+1);
+    }
+    public String longestCommonPrefix(String[] strs) {
+        Node root = new Node('*');
+        // insert in trie
+        for(String s: strs){
+            Node curr = root;
+            for(char ch: s.toCharArray()){
+                if(curr.map.containsKey(ch)){
+                    curr = curr.map.get(ch);
+                }
+                else{
+                    Node nn = new Node(ch);
+                    curr.map.put(ch,nn);
+                    curr=nn;
+                }
+            }
+            curr.isTerminal = true;
+        }
+       
+
+        // chech trie
+        StringBuilder sb = new StringBuilder();
+        Node curr =root;
+        while(!curr.isTerminal && curr.map.size()==1){
+            char ch = '.';
+            for(char key: curr.map.keySet()){
+                ch=key;
+                sb.append(key); // there will be only single key
+            }
+           
+            Node next = curr.map.get(ch);
+            curr = next;
+        }
+        return sb.toString();
     }
 }
