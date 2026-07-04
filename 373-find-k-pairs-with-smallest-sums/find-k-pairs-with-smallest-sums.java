@@ -36,13 +36,13 @@ class Solution {
                 
             }
             // i+1 , j+1
-            if(i+1<nums1.length && j+1<nums2.length){
-                String c = (i+1)+"-"+(j+1);
-                if(!vis.contains(c)){
-                    vis.add(c);
-                    pq.add(new Pair(i+1,j+1, nums1[i+1]+nums2[j+1]));
-                }
-            }
+            // if(i+1<nums1.length && j+1<nums2.length){
+            //     String c = (i+1)+"-"+(j+1);
+            //     if(!vis.contains(c)){
+            //         vis.add(c);
+            //         pq.add(new Pair(i+1,j+1, nums1[i+1]+nums2[j+1]));
+            //     }
+            // }
             k--;
 
         }
