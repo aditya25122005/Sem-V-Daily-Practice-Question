@@ -16,19 +16,21 @@
 class Solution {
     public List<String> binaryTreePaths(TreeNode root) {
         List<String> ll = new ArrayList<>();
-        Solve(root,"",ll);
+        Solve(root,ll,"");
         return ll;
+
     }
-    public static void Solve(TreeNode root, String ans,List<String> ll){
+    public static void Solve(TreeNode root, List<String> ll,String ans){
         if(root==null){
             return;
         }
         if(root.left==null && root.right==null){
-            ans = ans+root.val;
+            ans+= root.val;
             ll.add(ans);
             return;
         }
-        Solve(root.left,ans+root.val+"->",ll);
-        Solve(root.right,ans+root.val+"->",ll);
+        ans+= root.val + "->";
+        Solve(root.left,ll,ans);
+        Solve(root.right,ll,ans);
     }
 }
