@@ -15,53 +15,49 @@
  */
 class Solution {
     public List<List<Integer>> verticalTraversal(TreeNode root) {
-        List<List<Integer>> ans = new ArrayList<>();
         Queue<Pair> q = new LinkedList<>();
         TreeMap<Integer,List<Pair>> map = new TreeMap<>();
         q.add(new Pair(root,0,0));
         while(!q.isEmpty()){
             Pair rm = q.poll();
-            if(!map.containsKey(rm.v)){
-                map.put(rm.v, new ArrayList<>());
+            int r = rm.r;
+            int c = rm.c;
+            if(!map.containsKey(rm.c)){
+                map.put(rm.c, new ArrayList<>());
             }
-            map.get(rm.v).add(rm);
-            if(rm.root.left!=null){
-                q.add(new Pair(rm.root.left, rm.l+1, rm.v-1));
+            map.get(rm.c).add(new Pair(rm.node,r,c));
+            if(rm.node.left!=null){
+                q.add(new Pair(rm.node.left,r+1,c-1));
             }
-            if(rm.root.right!=null){
-                q.add(new Pair(rm.root.right, rm.l+1, rm.v+1));
+            if(rm.node.right!=null){
+                q.add(new Pair(rm.node.right,r+1,c+1));
             }
         }
-
-        for(Integer key: map.keySet()){
+        List<List<Integer>> ans = new ArrayList<>();
+        for(int key: map.keySet()){
             List<Pair> ll = map.get(key);
-            Collections.sort(ll,new Comparator<Pair>(){
-                @Override
-                public int compare(Pair p1, Pair p2){
-                    if(p1.l==p2.l){
-                        return p1.root.val-p2.root.val;
-                    }
-                    return p1.l-p2.l;
+            Collections.sort(ll,(a,b)->{
+                if(a.r == b.r){
+                    return a.node.val-b.node.val;
                 }
+                return a.r - b.r;
             });
-            List<Integer> curr = new ArrayList<>();
+            List<Integer> inner = new ArrayList<>();
             for(Pair p: ll){
-                curr.add(p.root.val);
+                inner.add(p.node.val);
             }
-            ans.add(curr);
+            ans.add(new ArrayList<>(inner));
         }
         return ans;
-        
     }
-    class Pair{
-        TreeNode root;
-        int l;
-        int v;
-        public Pair(TreeNode root, int l, int v){
-            this.root= root;
-            this.l = l;
-            this.v = v;
-
+    static class Pair{
+        TreeNode node;
+        int r;
+        int c;
+        public Pair(TreeNode node, int r, int c){
+            this.node = node;
+            this.r = r;
+            this.c = c;
         }
     }
 }
