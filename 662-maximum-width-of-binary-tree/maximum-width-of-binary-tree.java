@@ -15,42 +15,41 @@
  */
 class Solution {
     public int widthOfBinaryTree(TreeNode root) {
-        Queue<Pair> q = new LinkedList<>();
-        int maxW = Integer.MIN_VALUE;
-        q.add(new Pair(root,1));
+        Queue<pair> q = new LinkedList<>();
+        q.add(new pair(root,1));
+        int ans = 0;
         while(!q.isEmpty()){
             int size = q.size();
-            int first = -1;
-            int last = -1;
-
+            int start = -1;
+            int end = -1;
             for(int i=0;i<size;i++){
-
-                Pair rm = q.poll();
+                pair rm = q.poll();
+                
                 if(i==0){
-                    first = rm.idx;
+                    start = rm.idx;
                 }
                 if(i==size-1){
-                    last = rm.idx;
+                    end = rm.idx;
+                    ans = Math.max(ans, end-start+1);
                 }
-                if(rm.root.left!=null){
-                    q.add(new Pair(rm.root.left, rm.idx*2));
+                
+                
+                if(rm.node.left!=null){
+                    q.add(new pair(rm.node.left, rm.idx*2));
                 }
-                if(rm.root.right!=null){
-                    q.add(new Pair(rm.root.right,rm.idx*2 +1));
+                if(rm.node.right!=null){
+                    q.add(new pair(rm.node.right,rm.idx*2 +1));
                 }
-
             }
-            maxW = Math.max(maxW, last-first+1);
         }
-        return maxW;
-
+        return ans;
     }
-    class Pair{
-        TreeNode root;
+    static class pair{
+        TreeNode node;
         int idx;
-        public Pair(TreeNode root,int idx){
-            this.root = root;
-            this.idx = idx;
+        public pair(TreeNode node,int idx){
+            this.node = node;
+            this.idx =idx;
         }
     }
 }
