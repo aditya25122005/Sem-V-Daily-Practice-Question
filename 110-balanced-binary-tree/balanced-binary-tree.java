@@ -19,8 +19,8 @@ class Solution {
         Solve(root);
         return res;
     }
-    boolean res;
-    public  int Solve(TreeNode root){
+    static boolean res;
+    public static int Solve(TreeNode root){
         if(root == null){
             return 0;
         }
@@ -28,6 +28,7 @@ class Solution {
         int right = Solve(root.right);
         if(Math.abs(left-right)>1) res = false;
 
-        return Math.max(left,right)+1; 
+        return Math.max(left,right)+1;
+
     }
 }
