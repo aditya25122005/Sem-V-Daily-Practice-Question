@@ -15,26 +15,25 @@
  */
 class Solution {
     public boolean isSymmetric(TreeNode root) {
-        if(root == null){
-            return true;
-        }
-        if(root.left==null && root.right==null){
+        if(root==null){
             return true;
         }
         return Solve(root.left,root.right);
-
+        
     }
-    public static boolean Solve(TreeNode r1, TreeNode r2){
-        if(r1==null && r2==null){
+    public static boolean Solve(TreeNode A, TreeNode B){
+        if(A==null && B==null){
             return true;
         }
-        if(r1==null || r2==null){
+        if(A==null || B ==null){
             return false;
         }
-        if(r1.val!=r2.val) return false;
+        if(A.val!=B.val){
+            return false;
+        }
+        boolean first = Solve(A.left,B.right);
+        boolean second = Solve(A.right,B.left);
 
-        boolean A = Solve(r1.left,r2.right);
-        boolean B = Solve(r1.right, r2.left);
-        return A && B;
+        return first && second;
     }
 }
