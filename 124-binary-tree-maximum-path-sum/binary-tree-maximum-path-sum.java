@@ -4,31 +4,33 @@
  *     int val;
  *     TreeNode left;
  *     TreeNode right;
- * https://assets.leetcode.com/uploads/2020/10/13/exx1.jpg$0    TreeNode() {}
+ *     TreeNode() {}
  *     TreeNode(int val) { this.val = val; }
  *     TreeNode(int val, TreeNode left, TreeNode right) {
  *         this.val = val;
  *         this.left = left;
  *         this.right = right;
  *     }
- * }https://assets.leetcode.com/uploads/2020/10/13/exx1.jpg$0
+ * }
  */
 class Solution {
-    int maxSum;
     public int maxPathSum(TreeNode root) {
-        maxSum = Integer.MIN_VALUE;
+        ans = Integer.MIN_VALUE;
         Solve(root);
-        return maxSum;
+        return ans;
     }
-    public int Solve(TreeNode root){
-        if(root==null){
+    static int ans;
+    public static int Solve(TreeNode root){
+        if(root ==  null){
             return 0;
         }
         int left = Solve(root.left);
         int right = Solve(root.right);
-        int curr = root.val + Math.max(0,left)+ Math.max(0,right);
-        maxSum = Math.max(maxSum,curr);
-
-        return Math.max(0,Math.max(left,right))+ root.val;
+        int curr1 = root.val + left + right;
+        int curr2 = root.val+ left;
+        int curr3 = root.val+ right;
+        int curr4 = root.val;
+        ans = Math.max(ans,Math.max(curr1,Math.max(curr2,Math.max(curr3,curr4))));
+        return Math.max(root.val, root.val+ Math.max(left,right));
     }
 }
