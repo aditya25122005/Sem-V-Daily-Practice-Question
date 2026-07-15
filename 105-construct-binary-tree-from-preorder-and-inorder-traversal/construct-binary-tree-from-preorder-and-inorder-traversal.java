@@ -14,23 +14,28 @@
  * }
  */
 class Solution {
-    public TreeNode buildTree(int[] pre, int[] in) {
-        return Solve(pre,0,pre.length-1, in,0, in.length-1);
+    public TreeNode buildTree(int[] preorder, int[] inorder) {
+        return buildTree(preorder,0,preorder.length-1,inorder,0,inorder.length-1);
     }
-    public static TreeNode Solve(int [] pre ,int plo, int phi,int []in ,int ilo, int ihi){
-        if(plo>phi || ilo>ihi){
+    public static TreeNode buildTree(int [] pre, int plo, int phi, int [] in, int ilo, int ihi){
+        if(ilo>ihi || plo>phi){
+            System.out.println("null");
             return null;
         }
-        TreeNode nn= new TreeNode(pre[plo]);
-        int idx= search(in, pre[plo],ilo,ihi);
-        int ne = idx-ilo; // elements in left
-        nn.left= Solve(pre, plo+1, plo+ne, in, ilo, idx-1);
-        nn.right= Solve(pre,plo+ne+1 ,phi,in,idx+1,ihi);
+        TreeNode nn = new TreeNode(pre[plo]);
+        int idx = find(in,ilo,ihi,pre[plo]);
+        int eleOnLeft = idx-ilo+1;
+        int eleOnRight = ihi-idx;
+        nn.left = buildTree(pre,plo+1,plo+eleOnLeft-1, in,ilo,idx-1);
+        nn.right = buildTree(pre,plo+eleOnLeft,phi,in,idx+1,ihi);
+
         return nn;
+
     }
-    public static int search(int[] in, int target,int ilo,int ihi){
+    // find idx of root in inorder
+    public static int find(int [] in, int ilo, int ihi, int target){
         for(int i=ilo;i<=ihi;i++){
-            if(in[i]==target){
+            if(in[i] ==  target){
                 return i;
             }
         }
