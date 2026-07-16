@@ -1,31 +1,24 @@
 class Solution {
-    int lo;
     public List<Integer> sequentialDigits(int low, int high) {
-        lo=low;
-        List<Integer> ans = new ArrayList<>();
+        List<Integer> ll = new ArrayList<>();
         for(int start=1;start<=9;start++){
-            generate(ans,start,high);
+            generate(low,high,ll,start);
         }
-       
-        System.out.println(ans);
-        Collections.sort(ans);
-        return ans;
-
+        Collections.sort(ll);
+        return ll;
 
     }
-    public void generate(List<Integer> ll, int curr, int limit){
-        if(curr>limit){
+    public static void generate(int lo, int hi,List<Integer> ll, int curr){
+        if(curr>hi){
             return;
         }
-        if(curr>=lo && curr<=limit)
-        ll.add(curr);
-        int last = curr%10;
-        if(last!=9){
-            curr = curr*10 + (last+1);
-            generate(ll,curr,limit);
+        if(curr>=lo && curr<=hi){
+            ll.add(curr);
         }
-        
-        // ll.remove(ll.size()-1);
-
-    }
+        int last = curr%10;
+        int add = last+1;
+        if(add<10){
+            generate(lo,hi,ll,curr*10+add);
+        }
+    } 
 }
