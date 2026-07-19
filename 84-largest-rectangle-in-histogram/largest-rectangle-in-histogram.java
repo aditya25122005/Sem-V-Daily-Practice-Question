@@ -1,41 +1,38 @@
 class Solution {
     public int largestRectangleArea(int[] heights) {
-        int n = heights.length;
-        int [] pse = new int[n];
-        int [] nse = new int[n];
+        int n= heights.length;
+        int [] nsi = new int[n];
+        int [] psi = new int[n];
         Stack<Integer> st = new Stack<>();
-        for(int i=0;i<n;i++){
-            while(!st.isEmpty() && heights[st.peek()]>= heights[i]){
+        for(int i= n-1;i>=0;i--){
+            while(!st.isEmpty() && heights[st.peek()]>=heights[i]){
                 st.pop();
             }
             if(st.isEmpty()){
-                pse[i] = -1;
+                nsi[i] = n;
             }
             else{
-                pse[i] = st.peek();
+                nsi[i] = st.peek();
             }
             st.push(i);
         }
-        st = new Stack<>();
-        for(int i = n-1;i>=0;i--){
-            while(!st.isEmpty() && heights[st.peek()]>= heights[i]){
+        st.clear();
+        for(int i=0;i<n;i++){
+            while(!st.isEmpty() && heights[st.peek()]>=heights[i]){
                 st.pop();
             }
             if(st.isEmpty()){
-                nse[i] = n;
+                psi[i] = -1;
             }
             else{
-                nse[i] = st.peek();
+                psi[i] = st.peek();
             }
             st.push(i);
         }
         int ans = 0;
         for(int i=0;i<n;i++){
-            int L = pse[i];
-            int R = nse[i];
-            int W = R-L-1;
-            int H = heights[i];
-            ans = Math.max(ans,W*H);
+            int curr = heights[i]*(nsi[i]-psi[i]-1);
+            ans=Math.max(ans,curr);
         }
         return ans;
     }
