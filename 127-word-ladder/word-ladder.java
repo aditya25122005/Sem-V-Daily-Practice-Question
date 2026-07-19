@@ -1,41 +1,41 @@
 class Solution {
-    public int ladderLength(String beginWord, String endWord, List<String> wordList) {
-        Queue<String> pq= new LinkedList<>();
-        HashSet<String> visited= new HashSet<>();
-        int ans=Integer.MAX_VALUE;
-        int curr=1;
-        pq.add(beginWord);
-        while(!pq.isEmpty()){
-            int size= pq.size();
-            for(int i=0;i<size;i++){
-                String rm= pq.poll();
-                if(visited.contains(rm)){
-                    continue;
-                }
-                visited.add(rm);
-                if(rm.equals(endWord)){
-                    ans=Math.min(ans,curr);
-                }
-                for(String nbrs: wordList){
-                    if(isValid(rm,nbrs) && !visited.contains(nbrs)){
-                        pq.add(nbrs);
-                    }
-                }
-
+    public int ladderLength(String begin, String endWord, List<String> wordList) {
+        HashSet<String> vis = new HashSet<>();
+        PriorityQueue<Pair> q = new PriorityQueue<>((a,b)->Integer.compare(a.dis,b.dis));
+        q.add(new Pair(begin,1));
+        while(!q.isEmpty()){
+            Pair rm = q.poll();
+            if(vis.contains(rm.s)) continue;
+            vis.add(rm.s);
+            if(rm.s.equals(endWord)){
+                return rm.dis;
             }
-            curr++;
+            for(String str:wordList){
+                if(isValid(rm.s,str) && !vis.contains(str)){
+                    q.add(new Pair(str,rm.dis+1));
+                }
+            }
         }
-        return ans==Integer.MAX_VALUE? 0: ans;
+        return 0;
     }
-    public static boolean isValid(String a, String b){
+    public boolean isValid(String s1, String s2){
         int diff=0;
-        for(int i=0;i<a.length();i++){
-            if(a.charAt(i) != b.charAt(i)){
+        for(int i=0;i<s1.length();i++){
+            if(s1.charAt(i)!=s2.charAt(i)){
                 diff++;
-                if(diff==2) return false;
+                if(diff>1){
+                    return false;
+                }
             }
         }
-        return diff==1;
+        return true;
     }
-
+    static class Pair{
+        String s;
+        int dis;
+        public Pair(String s, int dis){
+            this.s = s;
+            this.dis = dis;
+        }
+    }
 }
