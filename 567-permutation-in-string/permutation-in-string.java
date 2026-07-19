@@ -1,45 +1,39 @@
 class Solution {
     public boolean checkInclusion(String s1, String s2) {
-        HashMap<Character, Integer> freq = new HashMap<>();
-        for (char ch : s1.toCharArray()) {
-            freq.put(ch, freq.getOrDefault(ch, 0) + 1);
+        int [] f1 = new int[26];
+        for(char ch: s1.toCharArray()){
+            f1[ch-'a']++;
         }
-
-        HashMap<Character, Integer> map = new HashMap<>();
+        int [] f2 = new int[26];
+        // for(char ch: s2.toCharArray()){
+        //     f2[ch-'a']++;
+        // }
         int si = 0;
         int ei = 0;
-        int matched = 0;
-        while (ei < s2.length()) {
+        while(ei<s2.length()){
             char ch = s2.charAt(ei);
-            map.put(ch, map.getOrDefault(ch, 0) + 1);
-
-            if(freq.containsKey(ch) && map.get(ch)<= freq.get(ch)){
-                matched++;
-            }
-
-            while (freq.containsKey(ch) && map.get(ch) > freq.get(ch)) {
-                if (freq.containsKey(s2.charAt(si)) && map.get(s2.charAt(si)) <= freq.get(s2.charAt(si))) {
-                    matched--;
-                }
-                map.put(s2.charAt(si), map.get(s2.charAt(si)) - 1);
-                if (map.get(s2.charAt(si)) == 0){
-                    map.remove(s2.charAt(si));
-                }
-                si++;
-            }
-            if (!freq.containsKey(ch)) {
-                map.clear();
-                si = ei + 1;
-                matched = 0;
-            }
-
-            if (ei - si + 1 == s1.length() && matched == s1.length()) {
+            f2[ch-'a']++;
+            if(ei-si+1==s1.length() && isSame(f1,f2)){
                 return true;
             }
+            else{
+                if(ei-si+1==s1.length()){
+                    f2[s2.charAt(si)-'a']--;
+                    si++;
+                }
+            }
             ei++;
-
         }
         return false;
     }
-
+    public static boolean isSame(int [] f1, int[] f2){
+        // String s1 = String.valueOf(f1);
+        // String s2 = String.valueOf(f2);
+        // System.out.println(s1+" --- "+s2);
+        // return s1.equals(s2);
+        for(int i=0;i<26;i++){
+            if(f1[i]!=f2[i]) return false;
+        }
+        return true;
+    }
 }
